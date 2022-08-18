@@ -1,12 +1,13 @@
 [
   {
     "documentation": "Hello",
+    "fileName": "src/mock.ts",
     "jsDocs": [{"name": "params", "text": [{"kind": "text", "text": "yolo"}]}],
     "name": "hello",
     "type": "(world: string) => string"
   },
-  {"documentation": "A constant", "jsDocs": [], "name": "numberOne", "type": "2"},
-  {"documentation": "hello2", "jsDocs": [], "name": "hello2", "type": "() => void"},
+  {"documentation": "A constant", "fileName": "src/mock.ts", "jsDocs": [], "name": "numberOne", "type": "2"},
+  {"documentation": "hello2", "fileName": "src/mock.ts", "jsDocs": [], "name": "hello2", "type": "() => void"},
   {
     "constructors": [
       {
@@ -35,6 +36,7 @@
       }
     ],
     "documentation": "LedgerCanister is a test class.",
+    "fileName": "src/mock.ts",
     "jsDocs": [],
     "methods": [
       {

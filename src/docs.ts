@@ -22,9 +22,9 @@ import {
   isMethodDeclaration,
   isModuleDeclaration,
   isVariableStatement,
-  ModifierFlags,
-  SyntaxKind
+  ModifierFlags
 } from 'typescript';
+import { resolve } from 'path';
 
 export interface DocEntry {
   name: string;
@@ -120,7 +120,7 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 
     const details = serializeSymbol({checker: checker, symbol});
     entries.push(details);
-  };
+  }
 
   if (isClassDeclaration(node) && node.name) {
     // This is a top level class, get its symbol
@@ -187,10 +187,13 @@ export const buildDocumentation = ({
   // Build a program using the set of root file names in fileNames
   const program = createProgram(fileNames, options);
 
+  const filenamesFullPaths: string[] = fileNames.map((fileName: string) => resolve(fileName));
+
   // Get the checker, we will use it to find more about classes
   const checker = program.getTypeChecker();
 
-  const sourceFiles = program.getSourceFiles().filter(({isDeclarationFile}) => !isDeclarationFile);
+  // Visit only the files specified by the developers - no deep visit
+  const sourceFiles = program.getSourceFiles().filter(({isDeclarationFile, fileName}) => !isDeclarationFile && filenamesFullPaths.includes(resolve(fileName)));
 
   const result: DocEntry[] = [];
 
