@@ -26,9 +26,6 @@ import {
   SyntaxKind
 } from 'typescript';
 
-// Originated from:
-// https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API
-
 export interface DocEntry {
   name: string;
   fileName?: string;
