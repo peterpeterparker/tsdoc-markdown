@@ -8,7 +8,8 @@ import type {
   Signature,
   Symbol as TypeScriptSymbol,
   TypeChecker,
-  VariableDeclaration, VariableStatement
+  VariableDeclaration,
+  VariableStatement
 } from 'typescript';
 import {
   createProgram,
@@ -19,8 +20,9 @@ import {
   isClassDeclaration,
   isFunctionDeclaration,
   isMethodDeclaration,
-  isModuleDeclaration, isVariableStatement,
-  ModifierFlags, NodeFlags,
+  isModuleDeclaration,
+  isVariableStatement,
+  ModifierFlags,
   SyntaxKind
 } from 'typescript';
 
@@ -99,6 +101,17 @@ const serializeSignature = ({
   };
 };
 
+// List of node.kind e.g. 236 => https://github.com/microsoft/TypeScript/blob/main/lib/typescript.d.ts
+
+// https://stackoverflow.com/a/73338964/5404186
+const findDescendantArrowFunction = (node: Node): Node | undefined => {
+  if (isArrowFunction(node)) {
+    return node;
+  }
+
+  return forEachChild(node, findDescendantArrowFunction);
+};
+
 /** visit nodes finding exported classes */
 const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] => {
   const entries: DocEntry[] = [];
@@ -108,22 +121,19 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
   //     return;
   // }
 
-  // List of node.kind e.g. 236 => https://github.com/microsoft/TypeScript/blob/main/lib/typescript.d.ts
-
-  // https://stackoverflow.com/a/73338964/5404186
-  function findDescendantArrowFunction(node: Node): Node | undefined {
-    if (isArrowFunction(node)) {
-      return node;
-    } else {
-      return forEachChild(node, findDescendantArrowFunction);
+  const addDocEntry = (symbol: TypeScriptSymbol | undefined) => {
+    if (!symbol) {
+      return;
     }
-  }
 
-  const arrowFunc = findDescendantArrowFunction(node);
+    const details = serializeSymbol({checker: checker, symbol});
+    entries.push(details);
+  };
 
   if (isClassDeclaration(node) && node.name) {
     // This is a top level class, get its symbol
     const symbol = checker.getSymbolAtLocation(node.name);
+
     if (symbol) {
       const classEntry: DocEntry = {
         ...serializeClass({checker: checker, symbol}),
@@ -149,36 +159,26 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
     forEachChild(node, visitChild);
   } else if (isMethodDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation(node.name);
-
-    if (symbol) {
-      const details = serializeSymbol({checker: checker, symbol});
-      entries.push(details);
-    }
-  } else if (arrowFunc !== undefined) {
-    const symbol = checker.getSymbolAtLocation(
-      ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
-    );
-
-    if (symbol) {
-      const details = serializeSymbol({checker: checker, symbol});
-      entries.push(details);
-    }
+    addDocEntry(symbol);
   } else if (isFunctionDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation((node as FunctionDeclaration).name ?? node);
-
-    if (symbol) {
-      const details = serializeSymbol({checker: checker, symbol});
-      entries.push(details);
-    }
+    addDocEntry(symbol);
   } else if (isVariableStatement(node)) {
-    const {declarationList: {declarations}} = node as VariableStatement;
+    const {
+      declarationList: {declarations}
+    } = node as VariableStatement;
 
     // TODO: not sure what's the proper casting, VariableDeclaration does not contain Symbol but the test entity effectively does
     const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
+    addDocEntry(symbol);
+  } else {
+    const arrowFunc: Node | undefined = findDescendantArrowFunction(node);
 
-    if (symbol) {
-      const details = serializeSymbol({checker: checker, symbol});
-      entries.push(details);
+    if (arrowFunc !== undefined) {
+      const symbol = checker.getSymbolAtLocation(
+        ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
+      );
+      addDocEntry(symbol);
     }
   }
 
