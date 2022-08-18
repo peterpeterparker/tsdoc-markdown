@@ -1,5 +1,7 @@
 # Functions
 
+|         |                         |
+| ---------- | --------------------------- |
 | Name | `hello` |
 |Type| `(world: string) => string` |
 |Parameters| |
