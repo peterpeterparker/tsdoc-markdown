@@ -34,6 +34,7 @@ export interface DocEntry {
   type?: string;
   constructors?: DocEntry[];
   parameters?: DocEntry[];
+  methods?: DocEntry[];
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
 }
@@ -119,21 +120,30 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 
   const arrowFunc = findDescendantArrowFunction(node);
 
-  const visitChild = (node: Node) => {
-    const docEntries: DocEntry[] = visit({node, checker});
-    entries.push(...docEntries);
-  };
-
   if (isClassDeclaration(node) && node.name) {
     // This is a top level class, get its symbol
     const symbol = checker.getSymbolAtLocation(node.name);
     if (symbol) {
-      entries.push(serializeClass({checker: checker, symbol}));
+      const classEntry: DocEntry = {
+        ...serializeClass({checker: checker, symbol}),
+        methods: []
+      };
+
+      const visitChild = (node: Node) => {
+        const docEntries: DocEntry[] = visit({node, checker});
+        classEntry.methods?.push(...docEntries);
+      };
+
+      forEachChild(node, visitChild);
+
+      entries.push(classEntry);
     }
-    // No need to walk any further, class expressions/inner declarations
-    // cannot be exported
-    forEachChild(node, visitChild);
   } else if (isModuleDeclaration(node)) {
+    const visitChild = (node: Node) => {
+      const docEntries: DocEntry[] = visit({node, checker});
+      entries.push(...docEntries);
+    };
+
     // This is a namespace, visit its children
     forEachChild(node, visitChild);
   } else if (isMethodDeclaration(node)) {

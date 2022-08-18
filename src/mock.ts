@@ -5,6 +5,8 @@
  */
 export const hello = (world: string): string => 'hello' + world;
 
+export const numberOne = 2;
+
 /**
  * hello2
  */
@@ -12,7 +14,17 @@ export function hello2() {
   console.log('hello2');
 }
 
+/**
+ * LedgerCanister is a test class.
+ */
 export class LedgerCanister {
+  /**
+   * The constructor is private.
+   * @param agent
+   * @param canisterId
+   * @param hardwareWallet
+   * @private
+   */
   private constructor(
     private readonly agent: number,
     private readonly canisterId: {canisterId: string},
