@@ -1,6 +1,7 @@
 import {writeFileSync} from 'fs';
 import {ModuleKind, ScriptTarget} from 'typescript';
 import {generateDocumentation, type DocEntry} from './docs';
+import {documentationToMarkdown} from './markdown';
 
 export {DocEntry, generateDocumentation};
 
@@ -12,4 +13,6 @@ const entries: DocEntry[] = generateDocumentation({
   }
 });
 
-writeFileSync('classes.json', JSON.stringify(entries, undefined, 2));
+const markdown: string = documentationToMarkdown(entries);
+
+writeFileSync('docs.md', markdown, 'utf-8');

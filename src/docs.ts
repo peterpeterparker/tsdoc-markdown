@@ -30,11 +30,11 @@ import {
 // https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API
 
 export interface DocEntry {
-  name?: string;
+  name: string;
   fileName?: string;
   documentation?: string;
   type?: string;
-  constructors?: DocEntry[];
+  constructors?: Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'>[];
   parameters?: DocEntry[];
   methods?: DocEntry[];
   returnType?: string;
@@ -89,7 +89,7 @@ const serializeSignature = ({
 }: {
   checker: TypeChecker;
   signature: Signature;
-}): {parameters?: DocEntry[]; returnType?: string; documentation?: string} => {
+}): Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> => {
   return {
     parameters: signature.parameters.map((symbol: TypeScriptSymbol) =>
       serializeSymbol({checker, symbol})
