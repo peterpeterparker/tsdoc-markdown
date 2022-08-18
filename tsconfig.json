@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "strict": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "lib": ["dom", "es2017"],
+    "isolatedModules": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts", "src/**/*.mock.ts"]
+}
