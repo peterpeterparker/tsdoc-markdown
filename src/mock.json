@@ -1,0 +1,67 @@
+[
+  {
+    "documentation": "Hello",
+    "jsDocs": [{"name": "params", "text": [{"kind": "text", "text": "yolo"}]}],
+    "name": "hello",
+    "type": "(world: string) => string"
+  },
+  {"documentation": "A constant", "jsDocs": [], "name": "numberOne", "type": "2"},
+  {"documentation": "hello2", "jsDocs": [], "name": "hello2", "type": "() => void"},
+  {
+    "constructors": [
+      {
+        "documentation": "The constructor is private.",
+        "parameters": [
+          {
+            "documentation": "",
+            "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "agent"}]}],
+            "name": "agent",
+            "type": "number"
+          },
+          {
+            "documentation": "",
+            "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "canisterId"}]}],
+            "name": "canisterId",
+            "type": "{ canisterId: string; }"
+          },
+          {
+            "documentation": "",
+            "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "hardwareWallet"}]}],
+            "name": "hardwareWallet",
+            "type": "boolean"
+          }
+        ],
+        "returnType": "LedgerCanister"
+      }
+    ],
+    "documentation": "LedgerCanister is a test class.",
+    "jsDocs": [],
+    "methods": [
+      {
+        "documentation": "Create a LedgerCanister",
+        "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "params"}]}],
+        "name": "create",
+        "type": "(options: { canisterId?: string; }) => LedgerCanister"
+      },
+      {
+        "documentation": "Returns the balance of the specified account identifier.",
+        "jsDocs": [
+          {"name": "param", "text": [{"kind": "text", "text": "params"}]},
+          {
+            "name": "throws",
+            "text": [
+              {"kind": "text", "text": ""},
+              {"kind": "link", "text": "{@link "},
+              {"kind": "linkText", "text": "Error "},
+              {"kind": "link", "text": "}"}
+            ]
+          }
+        ],
+        "name": "accountBalance",
+        "type": "({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>"
+      }
+    ],
+    "name": "LedgerCanister",
+    "type": "typeof LedgerCanister"
+  }
+]
