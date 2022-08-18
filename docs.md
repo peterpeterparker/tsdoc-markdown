@@ -3,7 +3,10 @@
 | Name | `hello` |
 |Type| `(world: string) => string` |
 |Parameters| |
-| Returns the list of neurons controlled by the caller.
+
+Returns the list of neurons controlled by the caller.
+
+# Const
 
 If an array of neuron IDs is provided, precisely those neurons will be fetched. |
 
