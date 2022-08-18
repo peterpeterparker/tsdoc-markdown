@@ -18,4 +18,4 @@ export const generateDocumentation = () => {
   const markdown: string = documentationToMarkdown(entries);
 
   writeFileSync('docs.md', markdown, 'utf-8');
-}
+};

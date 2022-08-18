@@ -37,7 +37,7 @@ const classesToMarkdown = (entry: DocEntry): string => {
 
   // TODO: constructor
 
-  markdown.push(`${ functionsToMarkdown(methods ?? [])}\n`);
+  markdown.push(`${functionsToMarkdown(methods ?? [])}\n`);
 
   return markdown.join('\n');
 };
@@ -51,7 +51,10 @@ const functionsToMarkdown = (entries: DocEntry[]): string => {
     name,
     type: type ?? '',
     documentation: documentation ?? '',
-    params: (parameters ?? []).map(({name, documentation}: DocEntry) => ({name, documentation: documentation ?? ''}))
+    params: (parameters ?? []).map(({name, documentation}: DocEntry) => ({
+      name,
+      documentation: documentation ?? ''
+    }))
   }));
 
   const markdown: string[] = ['| Name | Type | Documentation | Parameters |'];
@@ -73,7 +76,9 @@ export const documentationToMarkdown = (entries: DocEntry[]): string => {
   const functions: DocEntry[] = entries.filter(
     ({constructors}: DocEntry) => constructors === undefined
   );
-  const classes: DocEntry[] = entries.filter(({constructors}: DocEntry) => constructors !== undefined);
+  const classes: DocEntry[] = entries.filter(
+    ({constructors}: DocEntry) => constructors !== undefined
+  );
 
   const markdown: string[] = [];
 

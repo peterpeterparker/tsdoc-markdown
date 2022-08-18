@@ -22,7 +22,7 @@ export function hello2() {
  */
 const hello3 = () => {
   console.log('hello3');
-}
+};
 
 /**
  * LedgerCanister is a test class.

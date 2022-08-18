@@ -6,8 +6,20 @@
     "name": "hello",
     "type": "(world: string) => string"
   },
-  {"documentation": "A constant", "fileName": "src/mock.ts", "jsDocs": [], "name": "numberOne", "type": "2"},
-  {"documentation": "hello2", "fileName": "src/mock.ts", "jsDocs": [], "name": "hello2", "type": "() => void"},
+  {
+    "documentation": "A constant",
+    "fileName": "src/mock.ts",
+    "jsDocs": [],
+    "name": "numberOne",
+    "type": "2"
+  },
+  {
+    "documentation": "hello2",
+    "fileName": "src/mock.ts",
+    "jsDocs": [],
+    "name": "hello2",
+    "type": "() => void"
+  },
   {
     "constructors": [
       {

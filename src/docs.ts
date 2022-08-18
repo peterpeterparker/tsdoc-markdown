@@ -1,3 +1,4 @@
+import {resolve} from 'path';
 import type {
   ArrowFunction,
   CompilerOptions,
@@ -24,7 +25,6 @@ import {
   isVariableStatement,
   ModifierFlags
 } from 'typescript';
-import { resolve } from 'path';
 
 export interface DocEntry {
   name: string;
@@ -120,7 +120,7 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 
     const details = serializeSymbol({checker: checker, symbol});
     entries.push(details);
-  }
+  };
 
   if (isClassDeclaration(node) && node.name) {
     // This is a top level class, get its symbol
@@ -193,7 +193,12 @@ export const buildDocumentation = ({
   const checker = program.getTypeChecker();
 
   // Visit only the files specified by the developers - no deep visit
-  const sourceFiles = program.getSourceFiles().filter(({isDeclarationFile, fileName}) => !isDeclarationFile && filenamesFullPaths.includes(resolve(fileName)));
+  const sourceFiles = program
+    .getSourceFiles()
+    .filter(
+      ({isDeclarationFile, fileName}) =>
+        !isDeclarationFile && filenamesFullPaths.includes(resolve(fileName))
+    );
 
   const result: DocEntry[] = [];
 
