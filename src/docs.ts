@@ -36,7 +36,6 @@ export interface DocEntry {
   methods?: DocEntry[];
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
-  const?: boolean;
 }
 
 /** Serialize a symbol into a json object */
@@ -200,7 +199,7 @@ export const generateDocumentation = ({
     // Walk the tree to search for classes
     forEachChild(sourceFile, (node: Node) => {
       const entries: DocEntry[] = visit({checker, node});
-      result.push(...entries);
+      result.push(...entries.map((entry: DocEntry) => ({...entry, fileName: sourceFile.fileName})));
     });
   }
 
