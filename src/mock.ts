@@ -1,7 +1,7 @@
 /**
  * Hello
  *
- * @params yolo
+ * @param yolo this is a jsdoc
  */
 export const hello = (world: string): string => 'hello' + world;
 

@@ -27,7 +27,7 @@ import {
   NodeFlags
 } from 'typescript';
 
-type DocEntryType = 'function' | 'method' | 'class' | 'const' | 'constructor';
+type DocEntryType = 'function' | 'method' | 'class' | 'const';
 
 export interface DocEntry {
   name: string;
@@ -39,7 +39,7 @@ export interface DocEntry {
   methods?: DocEntry[];
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
-  doc_type: DocEntryType;
+  doc_type?: DocEntryType;
 }
 
 /** Serialize a symbol into a json object */
@@ -50,14 +50,14 @@ const serializeSymbol = ({
 }: {
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
-  doc_type: DocEntryType;
+  doc_type?: DocEntryType;
 }): DocEntry => {
   return {
     name: symbol.getName(),
     documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
     type: checker.typeToString(checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)),
     jsDocs: symbol.getJsDocTags(),
-    doc_type
+    ...(doc_type && {doc_type})
   };
 };
 
@@ -95,7 +95,7 @@ const serializeSignature = ({
 }): Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> => {
   return {
     parameters: signature.parameters.map((symbol: TypeScriptSymbol) =>
-      serializeSymbol({checker, symbol, doc_type: 'constructor'})
+      serializeSymbol({checker, symbol})
     ),
     returnType: checker.typeToString(signature.getReturnType()),
     documentation: displayPartsToString(signature.getDocumentationComment(checker))

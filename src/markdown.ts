@@ -1,3 +1,4 @@
+import type {JSDocTagInfo} from 'typescript';
 import type {DocEntry} from './docs';
 
 const docEntryToMarkdown = ({
@@ -37,29 +38,46 @@ const classesToMarkdown = (entry: DocEntry): string => {
 
   // TODO: constructor
 
-  markdown.push(`${functionsToMarkdown(methods ?? [])}\n`);
+  markdown.push(`${toMarkdown(methods ?? [])}\n`);
 
   return markdown.join('\n');
 };
 
-const functionsToMarkdown = (entries: DocEntry[]): string => {
+const toMarkdown = (entries: DocEntry[]): string => {
   type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> & {
     params: {name: string; documentation: string}[];
   };
+
+  // TODO: jsdocs params
+
+  const jsDocsToParams = (jsDocs: JSDocTagInfo[]): {name: string; documentation: string}[] => {
+    const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
+    const texts = params.map(({text}) => text);
+
+    const subtexts = texts.filter((array) => array?.find(({kind}) => kind === 'parameterName') !== undefined)
+
+    return [];
+  };
+
 
   const rows: Row[] = entries.map(({name, type, documentation, parameters}: DocEntry) => ({
     name,
     type: type ?? '',
     documentation: documentation ?? '',
-    params: (parameters ?? []).map(({name, documentation}: DocEntry) => ({
-      name,
-      documentation: documentation ?? ''
-    }))
+    params: [
+      ...(parameters ?? []).map(({name, documentation}: DocEntry) => ({
+        name,
+        documentation: documentation ?? ''
+      }))
+    ]
   }));
 
   const rowToMarkdown = ({name, documentation, type, params}: Row): string => {
-    const markdown: string[] = [`# ${name}\n`];
-    markdown.push(`${documentation}\n`);
+    const markdown: string[] = [`## ${name}\n`];
+
+    if (documentation.length) {
+      markdown.push(`${documentation}\n`);
+    }
 
     markdown.push('| Name | Type |');
     markdown.push('| ---------- | ---------- |');
@@ -85,12 +103,12 @@ export const documentationToMarkdown = (entries: DocEntry[]): string => {
 
   if (functions.length) {
     markdown.push(`# Functions\n`);
-    markdown.push(`${functionsToMarkdown(functions)}\n`);
+    markdown.push(`${toMarkdown(functions)}\n`);
   }
 
   if (consts.length) {
     markdown.push(`# Constants\n`);
-    markdown.push(`${functionsToMarkdown(consts)}\n`);
+    markdown.push(`${toMarkdown(consts)}\n`);
   }
 
   markdown.push(classes.map((entry: DocEntry) => classesToMarkdown(entry)).join('\n'));

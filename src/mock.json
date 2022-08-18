@@ -1,12 +1,29 @@
 [
   {
+    "doc_type": "function",
     "documentation": "Hello",
     "fileName": "src/mock.ts",
-    "jsDocs": [{"name": "params", "text": [{"kind": "text", "text": "yolo"}]}],
+    "jsDocs": [
+      {
+        "name": "param",
+        "text": [
+          {"kind": "parameterName", "text": "yolo"},
+          {
+            "kind": "space",
+            "text": " "
+          },
+          {
+            "kind": "text",
+            "text": "this is a jsdoc"
+          }
+        ]
+      }
+    ],
     "name": "hello",
     "type": "(world: string) => string"
   },
   {
+    "doc_type": "const",
     "documentation": "A constant",
     "fileName": "src/mock.ts",
     "jsDocs": [],
@@ -14,6 +31,7 @@
     "type": "2"
   },
   {
+    "doc_type": "function",
     "documentation": "hello2",
     "fileName": "src/mock.ts",
     "jsDocs": [],
@@ -47,17 +65,20 @@
         "returnType": "LedgerCanister"
       }
     ],
+    "doc_type": "class",
     "documentation": "LedgerCanister is a test class.",
     "fileName": "src/mock.ts",
     "jsDocs": [],
     "methods": [
       {
+        "doc_type": "method",
         "documentation": "Create a LedgerCanister",
         "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "params"}]}],
         "name": "create",
         "type": "(options: { canisterId?: string; }) => LedgerCanister"
       },
       {
+        "doc_type": "function",
         "documentation": "Returns the balance of the specified account identifier.",
         "jsDocs": [
           {"name": "param", "text": [{"kind": "text", "text": "params"}]},
