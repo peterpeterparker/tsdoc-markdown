@@ -177,7 +177,7 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
   return entries;
 };
 
-export const generateDocumentation = ({
+export const buildDocumentation = ({
   fileNames,
   options
 }: {

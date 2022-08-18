@@ -1,10 +1,10 @@
 import {readFileSync} from 'fs';
 import {ModuleKind, ScriptTarget} from 'typescript';
-import {generateDocumentation} from './docs';
+import {buildDocumentation} from './docs';
 
 describe('test', () => {
   it('should generate markdown for mock', () => {
-    const doc = generateDocumentation({
+    const doc = buildDocumentation({
       fileNames: ['./src/mock.ts'],
       options: {
         target: ScriptTarget.ES2020,
