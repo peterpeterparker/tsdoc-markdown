@@ -171,8 +171,9 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
       entries.push(details);
     }
   } else if (isVariableStatement(node)) {
-    const {declarationList: {declarations, flags}} = node as VariableStatement;
+    const {declarationList: {declarations}} = node as VariableStatement;
 
+    // TODO: not sure what's the proper casting, VariableDeclaration does not contain Symbol but the test entity effectively does
     const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
 
     if (symbol) {
