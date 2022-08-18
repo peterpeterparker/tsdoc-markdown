@@ -1,0 +1,109 @@
+[
+  {
+    "name": "hello",
+    "documentation": "Hello",
+    "type": "(world: string) => string",
+    "jsDocs": [
+      {
+        "name": "params",
+        "text": [
+          {
+            "text": "yolo",
+            "kind": "text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "hello2",
+    "documentation": "hello2",
+    "type": "() => void",
+    "jsDocs": []
+  },
+  {
+    "name": "LedgerCanister",
+    "documentation": "",
+    "type": "typeof LedgerCanister",
+    "jsDocs": [],
+    "constructors": [
+      {
+        "parameters": [
+          {
+            "name": "agent",
+            "documentation": "",
+            "type": "number",
+            "jsDocs": []
+          },
+          {
+            "name": "canisterId",
+            "documentation": "",
+            "type": "{ canisterId: string; }",
+            "jsDocs": []
+          },
+          {
+            "name": "hardwareWallet",
+            "documentation": "",
+            "type": "boolean",
+            "jsDocs": []
+          }
+        ],
+        "returnType": "LedgerCanister",
+        "documentation": ""
+      }
+    ]
+  },
+  {
+    "name": "create",
+    "documentation": "Create a LedgerCanister",
+    "type": "(options: { canisterId?: string; }) => LedgerCanister",
+    "jsDocs": [
+      {
+        "name": "param",
+        "text": [
+          {
+            "text": "params",
+            "kind": "text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "accountBalance",
+    "documentation": "Returns the balance of the specified account identifier.",
+    "type": "({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>",
+    "jsDocs": [
+      {
+        "name": "param",
+        "text": [
+          {
+            "text": "params",
+            "kind": "text"
+          }
+        ]
+      },
+      {
+        "name": "throws",
+        "text": [
+          {
+            "text": "",
+            "kind": "text"
+          },
+          {
+            "text": "{@link ",
+            "kind": "link"
+          },
+          {
+            "text": "Error ",
+            "kind": "linkText"
+          },
+          {
+            "text": "}",
+            "kind": "link"
+          }
+        ]
+      }
+    ]
+  }
+]
