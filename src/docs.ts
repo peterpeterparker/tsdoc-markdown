@@ -119,9 +119,6 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 
   const arrowFunc = findDescendantArrowFunction(node);
 
-  // isFunctionDeclaration
-  // export function something () {}
-
   const visitChild = (node: Node) => {
     const docEntries: DocEntry[] = visit({node, checker});
     entries.push(...docEntries);
