@@ -5,6 +5,9 @@
  */
 export const hello = (world: string): string => 'hello' + world;
 
+/**
+ * A constant
+ */
 export const numberOne = 2;
 
 /**

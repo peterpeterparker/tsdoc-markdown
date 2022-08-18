@@ -8,7 +8,7 @@ import type {
   Signature,
   Symbol as TypeScriptSymbol,
   TypeChecker,
-  VariableDeclaration
+  VariableDeclaration, VariableStatement
 } from 'typescript';
 import {
   createProgram,
@@ -19,8 +19,8 @@ import {
   isClassDeclaration,
   isFunctionDeclaration,
   isMethodDeclaration,
-  isModuleDeclaration,
-  ModifierFlags,
+  isModuleDeclaration, isVariableStatement,
+  ModifierFlags, NodeFlags,
   SyntaxKind
 } from 'typescript';
 
@@ -37,6 +37,7 @@ export interface DocEntry {
   methods?: DocEntry[];
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
+  const?: boolean;
 }
 
 /** Serialize a symbol into a json object */
@@ -164,6 +165,15 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
     }
   } else if (isFunctionDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation((node as FunctionDeclaration).name ?? node);
+
+    if (symbol) {
+      const details = serializeSymbol({checker: checker, symbol});
+      entries.push(details);
+    }
+  } else if (isVariableStatement(node)) {
+    const {declarationList: {declarations, flags}} = node as VariableStatement;
+
+    const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
 
     if (symbol) {
       const details = serializeSymbol({checker: checker, symbol});
