@@ -18,6 +18,13 @@ export function hello2() {
 }
 
 /**
+ * Should not be documented.
+ */
+const hello3 = () => {
+  console.log('hello3');
+}
+
+/**
  * LedgerCanister is a test class.
  */
 export class LedgerCanister {
@@ -28,7 +35,7 @@ export class LedgerCanister {
    * @param hardwareWallet
    * @private
    */
-  private constructor(
+  public constructor(
     private readonly agent: number,
     private readonly canisterId: {canisterId: string},
     private readonly hardwareWallet: boolean = false
@@ -61,4 +68,12 @@ export class LedgerCanister {
   }): Promise<{icp: bigint}> => {
     return {icp: 1n};
   };
+
+  /**
+   * Private method.
+   * @private
+   */
+  private shouldNoBeDocumented() {
+    console.log('hello');
+  }
 }

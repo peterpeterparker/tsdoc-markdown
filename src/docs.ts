@@ -77,11 +77,9 @@ const serializeClass = ({
 };
 
 /** True if this is visible outside this file, false otherwise */
-const isNodeExported = (node: Node): boolean => {
-  return (
-    (getCombinedModifierFlags(node as Declaration) & ModifierFlags.Export) !== 0 ||
-    (!!node.parent && node.parent.kind === SyntaxKind.SourceFile)
-  );
+const isNodeExportedOrPublic = (node: Node): boolean => {
+  const flags = getCombinedModifierFlags(node as Declaration);
+  return (flags & ModifierFlags.Export) !== 0 || (flags & ModifierFlags.Public) !== 0;
 };
 
 /** Serialize a signature (call or construct) */
@@ -101,8 +99,6 @@ const serializeSignature = ({
   };
 };
 
-// List of node.kind e.g. 236 => https://github.com/microsoft/TypeScript/blob/main/lib/typescript.d.ts
-
 // https://stackoverflow.com/a/73338964/5404186
 const findDescendantArrowFunction = (node: Node): Node | undefined => {
   if (isArrowFunction(node)) {
@@ -114,12 +110,12 @@ const findDescendantArrowFunction = (node: Node): Node | undefined => {
 
 /** visit nodes finding exported classes */
 const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] => {
-  const entries: DocEntry[] = [];
+  // // Only consider exported nodes
+  if (!isNodeExportedOrPublic(node)) {
+    return [];
+  }
 
-  // Only consider exported nodes
-  // if (!isNodeExported(node)) {
-  //     return;
-  // }
+  const entries: DocEntry[] = [];
 
   const addDocEntry = (symbol: TypeScriptSymbol | undefined) => {
     if (!symbol) {
