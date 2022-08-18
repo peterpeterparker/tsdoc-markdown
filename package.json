@@ -5,7 +5,7 @@
   "author": "David Dal Busco",
   "license": "MIT",
   "main": "dist/cjs/index.cjs.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
@@ -17,7 +17,8 @@
     "lint": "eslint --max-warnings 0 .",
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir dist/types",
-    "test": "jest"
+    "test": "jest",
+    "start": "npm run build && node dist/index.mjs ./src/mock.ts"
   },
   "repository": {
     "type": "git",

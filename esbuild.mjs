@@ -30,7 +30,14 @@ const buildEsmCjs = () => {
       minify: true,
       splitting: true,
       format: 'esm',
-      target: ['esnext']
+      platform: 'node',
+      banner: {
+        js: "import { createRequire } from 'module';import path from 'path';import {fileURLToPath} from 'url';const __filename = fileURLToPath(import.meta.url);const __dirname = path.dirname(__filename);const require = createRequire(import.meta.url);"
+      },
+      outExtension: {
+        '.js': '.mjs'
+      },
+      target: ['node16']
     })
     .catch(() => process.exit(1));
 
@@ -50,7 +57,7 @@ const buildEsmCjs = () => {
 
 const writeEntries = () => {
   // an entry file for cjs at the root of the bundle
-  writeFileSync(join(dist, 'index.js'), "export * from './esm/index.js';");
+  writeFileSync(join(dist, 'index.mjs'), "export * from './esm/index.mjs';");
 
   // an entry file for esm at the root of the bundle
   writeFileSync(join(dist, 'index.cjs.js'), "module.exports = require('./cjs/index.cjs.js');");
