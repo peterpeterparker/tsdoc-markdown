@@ -1,32 +1,50 @@
 # Functions
 
-## `hello`
+# hello
 
-Returns the list of neurons controlled by the caller.
+Hello
 
-If an array of neuron IDs is provided, precisely those neurons will be fetched.
+| Name | Type |
+| ---------- | ---------- |
+| `hello` | `(world: string) => string` |
 
-If `certified` is true, the request is fetched as an update call, otherwise it is fetched using a query call.
+# hello2
 
-| Name        | Type                         | Parameters |
-| ----------- | --------------------------- | --------- |
-| `hello`     | `(world: string) => string`          |            |
+hello2
 
-# Const
+| Name | Type |
+| ---------- | ---------- |
+| `hello2` | `() => void` |
 
-If an array of neuron IDs is provided, precisely those neurons will be fetched. |
 
-| Name        | Type                        | Documentation | Parameters |
-| ----------- | --------------------------- | ------------- | ---------- |
-| `hello`     | `(world: string) => string` | Hello         |            |
-| `numberOne` | `2`                         | A constant    |            |
-| `hello2`    | `() => void`                | hello2        |            |
+# Constants
+
+# numberOne
+
+A constant
+
+| Name | Type |
+| ---------- | ---------- |
+| `numberOne` | `2` |
+
 
 # LedgerCanister
 
 LedgerCanister is a test class.
 
-| Name             | Type                                                                     | Documentation                                            | Parameters |
-| ---------------- | ------------------------------------------------------------------------ | -------------------------------------------------------- | ---------- |
-| `create`         | `(options: { canisterId?: string; }) => LedgerCanister`                  | Create a LedgerCanister                                  |            |
-| `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` | Returns the balance of the specified account identifier. |            |
+# create
+
+Create a LedgerCanister
+
+| Name | Type |
+| ---------- | ---------- |
+| `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
+
+# accountBalance
+
+Returns the balance of the specified account identifier.
+
+| Name | Type |
+| ---------- | ---------- |
+| `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` |
+

@@ -57,34 +57,40 @@ const functionsToMarkdown = (entries: DocEntry[]): string => {
     }))
   }));
 
-  const markdown: string[] = ['| Name | Type | Documentation | Parameters |'];
-  markdown.push('| ---------- | ---------- | ---------- | ---------- |');
+  const rowToMarkdown = ({name, documentation, type, params}: Row): string => {
+    const markdown: string[] = [`# ${name}\n`];
+    markdown.push(`${documentation}\n`);
 
-  markdown.push(
-    ...rows.map(
-      ({name, type, documentation, params}: Row) =>
-        `| \`${name}\` | \`${type}\` | ${documentation} | ${params
-          .map(({name, documentation}) => `\`${name}\`: ${documentation}`)
-          .join('\n')} |`
-    )
-  );
+    markdown.push('| Name | Type |');
+    markdown.push('| ---------- | ---------- |');
+    markdown.push(`| \`${name}\` | \`${type}\` |\n`);
 
-  return markdown.join('\n');
+    if (params.length) {
+      markdown.push('Parameters:');
+      markdown.push(...params.map(({name, documentation}) => `* \`${name}\`: ${documentation}`));
+    }
+
+    return markdown.join('\n');
+  };
+
+  return rows.map(rowToMarkdown).join('\n');
 };
 
 export const documentationToMarkdown = (entries: DocEntry[]): string => {
-  const functions: DocEntry[] = entries.filter(
-    ({constructors}: DocEntry) => constructors === undefined
-  );
-  const classes: DocEntry[] = entries.filter(
-    ({constructors}: DocEntry) => constructors !== undefined
-  );
+  const functions: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'function');
+  const classes: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'class');
+  const consts: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'const');
 
   const markdown: string[] = [];
 
   if (functions.length) {
-    markdown.push(`# Functions and constants\n`);
+    markdown.push(`# Functions\n`);
     markdown.push(`${functionsToMarkdown(functions)}\n`);
+  }
+
+  if (consts.length) {
+    markdown.push(`# Constants\n`);
+    markdown.push(`${functionsToMarkdown(consts)}\n`);
   }
 
   markdown.push(classes.map((entry: DocEntry) => classesToMarkdown(entry)).join('\n'));

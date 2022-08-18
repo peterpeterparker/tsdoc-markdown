@@ -23,8 +23,11 @@ import {
   isMethodDeclaration,
   isModuleDeclaration,
   isVariableStatement,
-  ModifierFlags
+  ModifierFlags,
+  NodeFlags
 } from 'typescript';
+
+type DocEntryType = 'function' | 'method' | 'class' | 'const' | 'constructor';
 
 export interface DocEntry {
   name: string;
@@ -36,21 +39,25 @@ export interface DocEntry {
   methods?: DocEntry[];
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
+  doc_type: DocEntryType;
 }
 
 /** Serialize a symbol into a json object */
 const serializeSymbol = ({
   checker,
-  symbol
+  symbol,
+  doc_type
 }: {
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
+  doc_type: DocEntryType;
 }): DocEntry => {
   return {
     name: symbol.getName(),
     documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
     type: checker.typeToString(checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)),
-    jsDocs: symbol.getJsDocTags()
+    jsDocs: symbol.getJsDocTags(),
+    doc_type
   };
 };
 
@@ -62,7 +69,7 @@ const serializeClass = ({
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
 }): DocEntry => {
-  const details = serializeSymbol({checker, symbol});
+  const details = serializeSymbol({checker, symbol, doc_type: 'class'});
 
   // Get the construct signatures
   const constructorType = checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
@@ -88,7 +95,7 @@ const serializeSignature = ({
 }): Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> => {
   return {
     parameters: signature.parameters.map((symbol: TypeScriptSymbol) =>
-      serializeSymbol({checker, symbol})
+      serializeSymbol({checker, symbol, doc_type: 'constructor'})
     ),
     returnType: checker.typeToString(signature.getReturnType()),
     documentation: displayPartsToString(signature.getDocumentationComment(checker))
@@ -113,12 +120,18 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 
   const entries: DocEntry[] = [];
 
-  const addDocEntry = (symbol: TypeScriptSymbol | undefined) => {
+  const addDocEntry = ({
+    symbol,
+    doc_type
+  }: {
+    symbol: TypeScriptSymbol | undefined;
+    doc_type: DocEntryType;
+  }) => {
     if (!symbol) {
       return;
     }
 
-    const details = serializeSymbol({checker: checker, symbol});
+    const details = serializeSymbol({checker, symbol, doc_type});
     entries.push(details);
   };
 
@@ -128,7 +141,7 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 
     if (symbol) {
       const classEntry: DocEntry = {
-        ...serializeClass({checker: checker, symbol}),
+        ...serializeClass({checker, symbol}),
         methods: []
       };
 
@@ -151,18 +164,10 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
     forEachChild(node, visitChild);
   } else if (isMethodDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation(node.name);
-    addDocEntry(symbol);
+    addDocEntry({symbol, doc_type: 'method'});
   } else if (isFunctionDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation((node as FunctionDeclaration).name ?? node);
-    addDocEntry(symbol);
-  } else if (isVariableStatement(node)) {
-    const {
-      declarationList: {declarations}
-    } = node as VariableStatement;
-
-    // TODO: not sure what's the proper casting, VariableDeclaration does not contain Symbol but the test entity effectively does
-    const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
-    addDocEntry(symbol);
+    addDocEntry({symbol, doc_type: 'function'});
   } else {
     const arrowFunc: Node | undefined = findDescendantArrowFunction(node);
 
@@ -170,7 +175,20 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
       const symbol = checker.getSymbolAtLocation(
         ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
       );
-      addDocEntry(symbol);
+      addDocEntry({symbol, doc_type: 'function'});
+    } else if (isVariableStatement(node)) {
+      const {
+        declarationList: {declarations, flags}
+      } = node as VariableStatement;
+
+      // https://stackoverflow.com/a/69801125/5404186
+      const isConst = (flags & NodeFlags.Const) !== 0;
+
+      if (isConst) {
+        // TODO: not sure what's the proper casting, VariableDeclaration does not contain Symbol but the test entity effectively does
+        const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
+        addDocEntry({symbol, doc_type: 'const'});
+      }
     }
   }
 
