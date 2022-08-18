@@ -1,12 +1,16 @@
 # Functions
 
-|         |                         |
-| ---------- | --------------------------- |
-| Name | `hello` |
-|Type| `(world: string) => string` |
-|Parameters| |
+## `hello`
 
 Returns the list of neurons controlled by the caller.
+
+If an array of neuron IDs is provided, precisely those neurons will be fetched.
+
+If `certified` is true, the request is fetched as an update call, otherwise it is fetched using a query call.
+
+| Name        | Type                         | Parameters |
+| ----------- | --------------------------- | --------- |
+| `hello`     | `(world: string) => string`          |            |
 
 # Const
 
