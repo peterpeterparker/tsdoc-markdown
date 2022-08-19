@@ -29,8 +29,8 @@ const hello3 = () => {
  */
 export class LedgerCanister {
   /**
-   * The constructor is private.
-   * @param agent
+   * The constructor is public.
+   * @param agent Agent js
    * @param canisterId
    * @param hardwareWallet
    * @private

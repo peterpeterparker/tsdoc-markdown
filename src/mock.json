@@ -41,11 +41,26 @@
   {
     "constructors": [
       {
-        "documentation": "The constructor is private.",
+        "documentation": "The constructor is public.",
         "parameters": [
           {
-            "documentation": "",
-            "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "agent"}]}],
+            "documentation": "Agent js",
+            "jsDocs": [
+              {
+                "name": "param",
+                "text": [
+                  {"kind": "parameterName", "text": "agent"},
+                  {
+                    "kind": "space",
+                    "text": " "
+                  },
+                  {
+                    "kind": "text",
+                    "text": "Agent js"
+                  }
+                ]
+              }
+            ],
             "name": "agent",
             "type": "number"
           },

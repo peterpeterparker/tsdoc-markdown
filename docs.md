@@ -37,6 +37,17 @@ A constant
 
 LedgerCanister is a test class.
 
+## Constructors
+
+The constructor is public.
+
+Parameters:
+
+* `agent`: Agent js
+* `canisterId`: 
+* `hardwareWallet`: 
+
+
 ## create
 
 Create a LedgerCanister

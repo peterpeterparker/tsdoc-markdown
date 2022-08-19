@@ -1,37 +1,43 @@
-import type {JSDocTagInfo} from 'typescript';
-import type {SymbolDisplayPart} from 'typescript';
+import type {JSDocTagInfo, SymbolDisplayPart} from 'typescript';
 import type {DocEntry} from './docs';
 
-const docEntryToMarkdown = ({
-  name,
-  documentation,
-  type,
-  constructors,
-  parameters,
-  methods,
-  returnType,
-  jsDocs
-}: DocEntry): string => {
-  const md: string[] = [];
-  md.push(`# ${name}\n`);
-  md.push(`docs: ${documentation}\n`);
-  md.push(`type: ${type}\n`);
-  md.push(`constructors: ${constructors}\n`);
-  md.push(`parameters: ${parameters}\n`);
-  md.push(`methods: ${methods}\n`);
-  md.push(`returnType: ${returnType}\n`);
-  md.push(`jsDocs: ${JSON.stringify(jsDocs)}\n`);
+type Params = {name: string; documentation: string};
 
-  return md.join('\n');
+type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> & {
+  params: Params[];
 };
 
+const toParams = (parameters?: DocEntry[]): Params[] =>
+  (parameters ?? []).map(({name, documentation}: DocEntry) => ({
+    name,
+    documentation: documentation ?? ''
+  }));
+
+const inlineParams = (params: Params[]): string[] =>
+  params.map(({name, documentation}) => `* \`${name}\`: ${documentation}`);
+
 const classesToMarkdown = (entry: DocEntry): string => {
-  const {name, documentation, methods} = entry;
+  const {name, documentation, methods, constructors} = entry;
 
   const markdown: string[] = [`# ${name}\n`];
   markdown.push(`${documentation}\n`);
 
-  // TODO: constructor
+  if (constructors?.length) {
+    markdown.push(`## Constructors\n`);
+
+    markdown.push(...constructors.map(({parameters, documentation}) => {
+      const docs: string[] = [`${documentation ?? ''}\n`];
+
+      if (parameters?.length) {
+        docs.push(`Parameters:\n`);
+        docs.push(...inlineParams(toParams(parameters)));
+      }
+
+      return docs.join('\n');
+    }));
+
+    markdown.push('\n');
+  }
 
   markdown.push(`${toMarkdown(methods ?? [])}\n`);
 
@@ -39,12 +45,6 @@ const classesToMarkdown = (entry: DocEntry): string => {
 };
 
 const toMarkdown = (entries: DocEntry[]): string => {
-  type Params = {name: string; documentation: string};
-
-  type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> & {
-    params: Params[];
-  };
-
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
     const texts: (SymbolDisplayPart[] | undefined)[] = params.map(({text}) => text);
@@ -55,7 +55,7 @@ const toMarkdown = (entries: DocEntry[]): string => {
           return acc;
         }
 
-        return [...acc, values]
+        return [...acc, values];
       },
       []
     );
@@ -78,12 +78,7 @@ const toMarkdown = (entries: DocEntry[]): string => {
     name,
     type: type ?? '',
     documentation: documentation ?? '',
-    params: [
-      ...(parameters ?? []).map(({name, documentation}: DocEntry) => ({
-        name,
-        documentation: documentation ?? ''
-      })), ...jsDocsToParams(jsDocs ?? [])
-    ]
+    params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])]
   }));
 
   const rowToMarkdown = ({name, documentation, type, params}: Row): string => {
@@ -99,7 +94,7 @@ const toMarkdown = (entries: DocEntry[]): string => {
 
     if (params.length) {
       markdown.push('Parameters:\n');
-      markdown.push(...params.map(({name, documentation}) => `* \`${name}\`: ${documentation}`));
+      markdown.push(...inlineParams(params));
       markdown.push('\n');
     }
 
