@@ -1,4 +1,5 @@
 import type {JSDocTagInfo} from 'typescript';
+import type {SymbolDisplayPart} from 'typescript';
 import type {DocEntry} from './docs';
 
 const docEntryToMarkdown = ({
@@ -24,12 +25,6 @@ const docEntryToMarkdown = ({
   return md.join('\n');
 };
 
-/**
- * | Part       | Description                             |
- * | ---------- | --------------------------------------- |
- * | `"button"` | The part attribute to access the button |
- */
-
 const classesToMarkdown = (entry: DocEntry): string => {
   const {name, documentation, methods} = entry;
 
@@ -44,23 +39,42 @@ const classesToMarkdown = (entry: DocEntry): string => {
 };
 
 const toMarkdown = (entries: DocEntry[]): string => {
+  type Params = {name: string; documentation: string};
+
   type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> & {
-    params: {name: string; documentation: string}[];
+    params: Params[];
   };
 
-  // TODO: jsdocs params
-
-  const jsDocsToParams = (jsDocs: JSDocTagInfo[]): {name: string; documentation: string}[] => {
+  const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
-    const texts = params.map(({text}) => text);
+    const texts: (SymbolDisplayPart[] | undefined)[] = params.map(({text}) => text);
 
-    const subtexts = texts.filter((array) => array?.find(({kind}) => kind === 'parameterName') !== undefined)
+    const parts: SymbolDisplayPart[][] = texts.reduce(
+      (acc: SymbolDisplayPart[][], values: SymbolDisplayPart[] | undefined) => {
+        if (values === undefined) {
+          return acc;
+        }
 
-    return [];
+        return [...acc, values]
+      },
+      []
+    );
+
+    const toParam = (parts: SymbolDisplayPart[]): Params | undefined => {
+      if (parts.find(({kind}) => kind === 'parameterName') === undefined) {
+        return undefined;
+      }
+
+      const name = parts.find(({kind}) => kind === 'parameterName')?.text ?? '';
+      const documentation = parts.find(({kind}) => kind === 'text')?.text ?? '';
+
+      return {name, documentation};
+    };
+
+    return parts.map(toParam).filter((param) => param !== undefined) as Params[];
   };
 
-
-  const rows: Row[] = entries.map(({name, type, documentation, parameters}: DocEntry) => ({
+  const rows: Row[] = entries.map(({name, type, documentation, parameters, jsDocs}: DocEntry) => ({
     name,
     type: type ?? '',
     documentation: documentation ?? '',
@@ -68,7 +82,7 @@ const toMarkdown = (entries: DocEntry[]): string => {
       ...(parameters ?? []).map(({name, documentation}: DocEntry) => ({
         name,
         documentation: documentation ?? ''
-      }))
+      })), ...jsDocsToParams(jsDocs ?? [])
     ]
   }));
 
@@ -84,8 +98,9 @@ const toMarkdown = (entries: DocEntry[]): string => {
     markdown.push(`| \`${name}\` | \`${type}\` |\n`);
 
     if (params.length) {
-      markdown.push('Parameters:');
+      markdown.push('Parameters:\n');
       markdown.push(...params.map(({name, documentation}) => `* \`${name}\`: ${documentation}`));
+      markdown.push('\n');
     }
 
     return markdown.join('\n');

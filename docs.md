@@ -1,6 +1,6 @@
 # Functions
 
-# hello
+## hello
 
 Hello
 
@@ -8,7 +8,12 @@ Hello
 | ---------- | ---------- |
 | `hello` | `(world: string) => string` |
 
-# hello2
+Parameters:
+
+* `yolo`: this is a jsdoc
+
+
+## hello2
 
 hello2
 
@@ -19,7 +24,7 @@ hello2
 
 # Constants
 
-# numberOne
+## numberOne
 
 A constant
 
@@ -32,7 +37,7 @@ A constant
 
 LedgerCanister is a test class.
 
-# create
+## create
 
 Create a LedgerCanister
 
@@ -40,7 +45,7 @@ Create a LedgerCanister
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
 
-# accountBalance
+## accountBalance
 
 Returns the balance of the specified account identifier.
 
