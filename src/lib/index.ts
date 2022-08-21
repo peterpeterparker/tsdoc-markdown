@@ -9,8 +9,15 @@ export {documentationToMarkdown};
 export type {DocEntry, DocEntryConstructor, DocEntryType};
 
 export const generateDocumentation = () => {
+  const inputFilenames: string[] = process.argv.slice(2)[0]?.split(',');
+  const outputFilename: string = process.argv.slice(2)[1] ?? 'README.md';
+
+  if (!inputFilenames) {
+    throw new Error('No source file(s) provided.');
+  }
+
   const entries: DocEntry[] = buildDocumentation({
-    fileNames: process.argv.slice(2),
+    filenames: inputFilenames,
     options: {
       target: ScriptTarget.ES2020,
       module: ModuleKind.CommonJS
@@ -19,5 +26,5 @@ export const generateDocumentation = () => {
 
   const markdown: string = documentationToMarkdown(entries);
 
-  writeFileSync('docs.md', markdown, 'utf-8');
+  writeFileSync(outputFilename, markdown, 'utf-8');
 };

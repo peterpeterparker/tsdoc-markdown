@@ -187,16 +187,16 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 };
 
 export const buildDocumentation = ({
-  fileNames,
+  filenames,
   options
 }: {
-  fileNames: string[];
+  filenames: string[];
   options: CompilerOptions;
 }): DocEntry[] => {
   // Build a program using the set of root file names in fileNames
-  const program = createProgram(fileNames, options);
+  const program = createProgram(filenames, options);
 
-  const filenamesFullPaths: string[] = fileNames.map((fileName: string) => resolve(fileName));
+  const filenamesFullPaths: string[] = filenames.map((fileName: string) => resolve(fileName));
 
   // Get the checker, we will use it to find more about classes
   const checker = program.getTypeChecker();
