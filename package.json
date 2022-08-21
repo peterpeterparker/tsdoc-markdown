@@ -18,7 +18,7 @@
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir dist/types",
     "test": "jest",
-    "start": "node rmdir.mjs && node esbuild.mjs && node ./start.mjs src/test/mock.ts"
+    "start": "node rmdir.mjs && node esbuild.mjs && node ./start.js src/test/mock.ts"
   },
   "repository": {
     "type": "git",
@@ -39,10 +39,8 @@
     "jest": "^28.1.2",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.0.0",
-    "ts-jest": "^28.0.5",
-    "typescript": "^4.5.5"
+    "ts-jest": "^28.0.5"
   },
-  "dependencies": {},
   "keywords": [
     "jsdoc",
     "markdown",
@@ -53,5 +51,8 @@
     "doc-generator",
     "tsdoc",
     "tsdoc-parser"
-  ]
+  ],
+  "peerDependencies": {
+    "typescript": "4.X"
+  }
 }
