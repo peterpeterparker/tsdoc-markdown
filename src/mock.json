@@ -77,7 +77,8 @@
             "type": "boolean"
           }
         ],
-        "returnType": "LedgerCanister"
+        "returnType": "LedgerCanister",
+        "visibility": "public"
       }
     ],
     "doc_type": "class",
