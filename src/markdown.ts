@@ -25,8 +25,8 @@ const classesToMarkdown = (entry: DocEntry): string => {
   if (constructors?.length) {
     markdown.push(`## Constructors\n`);
 
-    markdown.push(...constructors.map(({parameters, documentation}) => {
-      const docs: string[] = [`${documentation ?? ''}\n`];
+    markdown.push(...constructors.map(({parameters, documentation, visibility}) => {
+      const docs: string[] = [`\`${visibility}\`: ${documentation ?? ''}\n`];
 
       if (parameters?.length) {
         docs.push(`Parameters:\n`);

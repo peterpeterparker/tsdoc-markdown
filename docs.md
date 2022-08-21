@@ -39,7 +39,7 @@ LedgerCanister is a test class.
 
 ## Constructors
 
-The constructor is public.
+`public`: The constructor is public.
 
 Parameters:
 

@@ -24,17 +24,22 @@ import {
   isModuleDeclaration,
   isVariableStatement,
   ModifierFlags,
-  NodeFlags
+  NodeFlags,
+  SyntaxKind
 } from 'typescript';
 
-type DocEntryType = 'function' | 'method' | 'class' | 'const';
+export type DocEntryType = 'function' | 'method' | 'class' | 'const';
+
+export type DocEntryConstructor = Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> & {
+  visibility: 'private' | 'public';
+};
 
 export interface DocEntry {
   name: string;
   fileName?: string;
   documentation?: string;
   type?: string;
-  constructors?: Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'>[];
+  constructors?: DocEntryConstructor[];
   parameters?: DocEntry[];
   methods?: DocEntry[];
   returnType?: string;
@@ -73,6 +78,7 @@ const serializeClass = ({
 
   // Get the construct signatures
   const constructorType = checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
+
   details.constructors = constructorType
     .getConstructSignatures()
     .map((signature: Signature) => serializeSignature({checker, signature}));
@@ -92,13 +98,17 @@ const serializeSignature = ({
 }: {
   checker: TypeChecker;
   signature: Signature;
-}): Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> => {
+}): DocEntryConstructor => {
   return {
     parameters: signature.parameters.map((symbol: TypeScriptSymbol) =>
       serializeSymbol({checker, symbol})
     ),
     returnType: checker.typeToString(signature.getReturnType()),
-    documentation: displayPartsToString(signature.getDocumentationComment(checker))
+    documentation: displayPartsToString(signature.getDocumentationComment(checker)),
+    visibility:
+      signature.declaration?.modifiers?.[0].kind === SyntaxKind.PrivateKeyword
+        ? 'private'
+        : 'public'
   };
 };
 
