@@ -1,4 +1,4 @@
-import {JSDocTagInfo} from 'typescript';
+import type {JSDocTagInfo} from 'typescript';
 
 export type DocEntryType = 'function' | 'method' | 'class' | 'const';
 

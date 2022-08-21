@@ -22,7 +22,8 @@
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir dist/types",
     "test": "jest",
-    "start": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/test/mock.ts --dest=src/test/mock.md"
+    "start": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/test/mock.ts --dest=src/test/mock.md",
+    "docs": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/lib/*"
   },
   "repository": {
     "type": "git",

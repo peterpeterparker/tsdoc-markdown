@@ -106,6 +106,10 @@ const toMarkdown = (entries: DocEntry[]): string => {
   return rows.map(rowToMarkdown).join('\n');
 };
 
+/**
+ * Convert the documentation entries to an opinionated Markdown format.
+ * @param entries The entries of the documentation (global functions and classes).
+ */
 export const documentationToMarkdown = (entries: DocEntry[]): string => {
   const functions: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'function');
   const classes: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'class');

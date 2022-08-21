@@ -1,5 +1,4 @@
 import {writeFileSync} from 'fs';
-import {ModuleKind, ScriptTarget} from 'typescript';
 import {buildDocumentation} from './docs';
 import {documentationToMarkdown} from './markdown';
 import type {DocEntry, DocEntryConstructor, DocEntryType} from './types';
@@ -23,11 +22,7 @@ export const generateDocumentation = ({
   outputFile: string;
 }) => {
   const entries: DocEntry[] = buildDocumentation({
-    filenames: inputFiles,
-    options: {
-      target: ScriptTarget.ES2020,
-      module: ModuleKind.CommonJS
-    }
+    inputFiles: inputFiles
   });
 
   const markdown: string = documentationToMarkdown(entries);

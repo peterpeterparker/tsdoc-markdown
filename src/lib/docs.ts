@@ -23,7 +23,9 @@ import {
   isModuleDeclaration,
   isVariableStatement,
   ModifierFlags,
+  ModuleKind,
   NodeFlags,
+  ScriptTarget,
   SyntaxKind
 } from 'typescript';
 import type {DocEntry, DocEntryConstructor, DocEntryType} from './types';
@@ -186,17 +188,27 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
   return entries;
 };
 
+/**
+ * Build the documentation entries in JSON for the selected sources.
+ *
+ * @param {Object} params
+ * @param params.inputFiles The list of scan for which the documentation should be build.
+ * @param params.options Optional compiler options to generate the docs
+ */
 export const buildDocumentation = ({
-  filenames,
-  options
+  inputFiles,
+  options = {
+    target: ScriptTarget.ES2020,
+    module: ModuleKind.CommonJS
+  }
 }: {
-  filenames: string[];
-  options: CompilerOptions;
+  inputFiles: string[];
+  options?: CompilerOptions;
 }): DocEntry[] => {
   // Build a program using the set of root file names in fileNames
-  const program = createProgram(filenames, options);
+  const program = createProgram(inputFiles, options);
 
-  const filenamesFullPaths: string[] = filenames.map((fileName: string) => resolve(fileName));
+  const filenamesFullPaths: string[] = inputFiles.map((fileName: string) => resolve(fileName));
 
   // Get the checker, we will use it to find more about classes
   const checker = program.getTypeChecker();

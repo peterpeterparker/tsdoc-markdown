@@ -6,7 +6,7 @@ import {buildDocumentation} from '../lib/docs';
 describe('markdown', () => {
   it('should generate markdown for mock', () => {
     const doc = buildDocumentation({
-      filenames: ['./src/test/mock.ts'],
+      inputFiles: ['./src/test/mock.ts'],
       options: {
         target: ScriptTarget.ES2020,
         module: ModuleKind.CommonJS
