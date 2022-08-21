@@ -9,16 +9,20 @@
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
+    "bin",
     "README.md",
     "LICENSE"
   ],
+  "bin": {
+    "tsdoc": "bin/index.js"
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --max-warnings 0 .",
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir dist/types",
     "test": "jest",
-    "start": "node rmdir.mjs && node esbuild.mjs && node ./start.js src/test/mock.ts src/test/mock.md"
+    "start": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/test/mock.ts --dest=src/test/mock.md"
   },
   "repository": {
     "type": "git",

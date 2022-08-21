@@ -4,21 +4,23 @@
 
 Hello
 
-| Name    | Type                        |
-| ------- | --------------------------- |
+| Name | Type |
+| ---------- | ---------- |
 | `hello` | `(world: string) => string` |
 
 Parameters:
 
-- `yolo`: this is a jsdoc
+* `yolo`: this is a jsdoc
+
 
 ## hello2
 
 hello2
 
-| Name     | Type         |
-| -------- | ------------ |
+| Name | Type |
+| ---------- | ---------- |
 | `hello2` | `() => void` |
+
 
 # Constants
 
@@ -26,9 +28,10 @@ hello2
 
 A constant
 
-| Name        | Type |
-| ----------- | ---- |
-| `numberOne` | `2`  |
+| Name | Type |
+| ---------- | ---------- |
+| `numberOne` | `2` |
+
 
 # LedgerCanister
 
@@ -40,22 +43,24 @@ LedgerCanister is a test class.
 
 Parameters:
 
-- `agent`: Agent js
-- `canisterId`:
-- `hardwareWallet`:
+* `agent`: Agent js
+* `canisterId`: 
+* `hardwareWallet`: 
+
 
 ## create
 
 Create a LedgerCanister
 
-| Name     | Type                                                    |
-| -------- | ------------------------------------------------------- |
+| Name | Type |
+| ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
 
 ## accountBalance
 
 Returns the balance of the specified account identifier.
 
-| Name             | Type                                                                     |
-| ---------------- | ------------------------------------------------------------------------ |
+| Name | Type |
+| ---------- | ---------- |
 | `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` |
+

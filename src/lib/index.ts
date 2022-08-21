@@ -8,16 +8,22 @@ export {buildDocumentation};
 export {documentationToMarkdown};
 export type {DocEntry, DocEntryConstructor, DocEntryType};
 
-export const generateDocumentation = () => {
-  const inputFilenames: string[] = process.argv.slice(2)[0]?.split(',');
-  const outputFilename: string = process.argv.slice(2)[1] ?? 'README.md';
-
-  if (!inputFilenames) {
-    throw new Error('No source file(s) provided.');
-  }
-
+/**
+ * Generate documentation and write output to a file.
+ *
+ * @param {Object} params
+ * @param params.inputFiles The list of files to scan for documentation. Absolute or relative path.
+ * @param params.outputFile The file to output the documentation in Markdown.
+ */
+export const generateDocumentation = ({
+  inputFiles,
+  outputFile
+}: {
+  inputFiles: string[];
+  outputFile: string;
+}) => {
   const entries: DocEntry[] = buildDocumentation({
-    filenames: inputFilenames,
+    filenames: inputFiles,
     options: {
       target: ScriptTarget.ES2020,
       module: ModuleKind.CommonJS
@@ -26,5 +32,5 @@ export const generateDocumentation = () => {
 
   const markdown: string = documentationToMarkdown(entries);
 
-  writeFileSync(outputFilename, markdown, 'utf-8');
+  writeFileSync(outputFile, markdown, 'utf-8');
 };
