@@ -1,5 +1,5 @@
 import type {JSDocTagInfo, SymbolDisplayPart} from 'typescript';
-import type {DocEntry} from './docs';
+import type {DocEntry} from './types';
 
 type Params = {name: string; documentation: string};
 
@@ -25,16 +25,18 @@ const classesToMarkdown = (entry: DocEntry): string => {
   if (constructors?.length) {
     markdown.push(`## Constructors\n`);
 
-    markdown.push(...constructors.map(({parameters, documentation, visibility}) => {
-      const docs: string[] = [`\`${visibility}\`: ${documentation ?? ''}\n`];
+    markdown.push(
+      ...constructors.map(({parameters, documentation, visibility}) => {
+        const docs: string[] = [`\`${visibility}\`: ${documentation ?? ''}\n`];
 
-      if (parameters?.length) {
-        docs.push(`Parameters:\n`);
-        docs.push(...inlineParams(toParams(parameters)));
-      }
+        if (parameters?.length) {
+          docs.push(`Parameters:\n`);
+          docs.push(...inlineParams(toParams(parameters)));
+        }
 
-      return docs.join('\n');
-    }));
+        return docs.join('\n');
+      })
+    );
 
     markdown.push('\n');
   }
