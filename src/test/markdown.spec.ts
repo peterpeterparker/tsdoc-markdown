@@ -1,9 +1,10 @@
 import {readFileSync} from 'fs';
 import {ModuleKind, ScriptTarget} from 'typescript';
+import {documentationToMarkdown} from '../lib';
 import {buildDocumentation} from '../lib/docs';
 
-describe('docs', () => {
-  it('should generate json for mock', () => {
+describe('markdown', () => {
+  it('should generate markdown for mock', () => {
     const doc = buildDocumentation({
       filenames: ['./src/test/mock.ts'],
       options: {
@@ -12,7 +13,9 @@ describe('docs', () => {
       }
     });
 
-    const expectedDoc = readFileSync('./src/test/mock.json', 'utf8');
-    expect(doc).toEqual(JSON.parse(expectedDoc));
+    const markdown: string = documentationToMarkdown(doc);
+
+    const expectedDoc = readFileSync('./src/test/mock.md', 'utf8');
+    expect(markdown).toEqual(expectedDoc);
   });
 });
