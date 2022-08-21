@@ -9,6 +9,12 @@
     "lib": ["dom", "es2017"],
     "isolatedModules": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts", "src/**/mock.ts", "src/**/mock.json"]
+  "include": ["src/lib/**/*"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/mock.ts",
+    "src/**/mock.json",
+    "src/test/**/*"
+  ]
 }

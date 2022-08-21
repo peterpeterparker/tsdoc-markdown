@@ -2,7 +2,7 @@
   {
     "doc_type": "function",
     "documentation": "Hello",
-    "fileName": "src/mock.ts",
+    "fileName": "src/test/mock.ts",
     "jsDocs": [
       {
         "name": "param",
@@ -25,7 +25,7 @@
   {
     "doc_type": "const",
     "documentation": "A constant",
-    "fileName": "src/mock.ts",
+    "fileName": "src/test/mock.ts",
     "jsDocs": [],
     "name": "numberOne",
     "type": "2"
@@ -33,7 +33,7 @@
   {
     "doc_type": "function",
     "documentation": "hello2",
-    "fileName": "src/mock.ts",
+    "fileName": "src/test/mock.ts",
     "jsDocs": [],
     "name": "hello2",
     "type": "() => void"
@@ -83,7 +83,7 @@
     ],
     "doc_type": "class",
     "documentation": "LedgerCanister is a test class.",
-    "fileName": "src/mock.ts",
+    "fileName": "src/test/mock.ts",
     "jsDocs": [],
     "methods": [
       {

@@ -10,16 +10,18 @@ const createDistFolder = () => {
   }
 };
 
+const rootDir = join(process.cwd(), 'src', 'lib');
+
 const buildEsmCjs = () => {
-  const entryPoints = readdirSync(join(process.cwd(), 'src'))
+  const entryPoints = readdirSync(rootDir)
     .filter(
       (file) =>
         !file.includes('test') &&
         !file.includes('spec') &&
         !file.includes('mock') &&
-        statSync(join(process.cwd(), 'src', file)).isFile()
+        statSync(join(rootDir, file)).isFile()
     )
-    .map((file) => `src/${file}`);
+    .map((file) => `${rootDir}/${file}`);
 
   // esm output bundles with code splitting
   esbuild
@@ -45,7 +47,7 @@ const buildEsmCjs = () => {
   // cjs output bundle
   esbuild
     .build({
-      entryPoints: ['src/index.ts'],
+      entryPoints: [join(rootDir, 'index.ts')],
       outfile: 'dist/cjs/index.cjs.js',
       bundle: true,
       sourcemap: true,
