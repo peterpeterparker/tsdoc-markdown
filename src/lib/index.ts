@@ -1,4 +1,4 @@
-import {writeFileSync, existsSync, readFileSync} from 'fs';
+import {existsSync, readFileSync, writeFileSync} from 'fs';
 import {buildDocumentation} from './docs';
 import {documentationToMarkdown} from './markdown';
 import type {DocEntry, DocEntryConstructor, DocEntryType} from './types';
@@ -9,6 +9,7 @@ export type {DocEntry, DocEntryConstructor, DocEntryType};
 
 /**
  * Generate documentation and write output to a file.
+ * If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments. If these does not exist, the output file will be overwritten.
  *
  * @param {Object} params
  * @param params.inputFiles The list of files to scan for documentation. Absolute or relative path.
@@ -30,8 +31,17 @@ export const generateDocumentation = ({
   if (existsSync(outputFile)) {
     const fileContent = readFileSync(outputFile, 'utf-8');
 
-    const regex = /<!-- TSDOC_START -->([^]*?)<!-- TSDOC_END -->/gm;
-    const replace = `<!-- TSDOC_START -->\n\n${markdown}\n<!-- TSDOC_END -->`
+    const regex = /(<!-- TSDOC_START -->)[\s\S]*?(<!-- TSDOC_END -->)$/gm;
+
+    if (!fileContent.match(regex)) {
+      writeFileSync(outputFile, markdown, 'utf-8');
+      return;
+    }
+
+    const replace = `<!-- TSDOC_START -->\n\n${markdown}\n<!-- TSDOC_END -->`;
+
+    console.log(fileContent.replace(regex, ''));
+
     writeFileSync(outputFile, fileContent.replace(regex, replace), 'utf-8');
 
     return;

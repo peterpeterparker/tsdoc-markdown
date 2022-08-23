@@ -4,38 +4,36 @@ Generates markdown API documentation from TypeScript source code. Useful for inj
 
 <!-- TSDOC_START -->
 
-# Functions
+## Functions
 
-## buildDocumentation
+### buildDocumentation
 
-Build the documentation entries in JSON for the selected sources.
+Build the documentation entries for the selected sources.
 
-| Name | Type |
-| ---------- | ---------- |
+| Name                 | Type                                                                                            |
+| -------------------- | ----------------------------------------------------------------------------------------------- |
 | `buildDocumentation` | `({ inputFiles, options }: { inputFiles: string[]; options?: CompilerOptions; }) => DocEntry[]` |
 
-## documentationToMarkdown
+### documentationToMarkdown
 
 Convert the documentation entries to an opinionated Markdown format.
 
-| Name | Type |
-| ---------- | ---------- |
+| Name                      | Type                              |
+| ------------------------- | --------------------------------- |
 | `documentationToMarkdown` | `(entries: DocEntry[]) => string` |
 
 Parameters:
 
-* `entries`: The entries of the documentation (global functions and classes).
+- `entries`: The entries of the documentation (global functions and classes).
 
-
-## generateDocumentation
+### generateDocumentation
 
 Generate documentation and write output to a file.
+If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments. If these does not exist, the output file will be overwritten.
 
-| Name | Type |
-| ---------- | ---------- |
+| Name                    | Type                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------- |
 | `generateDocumentation` | `({ inputFiles, outputFile }: { inputFiles: string[]; outputFile: string; }) => void` |
-
-
 
 <!-- TSDOC_END -->
 

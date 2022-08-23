@@ -189,11 +189,13 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 };
 
 /**
- * Build the documentation entries in JSON for the selected sources.
+ * Build the documentation entries for the selected sources.
  *
  * @param {Object} params
  * @param params.inputFiles The list of scan for which the documentation should be build.
  * @param params.options Optional compiler options to generate the docs
+ *
+ * @returns An array of documentation entries
  */
 export const buildDocumentation = ({
   inputFiles,

@@ -1,6 +1,6 @@
-# Functions
+## Functions
 
-## hello
+### hello
 
 Hello
 
@@ -13,7 +13,7 @@ Parameters:
 * `yolo`: this is a jsdoc
 
 
-## hello2
+### hello2
 
 hello2
 
@@ -22,9 +22,9 @@ hello2
 | `hello2` | `() => void` |
 
 
-# Constants
+## Constants
 
-## numberOne
+### numberOne
 
 A constant
 
@@ -33,11 +33,11 @@ A constant
 | `numberOne` | `2` |
 
 
-# LedgerCanister
+## LedgerCanister
 
 LedgerCanister is a test class.
 
-## Constructors
+### Constructors
 
 `public`: The constructor is public.
 
@@ -48,7 +48,7 @@ Parameters:
 * `hardwareWallet`: 
 
 
-## create
+### create
 
 Create a LedgerCanister
 
@@ -56,7 +56,7 @@ Create a LedgerCanister
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
 
-## accountBalance
+### accountBalance
 
 Returns the balance of the specified account identifier.
 

@@ -19,11 +19,11 @@ const inlineParams = (params: Params[]): string[] =>
 const classesToMarkdown = (entry: DocEntry): string => {
   const {name, documentation, methods, constructors} = entry;
 
-  const markdown: string[] = [`# ${name}\n`];
+  const markdown: string[] = [`## ${name}\n`];
   markdown.push(`${documentation}\n`);
 
   if (constructors?.length) {
-    markdown.push(`## Constructors\n`);
+    markdown.push(`### Constructors\n`);
 
     markdown.push(
       ...constructors.map(({parameters, documentation, visibility}) => {
@@ -41,12 +41,18 @@ const classesToMarkdown = (entry: DocEntry): string => {
     markdown.push('\n');
   }
 
-  markdown.push(`${toMarkdown(methods ?? [])}\n`);
+  markdown.push(`${toMarkdown({entries: methods ?? [], headingLevel: '##'})}\n`);
 
   return markdown.join('\n');
 };
 
-const toMarkdown = (entries: DocEntry[]): string => {
+const toMarkdown = ({
+  entries,
+  headingLevel
+}: {
+  entries: DocEntry[];
+  headingLevel: '##' | '#';
+}): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
     const texts: (SymbolDisplayPart[] | undefined)[] = params.map(({text}) => text);
@@ -84,7 +90,7 @@ const toMarkdown = (entries: DocEntry[]): string => {
   }));
 
   const rowToMarkdown = ({name, documentation, type, params}: Row): string => {
-    const markdown: string[] = [`## ${name}\n`];
+    const markdown: string[] = [`${headingLevel}# ${name}\n`];
 
     if (documentation.length) {
       markdown.push(`${documentation}\n`);
@@ -113,18 +119,18 @@ const toMarkdown = (entries: DocEntry[]): string => {
 export const documentationToMarkdown = (entries: DocEntry[]): string => {
   const functions: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'function');
   const classes: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'class');
-  const consts: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'const');
+  const constants: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'const');
 
   const markdown: string[] = [];
 
   if (functions.length) {
-    markdown.push(`# Functions\n`);
-    markdown.push(`${toMarkdown(functions)}\n`);
+    markdown.push(`## Functions\n`);
+    markdown.push(`${toMarkdown({entries: functions, headingLevel: '##'})}\n`);
   }
 
-  if (consts.length) {
-    markdown.push(`# Constants\n`);
-    markdown.push(`${toMarkdown(consts)}\n`);
+  if (constants.length) {
+    markdown.push(`## Constants\n`);
+    markdown.push(`${toMarkdown({entries: constants, headingLevel: '##'})}\n`);
   }
 
   markdown.push(classes.map((entry: DocEntry) => classesToMarkdown(entry)).join('\n'));
