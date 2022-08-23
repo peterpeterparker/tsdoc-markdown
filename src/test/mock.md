@@ -4,7 +4,7 @@
 
 Hello
 
-| Name | Type |
+| Function | Type |
 | ---------- | ---------- |
 | `hello` | `(world: string) => string` |
 
@@ -17,7 +17,7 @@ Parameters:
 
 hello2
 
-| Name | Type |
+| Function | Type |
 | ---------- | ---------- |
 | `hello2` | `() => void` |
 
@@ -28,7 +28,7 @@ hello2
 
 A constant
 
-| Name | Type |
+| Constant | Type |
 | ---------- | ---------- |
 | `numberOne` | `2` |
 
@@ -52,7 +52,7 @@ Parameters:
 
 Create a LedgerCanister
 
-| Name | Type |
+| Method | Type |
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
 
@@ -60,7 +60,7 @@ Create a LedgerCanister
 
 Returns the balance of the specified account identifier.
 
-| Name | Type |
+| Method | Type |
 | ---------- | ---------- |
 | `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` |
 

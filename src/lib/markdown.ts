@@ -41,17 +41,19 @@ const classesToMarkdown = (entry: DocEntry): string => {
     markdown.push('\n');
   }
 
-  markdown.push(`${toMarkdown({entries: methods ?? [], headingLevel: '##'})}\n`);
+  markdown.push(`${toMarkdown({entries: methods ?? [], headingLevel: '##', docType: 'Method'})}\n`);
 
   return markdown.join('\n');
 };
 
 const toMarkdown = ({
   entries,
-  headingLevel
+  headingLevel,
+  docType
 }: {
   entries: DocEntry[];
   headingLevel: '##' | '#';
+  docType: 'Constant' | 'Function' | 'Method';
 }): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
@@ -69,7 +71,7 @@ const toMarkdown = ({
     );
 
     const toParam = (parts: SymbolDisplayPart[]): Params | undefined => {
-      if (parts.find(({kind}) => kind === 'parameterName') === undefined) {
+      if (parts.find(({kind, text}) => kind === 'parameterName' && text !== '') === undefined) {
         return undefined;
       }
 
@@ -96,7 +98,7 @@ const toMarkdown = ({
       markdown.push(`${documentation}\n`);
     }
 
-    markdown.push('| Name | Type |');
+    markdown.push(`| ${docType} | Type |`);
     markdown.push('| ---------- | ---------- |');
     markdown.push(`| \`${name}\` | \`${type}\` |\n`);
 
@@ -125,12 +127,12 @@ export const documentationToMarkdown = (entries: DocEntry[]): string => {
 
   if (functions.length) {
     markdown.push(`## Functions\n`);
-    markdown.push(`${toMarkdown({entries: functions, headingLevel: '##'})}\n`);
+    markdown.push(`${toMarkdown({entries: functions, headingLevel: '##', docType: 'Function'})}\n`);
   }
 
   if (constants.length) {
     markdown.push(`## Constants\n`);
-    markdown.push(`${toMarkdown({entries: constants, headingLevel: '##'})}\n`);
+    markdown.push(`${toMarkdown({entries: constants, headingLevel: '##', docType: 'Constant'})}\n`);
   }
 
   markdown.push(classes.map((entry: DocEntry) => classesToMarkdown(entry)).join('\n'));

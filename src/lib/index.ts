@@ -9,9 +9,10 @@ export type {DocEntry, DocEntryConstructor, DocEntryType};
 
 /**
  * Generate documentation and write output to a file.
- * If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments. If these does not exist, the output file will be overwritten.
+ * If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments.
+ * If these does not exist, the output file will be overwritten.
  *
- * @param {Object} params
+ * @param {inputFiles: string[]; outputFile: string;} params
  * @param params.inputFiles The list of files to scan for documentation. Absolute or relative path.
  * @param params.outputFile The file to output the documentation in Markdown.
  */

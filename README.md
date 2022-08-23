@@ -10,15 +10,20 @@ Generates markdown API documentation from TypeScript source code. Useful for inj
 
 Build the documentation entries for the selected sources.
 
-| Name                 | Type                                                                                            |
+| Function             | Type                                                                                            |
 | -------------------- | ----------------------------------------------------------------------------------------------- |
 | `buildDocumentation` | `({ inputFiles, options }: { inputFiles: string[]; options?: CompilerOptions; }) => DocEntry[]` |
+
+Parameters:
+
+- `params.inputFiles`: The list of files to scan and for which the documentation should be build.
+- `params.options`: Optional compiler options to generate the docs
 
 ### documentationToMarkdown
 
 Convert the documentation entries to an opinionated Markdown format.
 
-| Name                      | Type                              |
+| Function                  | Type                              |
 | ------------------------- | --------------------------------- |
 | `documentationToMarkdown` | `(entries: DocEntry[]) => string` |
 
@@ -29,11 +34,17 @@ Parameters:
 ### generateDocumentation
 
 Generate documentation and write output to a file.
-If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments. If these does not exist, the output file will be overwritten.
+If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments.
+If these does not exist, the output file will be overwritten.
 
-| Name                    | Type                                                                                  |
+| Function                | Type                                                                                  |
 | ----------------------- | ------------------------------------------------------------------------------------- |
 | `generateDocumentation` | `({ inputFiles, outputFile }: { inputFiles: string[]; outputFile: string; }) => void` |
+
+Parameters:
+
+- `params.inputFiles`: The list of files to scan for documentation. Absolute or relative path.
+- `params.outputFile`: The file to output the documentation in Markdown.
 
 <!-- TSDOC_END -->
 
