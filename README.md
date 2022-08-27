@@ -1,6 +1,6 @@
 # tsdoc-to-markdown
 
-Generates markdown API documentation from TypeScript source code. Useful for injecting API docs into project README files.
+Generates markdown API documentation from TypeScript source code. Useful for generating docs from code and injecting it into project README files.
 
 <!-- TSDOC_START -->
 
@@ -10,7 +10,7 @@ Generates markdown API documentation from TypeScript source code. Useful for inj
 - [documentationToMarkdown](#documentationtomarkdown)
 - [generateDocumentation](#generatedocumentation)
 
-### buildDocumentation
+### `buildDocumentation`
 
 Build the documentation entries for the selected sources.
 
