@@ -19,7 +19,7 @@ const inlineParams = (params: Params[]): string[] =>
 const classesToMarkdown = (entry: DocEntry): string => {
   const {name, documentation, methods, constructors} = entry;
 
-  const markdown: string[] = [`## ${name}\n`];
+  const markdown: string[] = [`## 🏭 ${name}\n`];
   markdown.push(`${documentation}\n`);
 
   const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
@@ -101,7 +101,7 @@ const toMarkdown = ({
   }));
 
   const rowToMarkdown = ({name, documentation, type, params}: Row): string => {
-    const markdown: string[] = [`${headingLevel}# ${name}\n`];
+    const markdown: string[] = [`${headingLevel}# ⚙️ ${name}\n`];
 
     if (documentation.length) {
       markdown.push(`${documentation}\n`);
@@ -124,7 +124,7 @@ const toMarkdown = ({
 };
 
 const tableOfContent = (entries: DocEntry[]): string =>
-  entries.map(({name}) => `- [${name}](#${name.toLowerCase().replace(/ /g, '-')})`).join('\n');
+  entries.map(({name}) => `- [⚙️ ${name}](#⚙️-${name.toLowerCase().replace(/ /g, '-')})`).join('\n');
 
 /**
  * Convert the documentation entries to an opinionated Markdown format.
@@ -138,13 +138,13 @@ export const documentationToMarkdown = (entries: DocEntry[]): string => {
   const markdown: string[] = [];
 
   if (functions.length) {
-    markdown.push(`## Functions\n`);
+    markdown.push(`## 🧰 Functions\n`);
     markdown.push(`${tableOfContent(functions)}\n`);
     markdown.push(`${toMarkdown({entries: functions, headingLevel: '##', docType: 'Function'})}\n`);
   }
 
   if (constants.length) {
-    markdown.push(`## Constants\n`);
+    markdown.push(`## 🪛 Constants\n`);
     markdown.push(`${tableOfContent(constants)}\n`);
     markdown.push(`${toMarkdown({entries: constants, headingLevel: '##', docType: 'Constant'})}\n`);
   }
