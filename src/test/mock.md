@@ -1,5 +1,8 @@
 ## Functions
 
+- [hello](#hello)
+- [hello2](#hello2)
+
 ### hello
 
 Hello
@@ -23,6 +26,8 @@ hello2
 
 
 ## Constants
+
+- [numberOne](#numberone)
 
 ### numberOne
 
@@ -48,7 +53,12 @@ Parameters:
 * `hardwareWallet`: 
 
 
-### create
+### Methods
+
+- [create](#create)
+- [accountBalance](#accountbalance)
+
+#### create
 
 Create a LedgerCanister
 
@@ -56,7 +66,7 @@ Create a LedgerCanister
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
 
-### accountBalance
+#### accountBalance
 
 Returns the balance of the specified account identifier.
 

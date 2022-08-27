@@ -41,8 +41,6 @@ export const generateDocumentation = ({
 
     const replace = `<!-- TSDOC_START -->\n\n${markdown}\n<!-- TSDOC_END -->`;
 
-    console.log(fileContent.replace(regex, ''));
-
     writeFileSync(outputFile, fileContent.replace(regex, replace), 'utf-8');
 
     return;

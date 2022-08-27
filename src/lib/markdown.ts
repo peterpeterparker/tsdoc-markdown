@@ -41,7 +41,10 @@ const classesToMarkdown = (entry: DocEntry): string => {
     markdown.push('\n');
   }
 
-  markdown.push(`${toMarkdown({entries: methods ?? [], headingLevel: '##', docType: 'Method'})}\n`);
+  markdown.push(`### Methods\n`);
+  markdown.push(`${tableOfContent(methods ?? [])}\n`);
+
+  markdown.push(`${toMarkdown({entries: methods ?? [], headingLevel: '###', docType: 'Method'})}\n`);
 
   return markdown.join('\n');
 };
@@ -52,7 +55,7 @@ const toMarkdown = ({
   docType
 }: {
   entries: DocEntry[];
-  headingLevel: '##' | '#';
+  headingLevel: '##' | '#' | '###';
   docType: 'Constant' | 'Function' | 'Method';
 }): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
@@ -114,6 +117,9 @@ const toMarkdown = ({
   return rows.map(rowToMarkdown).join('\n');
 };
 
+const tableOfContent = (entries: DocEntry[]): string =>
+  entries.map(({name}) => `- [${name}](#${name.toLowerCase().replace(/ /g, '-')})`).join('\n');
+
 /**
  * Convert the documentation entries to an opinionated Markdown format.
  * @param entries The entries of the documentation (global functions and classes).
@@ -127,11 +133,13 @@ export const documentationToMarkdown = (entries: DocEntry[]): string => {
 
   if (functions.length) {
     markdown.push(`## Functions\n`);
+    markdown.push(`${tableOfContent(functions)}\n`);
     markdown.push(`${toMarkdown({entries: functions, headingLevel: '##', docType: 'Function'})}\n`);
   }
 
   if (constants.length) {
     markdown.push(`## Constants\n`);
+    markdown.push(`${tableOfContent(constants)}\n`);
     markdown.push(`${toMarkdown({entries: constants, headingLevel: '##', docType: 'Constant'})}\n`);
   }
 
