@@ -10,7 +10,7 @@ Generates markdown API documentation from TypeScript source code. Useful for gen
 - [documentationToMarkdown](#documentationtomarkdown)
 - [generateDocumentation](#generatedocumentation)
 
-### `buildDocumentation`
+### - buildDocumentation
 
 Build the documentation entries for the selected sources.
 
