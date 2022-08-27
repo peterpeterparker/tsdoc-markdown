@@ -17,10 +17,19 @@ This tool is shipped with a NodeJS [bin](/bin/index.js) script that can be execu
 e.g. generating the documentation for a source file `./src/index.ts`:
 
 ```bash
-tsdoc --src=./src/index.ts
+tsdoc --src=src/index.ts
 ```
 
-The `--src` parameter accepts a comma separated list of paths.
+The `--src` parameter accepts a comma separated list of paths and wildcards as well.
+
+e.g.
+
+```bash
+tsdoc --src=src/lib/*
+tsdoc --src=src/lib/index.ts,src/lib/docs.ts
+```
+
+> Note: the library explicitly exports only the documentation of the pattern you provide. It does not follow the TypeScript tree.  
 
 The Markdown documentation is parsed per default in a `./README.md` that finds place where you started the command line.
 The output file will be over write unless you specify a `TSDOC_START` and `TSDOC_END` tag (as HTML comment). In such case, the documentation will be parsed within these two tags.
