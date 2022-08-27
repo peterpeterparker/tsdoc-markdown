@@ -36,7 +36,7 @@ The output file will be over write unless you specify a `TSDOC_START` and `TSDOC
 
 Specifying another output file is also supported with the parameter `--dest`.
 
-Note that using above script is optional. You can also develop your own JavaScript script and use one of the following functions.
+Using above script is of course optional. You can also develop your own JavaScript script and use one of the following functions.
 
 <!-- TSDOC_START -->
 
