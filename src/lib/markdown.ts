@@ -1,5 +1,5 @@
 import type {JSDocTagInfo, SymbolDisplayPart} from 'typescript';
-import type {DocEntry} from './types';
+import type {DocEntry, DocEntryConstructor} from './types';
 
 type Params = {name: string; documentation: string};
 
@@ -22,11 +22,15 @@ const classesToMarkdown = (entry: DocEntry): string => {
   const markdown: string[] = [`## ${name}\n`];
   markdown.push(`${documentation}\n`);
 
-  if (constructors?.length) {
+  const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
+    ({visibility}) => visibility === 'public'
+  );
+
+  if (publicConstructors?.length) {
     markdown.push(`### Constructors\n`);
 
     markdown.push(
-      ...constructors.map(({parameters, documentation, visibility}) => {
+      ...publicConstructors.map(({parameters, documentation, visibility}) => {
         const docs: string[] = [`\`${visibility}\`: ${documentation ?? ''}\n`];
 
         if (parameters?.length) {
@@ -44,7 +48,9 @@ const classesToMarkdown = (entry: DocEntry): string => {
   markdown.push(`### Methods\n`);
   markdown.push(`${tableOfContent(methods ?? [])}\n`);
 
-  markdown.push(`${toMarkdown({entries: methods ?? [], headingLevel: '###', docType: 'Method'})}\n`);
+  markdown.push(
+    `${toMarkdown({entries: methods ?? [], headingLevel: '###', docType: 'Method'})}\n`
+  );
 
   return markdown.join('\n');
 };
