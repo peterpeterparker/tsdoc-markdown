@@ -2,6 +2,33 @@
 
 Generates markdown API documentation from TypeScript source code. Useful for generating docs from code and injecting it into project README files.
 
+## Installation
+
+Install the library in your project from [npm](https://www.npmjs.com/package/tsdoc-to-markdown):
+
+```bash
+npm install tsdoc-to-markdown -D
+```
+
+## Usage
+
+This tool is shipped with a NodeJS [bin](/bin/index.js) script that can be executed with the shortcut `tsdoc`.
+
+e.g. generating the documentation for a source file `./src/index.ts`:
+
+```bash
+tsdoc --src=./src/index.ts
+```
+
+The `--src` parameter accepts a comma separated list of paths.
+
+The Markdown documentation is parsed per default in a `./README.md` that finds place where you started the command line.
+The output file will be over write unless you specify a `TSDOC_START` and `TSDOC_END` tag (as HTML comment). In such case, the documentation will be parsed within these two tags.
+
+Specifying another output file is also supported with the parameter `--dest`.
+
+Note that using above script is optional. You can also develop your own JavaScript script and use one of the following functions.
+
 <!-- TSDOC_START -->
 
 ## :toolbox: Functions
