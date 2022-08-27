@@ -4,13 +4,13 @@ Generates markdown API documentation from TypeScript source code. Useful for gen
 
 <!-- TSDOC_START -->
 
-## 🧰 Functions
+## :toolbox: Functions
 
-- [buildDocumentation](gear-builddocumentation)
-- [documentationToMarkdown](gear-documentationtomarkdown)
-- [generateDocumentation](gear-generatedocumentation)
+- [buildDocumentation](#gear-builddocumentation)
+- [documentationToMarkdown](#gear-documentationtomarkdown)
+- [generateDocumentation](#gear-generatedocumentation)
 
-### :gear:.️ buildDocumentation
+### :gear: buildDocumentation
 
 Build the documentation entries for the selected sources.
 
@@ -24,7 +24,7 @@ Parameters:
 * `params.options`: Optional compiler options to generate the docs
 
 
-### :gear:.️ documentationToMarkdown
+### :gear: documentationToMarkdown
 
 Convert the documentation entries to an opinionated Markdown format.
 
@@ -37,7 +37,7 @@ Parameters:
 * `entries`: The entries of the documentation (global functions and classes).
 
 
-### :gear:.️ generateDocumentation
+### :gear: generateDocumentation
 
 Generate documentation and write output to a file.
 If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments.
