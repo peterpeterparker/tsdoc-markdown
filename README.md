@@ -10,7 +10,7 @@ Generates markdown API documentation from TypeScript source code. Useful for gen
 - [documentationToMarkdown](#documentationtomarkdown)
 - [generateDocumentation](#generatedocumentation)
 
-### - buildDocumentation
+### ⚙️ buildDocumentation
 
 Build the documentation entries for the selected sources.
 
@@ -24,7 +24,7 @@ Parameters:
 * `params.options`: Optional compiler options to generate the docs
 
 
-### documentationToMarkdown
+### ⚙️ documentationToMarkdown
 
 Convert the documentation entries to an opinionated Markdown format.
 
@@ -37,7 +37,7 @@ Parameters:
 * `entries`: The entries of the documentation (global functions and classes).
 
 
-### generateDocumentation
+### ⚙️ generateDocumentation
 
 Generate documentation and write output to a file.
 If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments.
