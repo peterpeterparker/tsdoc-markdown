@@ -1,5 +1,11 @@
 import type {JSDocTagInfo, SymbolDisplayPart} from 'typescript';
-import type {DocEntry, DocEntryConstructor} from './types';
+import type {
+  DocEntry,
+  DocEntryConstructor,
+  MarkdownEmoji,
+  MarkdownHeadingLevel,
+  MarkdownOptions
+} from './types';
 
 type Params = {name: string; documentation: string};
 
@@ -16,10 +22,18 @@ const toParams = (parameters?: DocEntry[]): Params[] =>
 const inlineParams = (params: Params[]): string[] =>
   params.map(({name, documentation}) => `* \`${name}\`: ${documentation}`);
 
-const classesToMarkdown = (entry: DocEntry): string => {
+const classesToMarkdown = ({
+  entry,
+  headingLevel,
+  emoji
+}: {
+  entry: DocEntry;
+  headingLevel: MarkdownHeadingLevel;
+  emoji: MarkdownEmoji | undefined;
+}): string => {
   const {name, documentation, methods, constructors} = entry;
 
-  const markdown: string[] = [`## :factory: ${name}\n`];
+  const markdown: string[] = [`##${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
   markdown.push(`${documentation}\n`);
 
   const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
@@ -46,10 +60,10 @@ const classesToMarkdown = (entry: DocEntry): string => {
   }
 
   markdown.push(`### Methods\n`);
-  markdown.push(`${tableOfContent(methods ?? [])}\n`);
+  markdown.push(`${tableOfContent({entries: methods ?? [], emoji})}\n`);
 
   markdown.push(
-    `${toMarkdown({entries: methods ?? [], headingLevel: '###', docType: 'Method'})}\n`
+    `${toMarkdown({entries: methods ?? [], headingLevel: `${headingLevel}#`, docType: 'Method'})}\n`
   );
 
   return markdown.join('\n');
@@ -61,7 +75,7 @@ const toMarkdown = ({
   docType
 }: {
   entries: DocEntry[];
-  headingLevel: '##' | '#' | '###';
+  headingLevel: MarkdownHeadingLevel | '####';
   docType: 'Constant' | 'Function' | 'Method';
 }): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
@@ -123,14 +137,56 @@ const toMarkdown = ({
   return rows.map(rowToMarkdown).join('\n');
 };
 
-const tableOfContent = (entries: DocEntry[]): string =>
-  entries.map(({name}) => `- [${name}](#gear-${name.toLowerCase().replace(/ /g, '-')})`).join('\n');
+const tableOfContent = ({
+  entries,
+  emoji
+}: {
+  entries: DocEntry[];
+  emoji: MarkdownEmoji | undefined;
+}): string =>
+  entries
+    .map(
+      ({name}) =>
+        `- [${name}](#${emoji === undefined ? '' : `${emoji.entry}-`}${name
+          .toLowerCase()
+          .replace(/ /g, '-')})`
+    )
+    .join('\n');
+
+const emojiTitle = ({
+  emoji,
+  key
+}: {
+  emoji: MarkdownEmoji | undefined;
+  key: keyof MarkdownEmoji;
+}): string => (emoji === undefined ? '' : ` :${emoji[key]}:`);
+
+const DEFAULT_EMOJI: MarkdownEmoji = {
+  classes: 'factory',
+  functions: 'toolbox',
+  constants: 'wrench',
+  entry: 'gear'
+};
 
 /**
  * Convert the documentation entries to an opinionated Markdown format.
- * @param entries The entries of the documentation (global functions and classes).
+ *
+ * @param {entries: DocEntry[]; options: MarkdownOptions;} params
+ * @param params.entries The entries of the documentation (functions, constants and classes).
+ * @param params.options Optional configuration to render the Markdown content. See `types.ts` for details.
  */
-export const documentationToMarkdown = (entries: DocEntry[]): string => {
+export const documentationToMarkdown = ({
+  entries,
+  options
+}: {
+  entries: DocEntry[];
+  options?: MarkdownOptions;
+}): string => {
+  const {headingLevel, emoji: userEmoji} = options ?? {headingLevel: '##', emoji: DEFAULT_EMOJI};
+
+  const emoji: MarkdownEmoji | undefined =
+    userEmoji === null ? undefined : userEmoji ?? DEFAULT_EMOJI;
+
   const functions: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'function');
   const classes: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'class');
   const constants: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'const');
@@ -138,18 +194,20 @@ export const documentationToMarkdown = (entries: DocEntry[]): string => {
   const markdown: string[] = [];
 
   if (functions.length) {
-    markdown.push(`## :toolbox: Functions\n`);
-    markdown.push(`${tableOfContent(functions)}\n`);
-    markdown.push(`${toMarkdown({entries: functions, headingLevel: '##', docType: 'Function'})}\n`);
+    markdown.push(`##${emojiTitle({emoji, key: 'functions'})} Functions\n`);
+    markdown.push(`${tableOfContent({entries: functions, emoji})}\n`);
+    markdown.push(`${toMarkdown({entries: functions, headingLevel, docType: 'Function'})}\n`);
   }
 
   if (constants.length) {
-    markdown.push(`## :wrench: Constants\n`);
-    markdown.push(`${tableOfContent(constants)}\n`);
-    markdown.push(`${toMarkdown({entries: constants, headingLevel: '##', docType: 'Constant'})}\n`);
+    markdown.push(`##${emojiTitle({emoji, key: 'constants'})} Constants\n`);
+    markdown.push(`${tableOfContent({entries: constants, emoji})}\n`);
+    markdown.push(`${toMarkdown({entries: constants, headingLevel, docType: 'Constant'})}\n`);
   }
 
-  markdown.push(classes.map((entry: DocEntry) => classesToMarkdown(entry)).join('\n'));
+  markdown.push(
+    classes.map((entry: DocEntry) => classesToMarkdown({entry, headingLevel, emoji})).join('\n')
+  );
 
   return markdown.join('\n');
 };

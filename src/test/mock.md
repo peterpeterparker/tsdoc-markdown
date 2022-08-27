@@ -1,9 +1,9 @@
-## Functions
+## :toolbox: Functions
 
-- [hello](#hello)
-- [hello2](#hello2)
+- [hello](#gear-hello)
+- [hello2](#gear-hello2)
 
-### hello
+### :gear: hello
 
 Hello
 
@@ -16,7 +16,7 @@ Parameters:
 * `yolo`: this is a jsdoc
 
 
-### hello2
+### :gear: hello2
 
 hello2
 
@@ -25,11 +25,11 @@ hello2
 | `hello2` | `() => void` |
 
 
-## Constants
+## :wrench: Constants
 
-- [numberOne](#numberone)
+- [numberOne](#gear-numberone)
 
-### numberOne
+### :gear: numberOne
 
 A constant
 
@@ -38,7 +38,7 @@ A constant
 | `numberOne` | `2` |
 
 
-## LedgerCanister
+## :factory: LedgerCanister
 
 LedgerCanister is a test class.
 
@@ -55,10 +55,10 @@ Parameters:
 
 ### Methods
 
-- [create](#create)
-- [accountBalance](#accountbalance)
+- [create](#gear-create)
+- [accountBalance](#gear-accountbalance)
 
-#### create
+#### :gear: create
 
 Create a LedgerCanister
 
@@ -66,7 +66,7 @@ Create a LedgerCanister
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
 
-#### accountBalance
+#### :gear: accountBalance
 
 Returns the balance of the specified account identifier.
 

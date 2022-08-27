@@ -27,7 +27,7 @@ export const generateDocumentation = ({
     inputFiles: inputFiles
   });
 
-  const markdown: string = documentationToMarkdown(entries);
+  const markdown: string = documentationToMarkdown({entries});
 
   if (existsSync(outputFile)) {
     const fileContent = readFileSync(outputFile, 'utf-8');

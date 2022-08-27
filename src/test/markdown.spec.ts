@@ -13,7 +13,7 @@ describe('markdown', () => {
       }
     });
 
-    const markdown: string = documentationToMarkdown(doc);
+    const markdown: string = documentationToMarkdown({entries: doc});
 
     const expectedDoc = readFileSync('./src/test/mock.md', 'utf8');
     expect(markdown).toEqual(expectedDoc);

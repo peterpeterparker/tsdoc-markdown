@@ -30,11 +30,12 @@ Convert the documentation entries to an opinionated Markdown format.
 
 | Function | Type |
 | ---------- | ---------- |
-| `documentationToMarkdown` | `(entries: DocEntry[]) => string` |
+| `documentationToMarkdown` | `({ entries, options }: { entries: DocEntry[]; options?: MarkdownOptions; }) => string` |
 
 Parameters:
 
-* `entries`: The entries of the documentation (global functions and classes).
+* `params.entries`: The entries of the documentation (functions, constants and classes).
+* `params.options`: Optional configuration to render the Markdown content. See `types.ts` for details.
 
 
 ### :gear: generateDocumentation
