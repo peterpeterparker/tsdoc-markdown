@@ -4,11 +4,11 @@ Generates markdown API documentation from TypeScript source code. Useful for gen
 
 <!-- TSDOC_START -->
 
-## Functions
+## 🧰 Functions
 
-- [buildDocumentation](#builddocumentation)
-- [documentationToMarkdown](#documentationtomarkdown)
-- [generateDocumentation](#generatedocumentation)
+- [⚙️ buildDocumentation](#builddocumentation)
+- [⚙️ documentationToMarkdown](#documentationtomarkdown)
+- [⚙️ generateDocumentation](#generatedocumentation)
 
 ### ⚙️ buildDocumentation
 
