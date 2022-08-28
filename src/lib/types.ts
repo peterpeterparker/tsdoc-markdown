@@ -1,4 +1,5 @@
 import type {JSDocTagInfo} from 'typescript';
+import {CompilerOptions} from 'typescript';
 
 export type DocEntryType = 'function' | 'method' | 'class' | 'const';
 
@@ -41,4 +42,14 @@ export interface MarkdownOptions {
   emoji?: MarkdownEmoji | null;
   // The base heading level at which the documentation should start. Default ##
   headingLevel: MarkdownHeadingLevel;
+}
+
+/**
+ * The options to generate the JSON representation of the documentation.
+ */
+export interface BuildOptions {
+  // The compiler options use to create the TypeScript program
+  compilerOptions?: CompilerOptions;
+  // `false` per default to limit the scope of the documentation to the input files only. If turns to `true`, all files of the program will be analyzed to generate the documentation.
+  explore: boolean;
 }

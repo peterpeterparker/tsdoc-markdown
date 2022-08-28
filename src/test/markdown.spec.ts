@@ -1,16 +1,11 @@
 import {readFileSync} from 'fs';
-import {ModuleKind, ScriptTarget} from 'typescript';
 import {documentationToMarkdown} from '../lib';
 import {buildDocumentation} from '../lib/docs';
 
 describe('markdown', () => {
   it('should generate markdown for mock', () => {
     const doc = buildDocumentation({
-      inputFiles: ['./src/test/mock.ts'],
-      options: {
-        target: ScriptTarget.ES2020,
-        module: ModuleKind.CommonJS
-      }
+      inputFiles: ['./src/test/mock.ts']
     });
 
     const markdown: string = documentationToMarkdown({entries: doc});

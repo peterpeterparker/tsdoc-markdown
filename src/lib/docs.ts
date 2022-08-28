@@ -29,6 +29,7 @@ import {
   SyntaxKind
 } from 'typescript';
 import type {DocEntry, DocEntryConstructor, DocEntryType} from './types';
+import {BuildOptions} from './types';
 
 /** Serialize a symbol into a json object */
 const serializeSymbol = ({
@@ -193,6 +194,11 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
   return entries;
 };
 
+const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
+  target: ScriptTarget.ES2020,
+  module: ModuleKind.CommonJS
+};
+
 /**
  * Build the documentation entries for the selected sources.
  *
@@ -204,29 +210,31 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
  */
 export const buildDocumentation = ({
   inputFiles,
-  options = {
-    target: ScriptTarget.ES2020,
-    module: ModuleKind.CommonJS
-  }
+  options
 }: {
   inputFiles: string[];
-  options?: CompilerOptions;
+  options?: BuildOptions;
 }): DocEntry[] => {
+  const {compilerOptions, explore} = options ?? {
+    explore: false,
+    compilerOptions: DEFAULT_COMPILER_OPTIONS
+  };
+
   // Build a program using the set of root file names in fileNames
-  const program = createProgram(inputFiles, options);
+  const program = createProgram(inputFiles, compilerOptions ?? DEFAULT_COMPILER_OPTIONS);
+
+  const programSourceFiles = program.getSourceFiles();
 
   const filenamesFullPaths: string[] = inputFiles.map((fileName: string) => resolve(fileName));
 
+  // Visit only the files specified by the developers - no deep visit
+  const sourceFiles = programSourceFiles.filter(
+    ({isDeclarationFile, fileName}) =>
+      !isDeclarationFile && (explore || filenamesFullPaths.includes(resolve(fileName)))
+  );
+
   // Get the checker, we will use it to find more about classes
   const checker = program.getTypeChecker();
-
-  // Visit only the files specified by the developers - no deep visit
-  const sourceFiles = program
-    .getSourceFiles()
-    .filter(
-      ({isDeclarationFile, fileName}) =>
-        !isDeclarationFile && filenamesFullPaths.includes(resolve(fileName))
-    );
 
   const result: DocEntry[] = [];
 

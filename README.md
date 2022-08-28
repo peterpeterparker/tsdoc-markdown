@@ -32,7 +32,7 @@ tsdoc --src=src/lib/*
 tsdoc --src=src/lib/index.ts,src/lib/docs.ts
 ```
 
-> Note: the library explicitly exports only the documentation of the pattern you provide. It does not follow the TypeScript tree.  
+> Note: the library explicitly exports only the documentation of the pattern you provide. It does not follow the TypeScript tree.
 
 The Markdown documentation is parsed per default in a `./README.md` that finds place where you started the command line.
 The output file will be over write unless you specify a `TSDOC_START` and `TSDOC_END` tag (as HTML comment). In such case, the documentation will be parsed within these two tags.
@@ -53,29 +53,27 @@ Using above script is of course optional. You can also develop your own JavaScri
 
 Build the documentation entries for the selected sources.
 
-| Function | Type |
-| ---------- | ---------- |
-| `buildDocumentation` | `({ inputFiles, options }: { inputFiles: string[]; options?: CompilerOptions; }) => DocEntry[]` |
+| Function             | Type                                                                                         |
+| -------------------- | -------------------------------------------------------------------------------------------- |
+| `buildDocumentation` | `({ inputFiles, options }: { inputFiles: string[]; options?: BuildOptions; }) => DocEntry[]` |
 
 Parameters:
 
-* `params.inputFiles`: The list of files to scan and for which the documentation should be build.
-* `params.options`: Optional compiler options to generate the docs
-
+- `params.inputFiles`: The list of files to scan and for which the documentation should be build.
+- `params.options`: Optional compiler options to generate the docs
 
 ### :gear: documentationToMarkdown
 
 Convert the documentation entries to an opinionated Markdown format.
 
-| Function | Type |
-| ---------- | ---------- |
+| Function                  | Type                                                                                    |
+| ------------------------- | --------------------------------------------------------------------------------------- |
 | `documentationToMarkdown` | `({ entries, options }: { entries: DocEntry[]; options?: MarkdownOptions; }) => string` |
 
 Parameters:
 
-* `params.entries`: The entries of the documentation (functions, constants and classes).
-* `params.options`: Optional configuration to render the Markdown content. See `types.ts` for details.
-
+- `params.entries`: The entries of the documentation (functions, constants and classes).
+- `params.options`: Optional configuration to render the Markdown content. See `types.ts` for details.
 
 ### :gear: generateDocumentation
 
@@ -83,18 +81,16 @@ Generate documentation and write output to a file.
 If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments.
 If these does not exist, the output file will be overwritten.
 
-| Function | Type |
-| ---------- | ---------- |
-| `generateDocumentation` | `({ inputFiles, outputFile, markdownOptions }: { inputFiles: string[]; outputFile: string; markdownOptions?: MarkdownOptions; }) => void` |
+| Function                | Type                                                                                                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `generateDocumentation` | `({ inputFiles, outputFile, markdownOptions, buildOptions }: { inputFiles: string[]; outputFile: string; markdownOptions?: MarkdownOptions; buildOptions?: BuildOptions; }) => void` |
 
 Parameters:
 
-* `params.inputFiles`: The list of files to scan for documentation. Absolute or relative path.
-* `params.outputFile`: The file to output the documentation in Markdown.
-* `params.markdownOptions`: Optional settings passed to the Markdown parser. See `MarkdownOptions` for details.
-
-
-
+- `params.inputFiles`: The list of files to scan for documentation. Absolute or relative path.
+- `params.outputFile`: The file to output the documentation in Markdown.
+- `params.markdownOptions`: Optional settings passed to the Markdown parser. See `MarkdownOptions` for details.
+- `params.buildOptions`: Options to construct the documentation tree. See `BuildOptions` for details.
 
 <!-- TSDOC_END -->
 
