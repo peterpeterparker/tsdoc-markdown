@@ -76,7 +76,7 @@ const isNodeExportedOrPublic = (node: Node): boolean => {
   return (
     (flags & ModifierFlags.Export) !== 0 ||
     (flags & ModifierFlags.Public) !== 0 ||
-    (isClassDeclaration(node.parent) && flags === ModifierFlags.None)
+    (isClassDeclaration(node.parent) && [ModifierFlags.None, ModifierFlags.Static].includes(flags))
   );
 };
 

@@ -96,7 +96,16 @@ Returns the balance of the specified account identifier.
 
 ### Methods
 
+- [create](#gear-create)
 - [metadata](#gear-metadata)
+
+#### :gear: create
+
+This create function is public as well.
+
+| Method | Type |
+| ---------- | ---------- |
+| `create` | `(options: { canisterId?: string; }) => SnsLedgerCanister` |
 
 #### :gear: metadata
 
