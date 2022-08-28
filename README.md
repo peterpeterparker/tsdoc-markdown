@@ -43,7 +43,7 @@ Using above script is of course optional. You can also develop your own JavaScri
 
 e.g.
 
-```bash
+```javascript
 #!/usr/bin/env node
 
 const { generateDocumentation } = require("tsdoc-to-markdown");
