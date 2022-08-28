@@ -85,6 +85,26 @@ export class LedgerCanister {
 
 export class SnsLedgerCanister extends Canister<SnsLedgerService> {
   /**
+   * The constructor is public as well.
+   * @param agent Agent js
+   * @param canisterId
+   * @param hardwareWallet
+   */
+  constructor() {}
+
+  /**
+   * This create function is public as well.
+   *
+   * @param {Object} params
+   * @param params.canisterId An optional canisterId
+   */
+  static create(options: {canisterId?: string}) {
+    const canisterId: string = options.canisterId ?? 'test';
+
+    return new SnsLedgerCanister();
+  }
+
+  /**
    * The token metadata (name, symbol, etc.).
    */
   metadata = (params: QueryParams): Promise<SnsTokenMetadataResponse> =>

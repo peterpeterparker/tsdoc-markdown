@@ -126,7 +126,7 @@
   {
     "constructors": [
       {
-        "documentation": "",
+        "documentation": "The constructor is public as well.",
         "parameters": [],
         "returnType": "SnsLedgerCanister",
         "visibility": "public"

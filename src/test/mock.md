@@ -90,7 +90,7 @@ Returns the balance of the specified account identifier.
 
 ### Constructors
 
-`public`: 
+`public`: The constructor is public as well.
 
 
 
