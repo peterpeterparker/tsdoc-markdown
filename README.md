@@ -2,6 +2,9 @@
 
 Generates markdown API documentation from TypeScript source code. Useful for generating docs from code and injecting it into project README files.
 
+> ⚠️ DISCLAIMER ⚠️
+> This library is fully functional but, not yet published to NPM.
+
 ## Installation
 
 Install the library in your project from [npm](https://www.npmjs.com/package/tsdoc-to-markdown):
