@@ -85,12 +85,13 @@ If these does not exist, the output file will be overwritten.
 
 | Function | Type |
 | ---------- | ---------- |
-| `generateDocumentation` | `({ inputFiles, outputFile }: { inputFiles: string[]; outputFile: string; }) => void` |
+| `generateDocumentation` | `({ inputFiles, outputFile, markdownOptions }: { inputFiles: string[]; outputFile: string; markdownOptions?: MarkdownOptions; }) => void` |
 
 Parameters:
 
 * `params.inputFiles`: The list of files to scan for documentation. Absolute or relative path.
 * `params.outputFile`: The file to output the documentation in Markdown.
+* `params.markdownOptions`: Optional settings passed to the Markdown parser. See `MarkdownOptions` for details.
 
 
 

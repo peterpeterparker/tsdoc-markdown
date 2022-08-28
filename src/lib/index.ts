@@ -2,6 +2,7 @@ import {existsSync, readFileSync, writeFileSync} from 'fs';
 import {buildDocumentation} from './docs';
 import {documentationToMarkdown} from './markdown';
 import type {DocEntry, DocEntryConstructor, DocEntryType} from './types';
+import {MarkdownOptions} from './types';
 
 export {buildDocumentation};
 export {documentationToMarkdown};
@@ -12,22 +13,25 @@ export type {DocEntry, DocEntryConstructor, DocEntryType};
  * If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments.
  * If these does not exist, the output file will be overwritten.
  *
- * @param {inputFiles: string[]; outputFile: string;} params
+ * @param {inputFiles: string[]; outputFile: string; markdownOptions?: MarkdownOptions;} params
  * @param params.inputFiles The list of files to scan for documentation. Absolute or relative path.
  * @param params.outputFile The file to output the documentation in Markdown.
+ * @param params.markdownOptions Optional settings passed to the Markdown parser. See `MarkdownOptions` for details.
  */
 export const generateDocumentation = ({
   inputFiles,
-  outputFile
+  outputFile,
+  markdownOptions
 }: {
   inputFiles: string[];
   outputFile: string;
+  markdownOptions?: MarkdownOptions;
 }) => {
   const entries: DocEntry[] = buildDocumentation({
     inputFiles: inputFiles
   });
 
-  const markdown: string = documentationToMarkdown({entries});
+  const markdown: string = documentationToMarkdown({entries, options: markdownOptions});
 
   if (existsSync(outputFile)) {
     const fileContent = readFileSync(outputFile, 'utf-8');
