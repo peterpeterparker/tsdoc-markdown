@@ -33,7 +33,7 @@ const classesToMarkdown = ({
 }): string => {
   const {name, documentation, methods, constructors} = entry;
 
-  const markdown: string[] = [`##${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
+  const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
   markdown.push(`${documentation}\n`);
 
   const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
@@ -41,7 +41,7 @@ const classesToMarkdown = ({
   );
 
   if (publicConstructors?.length) {
-    markdown.push(`### Constructors\n`);
+    markdown.push(`${headingLevel}# Constructors\n`);
 
     markdown.push(
       ...publicConstructors.map(({parameters, documentation, visibility}) => {
@@ -59,7 +59,7 @@ const classesToMarkdown = ({
     markdown.push('\n');
   }
 
-  markdown.push(`### Methods\n`);
+  markdown.push(`${headingLevel}# Methods\n`);
   markdown.push(`${tableOfContent({entries: methods ?? [], emoji})}\n`);
 
   markdown.push(
@@ -194,13 +194,13 @@ export const documentationToMarkdown = ({
   const markdown: string[] = [];
 
   if (functions.length) {
-    markdown.push(`##${emojiTitle({emoji, key: 'functions'})} Functions\n`);
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'functions'})} Functions\n`);
     markdown.push(`${tableOfContent({entries: functions, emoji})}\n`);
     markdown.push(`${toMarkdown({entries: functions, headingLevel, docType: 'Function'})}\n`);
   }
 
   if (constants.length) {
-    markdown.push(`##${emojiTitle({emoji, key: 'constants'})} Constants\n`);
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'constants'})} Constants\n`);
     markdown.push(`${tableOfContent({entries: constants, emoji})}\n`);
     markdown.push(`${toMarkdown({entries: constants, headingLevel, docType: 'Constant'})}\n`);
   }
