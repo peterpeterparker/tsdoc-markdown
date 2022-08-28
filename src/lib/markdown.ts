@@ -59,6 +59,10 @@ const classesToMarkdown = ({
     markdown.push('\n');
   }
 
+  if (!methods || methods.length === 0) {
+    return markdown.join('\n');
+  }
+
   markdown.push(`${headingLevel}# Methods\n`);
   markdown.push(`${tableOfContent({entries: methods ?? [], emoji})}\n`);
 
