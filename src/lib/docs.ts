@@ -71,7 +71,12 @@ const serializeClass = ({
 /** True if this is visible outside this file, false otherwise */
 const isNodeExportedOrPublic = (node: Node): boolean => {
   const flags = getCombinedModifierFlags(node as Declaration);
-  return (flags & ModifierFlags.Export) !== 0 || (flags & ModifierFlags.Public) !== 0;
+
+  return (
+    (flags & ModifierFlags.Export) !== 0 ||
+    (flags & ModifierFlags.Public) !== 0 ||
+    (isClassDeclaration(node.parent) && flags === ModifierFlags.None)
+  );
 };
 
 /** Serialize a signature (call or construct) */

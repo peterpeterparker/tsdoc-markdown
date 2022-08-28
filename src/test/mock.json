@@ -114,5 +114,30 @@
     ],
     "name": "LedgerCanister",
     "type": "typeof LedgerCanister"
+  },
+  {
+    "constructors": [
+      {
+        "documentation": "",
+        "parameters": [],
+        "returnType": "SnsLedgerCanister",
+        "visibility": "public"
+      }
+    ],
+    "doc_type": "class",
+    "documentation": "",
+    "fileName": "src/test/mock.ts",
+    "jsDocs": [],
+    "methods": [
+      {
+        "doc_type": "function",
+        "documentation": "The token metadata (name, symbol, etc.).",
+        "jsDocs": [],
+        "name": "metadata",
+        "type": "(params: QueryParams) => Promise<SnsTokenMetadataResponse>"
+      }
+    ],
+    "name": "SnsLedgerCanister",
+    "type": "typeof SnsLedgerCanister"
   }
 ]

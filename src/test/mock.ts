@@ -77,3 +77,12 @@ export class LedgerCanister {
     console.log('hello');
   }
 }
+
+export class SnsLedgerCanister extends Canister<SnsLedgerService> {
+
+  /**
+   * The token metadata (name, symbol, etc.).
+   */
+  metadata = (params: QueryParams): Promise<SnsTokenMetadataResponse> =>
+      this.caller(params).icrc1_metadata();
+}

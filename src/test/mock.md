@@ -74,3 +74,26 @@ Returns the balance of the specified account identifier.
 | ---------- | ---------- |
 | `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` |
 
+
+## :factory: SnsLedgerCanister
+
+
+
+### Constructors
+
+`public`: 
+
+
+
+### Methods
+
+- [metadata](#gear-metadata)
+
+#### :gear: metadata
+
+The token metadata (name, symbol, etc.).
+
+| Method | Type |
+| ---------- | ---------- |
+| `metadata` | `(params: QueryParams) => Promise<SnsTokenMetadataResponse>` |
+
