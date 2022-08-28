@@ -32,14 +32,46 @@ tsdoc --src=src/lib/*
 tsdoc --src=src/lib/index.ts,src/lib/docs.ts
 ```
 
-> Note: the library explicitly exports only the documentation of the pattern you provide. It does not follow the TypeScript tree.
+> Note: the library exports per default only the documentation of the pattern you provide. It does not explore the TypeScript tree. If you wish to do so, either provide a PR to the Cli to support the option `explore` or create your own script for your project 😉
 
 The Markdown documentation is parsed per default in a `./README.md` that finds place where you started the command line.
 The output file will be over write unless you specify a `TSDOC_START` and `TSDOC_END` tag (as HTML comment). In such case, the documentation will be parsed within these two tags.
 
 Specifying another output file is also supported with the parameter `--dest`.
 
-Using above script is of course optional. You can also develop your own JavaScript script and use one of the following functions.
+Using above script is of course optional. You can also develop your own JavaScript script and use one of the functions here under.
+
+e.g.
+
+```bash
+#!/usr/bin/env node
+
+const { generateDocumentation } = require("tsdoc-to-markdown");
+
+// Generate documentation for a list of files
+const nnsInputFiles = [
+  "./packages/nns/src/account_identifier.ts",
+  "./packages/nns/src/genesis_token.canister.ts",
+  "./packages/nns/src/governance.canister.ts",
+  "./packages/nns/src/icp.ts"
+];
+
+generateDocumentation({
+  inputFiles: nnsInputFiles,
+  outputFile: "./packages/nns/README.md",
+});
+
+// Start from a single file and explore the TypeScript tree
+
+const utilsInputFiles = ["./packages/utils/src/index.ts"];
+
+generateDocumentation({
+  inputFiles: utilsInputFiles,
+  outputFile: "./packages/utils/YOLO.md",
+  buildOptions: {explore: true}
+});
+
+```
 
 <!-- TSDOC_START -->
 
