@@ -118,6 +118,9 @@ const toMarkdown = ({
     params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])]
   }));
 
+  // Avoid issue if the Markdown table gets formatted with Prettier
+  const parseType = (type: string): string => type.replace(/ \| /, ' or ').replace(/ & /, ' and ');
+
   const rowToMarkdown = ({name, documentation, type, params}: Row): string => {
     const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
 
@@ -127,7 +130,7 @@ const toMarkdown = ({
 
     markdown.push(`| ${docType} | Type |`);
     markdown.push('| ---------- | ---------- |');
-    markdown.push(`| \`${name}\` | \`${type}\` |\n`);
+    markdown.push(`| \`${name}\` | \`${parseType(type)}\` |\n`);
 
     if (params.length) {
       markdown.push('Parameters:\n');

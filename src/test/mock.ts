@@ -18,6 +18,11 @@ export function hello2() {
 }
 
 /**
+ * Markdown should handle ` | ` for the type.
+ */
+export const genericType = <T>(value: [] | [T]): T => value?.[0];
+
+/**
  * Should not be documented.
  */
 const hello3 = () => {
@@ -79,10 +84,9 @@ export class LedgerCanister {
 }
 
 export class SnsLedgerCanister extends Canister<SnsLedgerService> {
-
   /**
    * The token metadata (name, symbol, etc.).
    */
   metadata = (params: QueryParams): Promise<SnsTokenMetadataResponse> =>
-      this.caller(params).icrc1_metadata();
+    this.caller(params).icrc1_metadata();
 }

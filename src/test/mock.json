@@ -39,6 +39,14 @@
     "type": "() => void"
   },
   {
+    "doc_type": "function",
+    "documentation": "Markdown should handle ` | ` for the type.",
+    "fileName": "src/test/mock.ts",
+    "jsDocs": [],
+    "name": "genericType",
+    "type": "<T>(value: [] | [T]) => T"
+  },
+  {
     "constructors": [
       {
         "documentation": "The constructor is public.",
