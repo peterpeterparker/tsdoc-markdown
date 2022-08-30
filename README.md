@@ -46,31 +46,30 @@ e.g.
 ```javascript
 #!/usr/bin/env node
 
-const { generateDocumentation } = require("tsdoc-to-markdown");
+const {generateDocumentation} = require('tsdoc-to-markdown');
 
 // Generate documentation for a list of files
 const nnsInputFiles = [
-  "./packages/nns/src/account_identifier.ts",
-  "./packages/nns/src/genesis_token.canister.ts",
-  "./packages/nns/src/governance.canister.ts",
-  "./packages/nns/src/icp.ts"
+  './packages/nns/src/account_identifier.ts',
+  './packages/nns/src/genesis_token.canister.ts',
+  './packages/nns/src/governance.canister.ts',
+  './packages/nns/src/icp.ts'
 ];
 
 generateDocumentation({
   inputFiles: nnsInputFiles,
-  outputFile: "./packages/nns/README.md",
+  outputFile: './packages/nns/README.md'
 });
 
 // Start from a single file and explore the TypeScript tree
 
-const utilsInputFiles = ["./packages/utils/src/index.ts"];
+const utilsInputFiles = ['./packages/utils/src/index.ts'];
 
 generateDocumentation({
   inputFiles: utilsInputFiles,
-  outputFile: "./packages/utils/YOLO.md",
+  outputFile: './packages/utils/YOLO.md',
   buildOptions: {explore: true}
 });
-
 ```
 
 <!-- TSDOC_START -->

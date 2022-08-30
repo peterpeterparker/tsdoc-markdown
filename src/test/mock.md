@@ -58,8 +58,8 @@ LedgerCanister is a test class.
 Parameters:
 
 * `agent`: Agent js
-* `canisterId`: 
-* `hardwareWallet`: 
+* `canisterId`
+* `hardwareWallet`
 
 
 ### Methods

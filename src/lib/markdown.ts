@@ -19,8 +19,11 @@ const toParams = (parameters?: DocEntry[]): Params[] =>
     documentation: documentation ?? ''
   }));
 
+const inlineDocParam = (documentation: string | undefined): string =>
+  documentation !== undefined && documentation !== '' ? `: ${documentation}` : '';
+
 const inlineParams = (params: Params[]): string[] =>
-  params.map(({name, documentation}) => `* \`${name}\`: ${documentation}`);
+  params.map(({name, documentation}) => `* \`${name}\`${inlineDocParam(documentation)}`);
 
 const classesToMarkdown = ({
   entry,
@@ -45,7 +48,7 @@ const classesToMarkdown = ({
 
     markdown.push(
       ...publicConstructors.map(({parameters, documentation, visibility}) => {
-        const docs: string[] = [`\`${visibility}\`: ${documentation ?? ''}\n`];
+        const docs: string[] = [`\`${visibility}\`${inlineDocParam(documentation)}\n`];
 
         if (parameters?.length) {
           docs.push(`Parameters:\n`);
