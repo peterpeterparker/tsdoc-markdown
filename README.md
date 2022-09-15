@@ -7,10 +7,10 @@ Generates markdown API documentation from TypeScript source code. Useful for gen
 
 ## Installation
 
-Install the library in your project from [npm](https://www.npmjs.com/package/tsdoc-to-markdown):
+Until this library is published to npm, you can install it in your project as following:
 
 ```bash
-npm install tsdoc-to-markdown -D
+npm install -D git+https://github.com/peterpeterparker/tsdoc-to-markdown.git
 ```
 
 ## Usage
