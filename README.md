@@ -89,6 +89,8 @@ _Note: Chapter "Functions" is auto-generated with `tsdoc-markdown`._
 
 Build the documentation entries for the selected sources.
 
+TODO: to be remove - JUST to TEST CI
+
 | Function             | Type                                                                                         |
 | -------------------- | -------------------------------------------------------------------------------------------- |
 | `buildDocumentation` | `({ inputFiles, options }: { inputFiles: string[]; options?: BuildOptions; }) => DocEntry[]` |
