@@ -1,5 +1,5 @@
 {
-  "name": "tsdoc-to-markdown",
+  "name": "tsdoc-markdown",
   "version": "0.0.1",
   "description": "Generates markdown API documentation from TypeScript source code.",
   "author": "David Dal Busco",
@@ -27,10 +27,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/peterpeterparker/tsdoc-to-markdown.git"
+    "url": "git+https://github.com/peterpeterparker/tsdoc-markdown.git"
   },
   "bugs": {
-    "url": "https://github.com/peterpeterparker/tsdoc-to-markdown"
+    "url": "https://github.com/peterpeterparker/tsdoc-markdown"
   },
   "devDependencies": {
     "@types/jest": "^28.1.4",
