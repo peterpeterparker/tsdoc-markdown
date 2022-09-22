@@ -10,6 +10,10 @@ Install the library in your project from [npm](https://www.npmjs.com/package/tsd
 npm install -D tsdoc-markdown
 ```
 
+## GitHub Actions
+
+A GitHub Actions workflow that generates the documentation for pull requests using this library is available in [tsdoc.yml](/.github/workflows/tsdoc.yml).
+
 ## Usage
 
 This tool is shipped with a NodeJS [bin](/bin/index.js) script that can be executed with the shortcut `tsdoc`.
