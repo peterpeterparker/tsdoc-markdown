@@ -202,6 +202,8 @@ const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
 /**
  * Build the documentation entries for the selected sources.
  *
+ * TODO: to be remove - JUST to TEST CI
+ *
  * @param {inputFiles: string[]; options?: CompilerOptions;} params
  * @param {string[]} params.inputFiles The list of files to scan and for which the documentation should be build.
  * @param {CompilerOptions} params.options Optional compiler options to generate the docs
