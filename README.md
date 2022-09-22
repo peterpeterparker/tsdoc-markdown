@@ -1,16 +1,13 @@
 # tsdoc-markdown
 
-Generates markdown API documentation from TypeScript source code. Useful for generating docs from code and injecting it into project README files.
-
-> ⚠️ DISCLAIMER ⚠️
-> This library is fully functional but, not yet published to NPM.
+Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
 
 ## Installation
 
-Until this library is published to npm, you can install it in your project as following:
+Install the library in your project from [npm](https://www.npmjs.com/package/tsdoc-markdown):
 
 ```bash
-npm install -D git+https://github.com/peterpeterparker/tsdoc-markdown.git
+npm install -D tsdoc-markdown
 ```
 
 ## Usage
@@ -71,6 +68,10 @@ generateDocumentation({
   buildOptions: {explore: true}
 });
 ```
+
+<br/>
+
+*Note: Chapter "Functions" is auto-generated with `tsdoc-markdown`.*
 
 <!-- TSDOC_START -->
 
