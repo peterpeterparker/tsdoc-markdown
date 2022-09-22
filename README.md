@@ -75,7 +75,7 @@ generateDocumentation({
 
 <br/>
 
-*Note: Chapter "Functions" is auto-generated with `tsdoc-markdown`.*
+_Note: Chapter "Functions" is auto-generated with `tsdoc-markdown`._
 
 <!-- TSDOC_START -->
 
