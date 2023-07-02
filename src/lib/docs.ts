@@ -1,4 +1,4 @@
-import {resolve} from 'path';
+import {relative, resolve} from 'path';
 import type {
   ArrowFunction,
   CompilerOptions,
@@ -245,11 +245,13 @@ export const buildDocumentation = ({
     forEachChild(sourceFile, (node: Node) => {
       const entries: DocEntry[] = visit({checker, node});
       const {line} = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      const filePath = relative(process.cwd(), sourceFile.fileName);
+
       result.push(
         ...entries.map((entry: DocEntry) => ({
           ...entry,
           line: line + 1,
-          fileName: sourceFile.fileName
+          fileRelativePath: filePath
         }))
       );
     });

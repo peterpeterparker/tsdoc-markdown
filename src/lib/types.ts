@@ -8,7 +8,7 @@ export type DocEntryConstructor = Pick<DocEntry, 'parameters' | 'returnType' | '
 
 export interface DocEntry {
   name: string;
-  fileName?: string;
+  fileRelativePath?: string;
   documentation?: string;
   type?: string;
   constructors?: DocEntryConstructor[];
