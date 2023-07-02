@@ -37,7 +37,7 @@ describe('markdown', () => {
     });
 
     expect(markdown).toContain(
-      `[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L${line})`
+      `[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L${line})`
     );
   });
 });

@@ -96,7 +96,7 @@ const sourceCodeLink = ({
   Pick<DocEntry, 'line' | 'fileName'>): string => {
   const {url, branch} = repo;
   const sourceCodeUrl = `${url.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${fileName}#L${line}`;
-  return `[Source${emojiTitle({emoji, key: 'link'})}](${sourceCodeUrl})\n`;
+  return `[${emojiTitle({emoji, key: 'link'}).trim()} Source](${sourceCodeUrl})\n`;
 };
 
 const toMarkdown = ({

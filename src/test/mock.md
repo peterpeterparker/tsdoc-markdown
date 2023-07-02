@@ -17,7 +17,7 @@ Parameters:
 * `yolo`: this is a jsdoc
 
 
-[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L6)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L6)
 
 ### :gear: hello2
 
@@ -27,7 +27,7 @@ hello2
 | ---------- | ---------- |
 | `hello2` | `() => void` |
 
-[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L16)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L16)
 
 ### :gear: genericType
 
@@ -37,7 +37,7 @@ Markdown should handle ` | ` for the type.
 | ---------- | ---------- |
 | `genericType` | `<T>(value: [] or [T]) => T` |
 
-[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L23)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L23)
 
 
 ## :wrench: Constants
@@ -52,7 +52,7 @@ A constant
 | ---------- | ---------- |
 | `numberOne` | `2` |
 
-[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L11)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L11)
 
 
 ## :factory: LedgerCanister
@@ -92,7 +92,7 @@ Returns the balance of the specified account identifier.
 | `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` |
 
 
-[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L35)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L35)
 
 ## :factory: SnsLedgerCanister
 
@@ -124,7 +124,7 @@ The token metadata (name, symbol, etc.).
 | `metadata` | `(params: QueryParams) => Promise<SnsTokenMetadataResponse>` |
 
 
-[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L86)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L86)
 
 ## :factory: default
 
@@ -141,4 +141,4 @@ Description
 | `bar` | `() => void` |
 
 
-[Source :link:](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L114)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L114)
