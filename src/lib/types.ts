@@ -8,7 +8,8 @@ export type DocEntryConstructor = Pick<DocEntry, 'parameters' | 'returnType' | '
 
 export interface DocEntry {
   name: string;
-  fileRelativePath?: string;
+  fileName?: string;
+  url?: string;
   documentation?: string;
   type?: string;
   constructors?: DocEntryConstructor[];
@@ -17,13 +18,6 @@ export interface DocEntry {
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
   doc_type?: DocEntryType;
-  line?: number;
-}
-
-export interface MarkdownRepo {
-  url: string;
-  // Default: "main" branch
-  branch?: string;
 }
 
 /**
@@ -49,8 +43,12 @@ export interface MarkdownOptions {
   emoji?: MarkdownEmoji | null;
   // The base heading level at which the documentation should start. Default ##
   headingLevel?: MarkdownHeadingLevel;
-  // If provided, the Markdown parser will generate links to the documented source code
-  repo?: MarkdownRepo;
+}
+
+export interface RepoOptions {
+  url: string;
+  // Default: "main" branch
+  branch?: string;
 }
 
 /**
@@ -60,5 +58,7 @@ export interface BuildOptions {
   // The compiler options use to create the TypeScript program
   compilerOptions?: CompilerOptions;
   // `false` per default to limit the scope of the documentation to the input files only. If turns to `true`, all files of the program will be analyzed to generate the documentation.
-  explore: boolean;
+  explore?: boolean;
+  // If provided, the Markdown parser will generate links to the documented source code
+  repo?: RepoOptions;
 }

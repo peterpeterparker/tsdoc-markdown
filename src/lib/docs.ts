@@ -6,6 +6,7 @@ import type {
   FunctionDeclaration,
   Node,
   Signature,
+  SourceFile,
   Symbol as TypeScriptSymbol,
   TypeChecker,
   VariableDeclaration,
@@ -216,10 +217,16 @@ export const buildDocumentation = ({
   inputFiles: string[];
   options?: BuildOptions;
 }): DocEntry[] => {
-  const {compilerOptions, explore} = options ?? {
+  const {
+    compilerOptions,
+    explore: userExplore,
+    repo
+  } = options ?? {
     explore: false,
     compilerOptions: DEFAULT_COMPILER_OPTIONS
   };
+
+  const explore = userExplore ?? false;
 
   // Build a program using the set of root file names in fileNames
   const program = createProgram(inputFiles, compilerOptions ?? DEFAULT_COMPILER_OPTIONS);
@@ -239,19 +246,36 @@ export const buildDocumentation = ({
 
   const result: DocEntry[] = [];
 
+  const sourceCodeLink = ({
+    repo,
+    node,
+    sourceFile
+  }: Pick<BuildOptions, 'repo'> & {sourceFile: SourceFile; node: Node}): string | undefined => {
+    if (repo === undefined) {
+      return undefined;
+    }
+
+    const {url, branch} = repo;
+
+    const {line} = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+    const filePath = relative(process.cwd(), sourceFile.fileName);
+
+    return `${url.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${filePath}#L${line + 1}`;
+  };
+
   // Visit every sourceFile in the program
   for (const sourceFile of sourceFiles) {
     // Walk the tree to search for classes
     forEachChild(sourceFile, (node: Node) => {
       const entries: DocEntry[] = visit({checker, node});
-      const {line} = sourceFile.getLineAndCharacterOfPosition(node.getStart());
-      const filePath = relative(process.cwd(), sourceFile.fileName);
+
+      const url = sourceCodeLink({repo, sourceFile, node});
 
       result.push(
         ...entries.map((entry: DocEntry) => ({
           ...entry,
-          line: line + 1,
-          fileRelativePath: filePath
+          fileName: sourceFile.fileName,
+          ...(url && {url})
         }))
       );
     });
