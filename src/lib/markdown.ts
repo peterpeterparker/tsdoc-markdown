@@ -10,7 +10,7 @@ import type {
 type Params = {name: string; documentation: string};
 
 type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
-  Pick<DocEntry, 'line' | 'fileName'> & {
+  Pick<DocEntry, 'line' | 'fileRelativePath'> & {
     params: Params[];
   };
 
@@ -35,7 +35,7 @@ const classesToMarkdown = ({
   entry: DocEntry;
 } & Required<Pick<MarkdownOptions, 'headingLevel'>> &
   Omit<MarkdownOptions, 'headingLevel'>): string => {
-  const {name, fileName, line, documentation, methods, constructors} = entry;
+  const {name, fileRelativePath, line, documentation, methods, constructors} = entry;
 
   const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
   documentation !== undefined && documentation !== '' && markdown.push(`${documentation}\n`);
@@ -80,7 +80,7 @@ const classesToMarkdown = ({
   );
 
   if (repo !== undefined) {
-    markdown.push(sourceCodeLink({repo, emoji, fileName, line}));
+    markdown.push(sourceCodeLink({repo, emoji, fileRelativePath, line}));
   }
 
   return markdown.join('\n');
@@ -89,13 +89,15 @@ const classesToMarkdown = ({
 const sourceCodeLink = ({
   repo,
   emoji,
-  fileName,
+  fileRelativePath,
   line
 }: Pick<MarkdownOptions, 'emoji'> &
   Required<Pick<MarkdownOptions, 'repo'>> &
-  Pick<DocEntry, 'line' | 'fileName'>): string => {
+  Pick<DocEntry, 'line' | 'fileRelativePath'>): string => {
   const {url, branch} = repo;
-  const sourceCodeUrl = `${url.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${fileName}#L${line}`;
+  const sourceCodeUrl = `${url.replace(/\/+$/, '')}/tree/${
+    branch ?? 'main'
+  }/${fileRelativePath}#L${line}`;
   return `[${emojiTitle({emoji, key: 'link'}).trim()} Source](${sourceCodeUrl})\n`;
 };
 
@@ -140,20 +142,27 @@ const toMarkdown = ({
   };
 
   const rows: Row[] = entries.map(
-    ({name, type, documentation, parameters, jsDocs, line, fileName}: DocEntry) => ({
+    ({name, type, documentation, parameters, jsDocs, line, fileRelativePath}: DocEntry) => ({
       name,
       type: type ?? '',
       documentation: documentation ?? '',
       params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])],
       line,
-      fileName
+      fileRelativePath
     })
   );
 
   // Avoid issue if the Markdown table gets formatted with Prettier
   const parseType = (type: string): string => type.replace(/ \| /, ' or ').replace(/ & /, ' and ');
 
-  const rowToMarkdown = ({name, documentation, type, params, line, fileName}: Row): string => {
+  const rowToMarkdown = ({
+    name,
+    documentation,
+    type,
+    params,
+    line,
+    fileRelativePath
+  }: Row): string => {
     const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
 
     if (documentation.length) {
@@ -171,7 +180,7 @@ const toMarkdown = ({
     }
 
     if (repo !== undefined) {
-      markdown.push(sourceCodeLink({repo, emoji, fileName, line}));
+      markdown.push(sourceCodeLink({repo, emoji, fileRelativePath, line}));
     }
 
     return markdown.join('\n');
