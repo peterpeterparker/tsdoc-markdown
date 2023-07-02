@@ -59,6 +59,8 @@ A constant
 
 LedgerCanister is a test class.
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L35)
+
 ### Constructors
 
 `public`: The constructor is public.
@@ -83,6 +85,8 @@ Create a LedgerCanister
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L55)
+
 #### :gear: accountBalance
 
 Returns the balance of the specified account identifier.
@@ -91,10 +95,12 @@ Returns the balance of the specified account identifier.
 | ---------- | ---------- |
 | `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` |
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L69)
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L35)
 
 ## :factory: SnsLedgerCanister
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L86)
 
 ### Constructors
 
@@ -115,6 +121,8 @@ This create function is public as well.
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string; }) => SnsLedgerCanister` |
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L101)
+
 #### :gear: metadata
 
 The token metadata (name, symbol, etc.).
@@ -123,10 +131,12 @@ The token metadata (name, symbol, etc.).
 | ---------- | ---------- |
 | `metadata` | `(params: QueryParams) => Promise<SnsTokenMetadataResponse>` |
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L110)
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L86)
 
 ## :factory: default
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L114)
 
 ### Methods
 
@@ -140,5 +150,5 @@ Description
 | ---------- | ---------- |
 | `bar` | `() => void` |
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L118)
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L114)

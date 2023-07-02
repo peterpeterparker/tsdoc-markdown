@@ -113,7 +113,11 @@ const findDescendantArrowFunction = (node: Node): Node | undefined => {
 };
 
 /** visit nodes finding exported classes */
-const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] => {
+const visit = ({
+  checker,
+  node,
+  ...rest
+}: {checker: TypeChecker; node: Node} & Source): DocEntry[] => {
   // // Only consider exported nodes
   if (!isNodeExportedOrPublic(node)) {
     return [];
@@ -123,17 +127,25 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 
   const addDocEntry = ({
     symbol,
-    doc_type
+    doc_type,
+    node
   }: {
     symbol: TypeScriptSymbol | undefined;
     doc_type: DocEntryType;
+    node: Node;
   }) => {
     if (!symbol) {
       return;
     }
 
     const details = serializeSymbol({checker, symbol, doc_type});
-    entries.push(details);
+    entries.push({
+      ...details,
+      ...buildSource({
+        node,
+        ...rest
+      })
+    });
   };
 
   if (isClassDeclaration(node) && node.name) {
@@ -143,12 +155,18 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
     if (symbol) {
       const classEntry: DocEntry = {
         ...serializeClass({checker, symbol}),
-        methods: []
+        methods: [],
+        ...buildSource({
+          node,
+          ...rest
+        })
       };
 
       const visitChild = (node: Node) => {
-        const docEntries: DocEntry[] = visit({node, checker});
-        classEntry.methods?.push(...docEntries);
+        const docEntries: DocEntry[] = visit({node, checker, ...rest});
+        // We do not need to repeat the file name for class members
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        classEntry.methods?.push(...docEntries.map(({fileName: _, ...rest}) => rest));
       };
 
       forEachChild(node, visitChild);
@@ -157,7 +175,7 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
     }
   } else if (isModuleDeclaration(node)) {
     const visitChild = (node: Node) => {
-      const docEntries: DocEntry[] = visit({node, checker});
+      const docEntries: DocEntry[] = visit({node, checker, ...rest});
       entries.push(...docEntries);
     };
 
@@ -165,10 +183,10 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
     forEachChild(node, visitChild);
   } else if (isMethodDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation(node.name);
-    addDocEntry({symbol, doc_type: 'method'});
+    addDocEntry({symbol, doc_type: 'method', node});
   } else if (isFunctionDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation((node as FunctionDeclaration).name ?? node);
-    addDocEntry({symbol, doc_type: 'function'});
+    addDocEntry({symbol, doc_type: 'function', node});
   } else {
     const arrowFunc: Node | undefined = findDescendantArrowFunction(node);
 
@@ -176,7 +194,7 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
       const symbol = checker.getSymbolAtLocation(
         ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
       );
-      addDocEntry({symbol, doc_type: 'function'});
+      addDocEntry({symbol, doc_type: 'function', node: arrowFunc});
     } else if (isVariableStatement(node)) {
       const {
         declarationList: {declarations, flags}
@@ -188,7 +206,7 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
       if (isConst) {
         // TODO: not sure what's the proper casting, VariableDeclaration does not contain Symbol but the test entity effectively does
         const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
-        addDocEntry({symbol, doc_type: 'const'});
+        addDocEntry({symbol, doc_type: 'const', node});
       }
     }
   }
@@ -199,6 +217,32 @@ const visit = ({checker, node}: {checker: TypeChecker; node: Node}): DocEntry[] 
 const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
   target: ScriptTarget.ES2020,
   module: ModuleKind.CommonJS
+};
+
+type Source = Pick<BuildOptions, 'repo'> & {sourceFile: SourceFile};
+
+const buildSource = ({
+  repo,
+  node,
+  sourceFile
+}: Source & {node: Node}): Pick<DocEntry, 'url' | 'fileName'> => {
+  const fileName = sourceFile.fileName;
+
+  if (repo === undefined) {
+    return {fileName};
+  }
+
+  const {url: repoUrl, branch} = repo;
+
+  const {line} = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+  const filePath = relative(process.cwd(), sourceFile.fileName);
+
+  const url = `${repoUrl.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${filePath}#L${line + 1}`;
+
+  return {
+    fileName,
+    url
+  };
 };
 
 /**
@@ -246,38 +290,12 @@ export const buildDocumentation = ({
 
   const result: DocEntry[] = [];
 
-  const sourceCodeLink = ({
-    repo,
-    node,
-    sourceFile
-  }: Pick<BuildOptions, 'repo'> & {sourceFile: SourceFile; node: Node}): string | undefined => {
-    if (repo === undefined) {
-      return undefined;
-    }
-
-    const {url, branch} = repo;
-
-    const {line} = sourceFile.getLineAndCharacterOfPosition(node.getStart());
-    const filePath = relative(process.cwd(), sourceFile.fileName);
-
-    return `${url.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${filePath}#L${line + 1}`;
-  };
-
   // Visit every sourceFile in the program
   for (const sourceFile of sourceFiles) {
     // Walk the tree to search for classes
     forEachChild(sourceFile, (node: Node) => {
-      const entries: DocEntry[] = visit({checker, node});
-
-      const url = sourceCodeLink({repo, sourceFile, node});
-
-      result.push(
-        ...entries.map((entry: DocEntry) => ({
-          ...entry,
-          fileName: sourceFile.fileName,
-          ...(url && {url})
-        }))
-      );
+      const entries: DocEntry[] = visit({checker, node, sourceFile, repo});
+      result.push(...entries);
     });
   }
 
