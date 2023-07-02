@@ -1,8 +1,13 @@
 import {existsSync, readFileSync, writeFileSync} from 'fs';
 import {buildDocumentation} from './docs';
 import {documentationToMarkdown} from './markdown';
-import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
-import {MarkdownOptions} from './types';
+import type {
+  BuildOptions,
+  DocEntry,
+  DocEntryConstructor,
+  DocEntryType,
+  MarkdownOptions
+} from './types';
 
 export {buildDocumentation};
 export {documentationToMarkdown};
@@ -23,7 +28,7 @@ export const generateDocumentation = ({
   inputFiles,
   outputFile,
   markdownOptions,
-    buildOptions
+  buildOptions
 }: {
   inputFiles: string[];
   outputFile: string;

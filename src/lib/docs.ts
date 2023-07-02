@@ -28,8 +28,7 @@ import {
   ScriptTarget,
   SyntaxKind
 } from 'typescript';
-import type {DocEntry, DocEntryConstructor, DocEntryType} from './types';
-import {BuildOptions} from './types';
+import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
 
 /** Serialize a symbol into a json object */
 const serializeSymbol = ({
@@ -65,7 +64,9 @@ const serializeClass = ({
 
   details.constructors = constructorType
     .getConstructSignatures()
-    .map((signature: Signature) => serializeSignature({checker, signature}));
+    .map((signature: Signature) => serializeSignature({checker, signature}))
+    .filter(({documentation}) => documentation !== undefined && documentation !== '');
+
   return details;
 };
 
