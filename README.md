@@ -40,6 +40,8 @@ The output file will be over write unless you specify a `TSDOC_START` and `TSDOC
 
 Specifying another output file is also supported with the parameter `--dest`.
 
+To generate links to the documented source code, you can also provide the `--repo` parameter, which corresponds to the URL of your repository on GitHub.
+
 Using above script is of course optional. You can also develop your own JavaScript script and use one of the functions here under.
 
 e.g.
