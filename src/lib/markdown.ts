@@ -39,6 +39,10 @@ const classesToMarkdown = ({
   const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
   documentation !== undefined && documentation !== '' && markdown.push(`${documentation}\n`);
 
+  if (url !== undefined) {
+    markdown.push(sourceCodeLink({emoji, url}));
+  }
+
   const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
     ({visibility}) => visibility === 'public'
   );
@@ -74,13 +78,10 @@ const classesToMarkdown = ({
     `${toMarkdown({
       entries: methods ?? [],
       headingLevel: `${headingLevel}#`,
-      docType: 'Method'
+      docType: 'Method',
+      emoji
     })}\n`
   );
-
-  if (url !== undefined) {
-    markdown.push(sourceCodeLink({emoji, url}));
-  }
 
   return markdown.join('\n');
 };
