@@ -8,9 +8,17 @@ describe('markdown', () => {
       inputFiles: ['./src/test/mock.ts']
     });
 
-    const markdown: string = documentationToMarkdown({entries: doc});
+    const markdown: string = documentationToMarkdown({
+      entries: doc,
+      options: {
+        repo: {
+          url: 'https://github.com/peterpeterparker/tsdoc-markdown'
+        }
+      }
+    });
 
     const expectedDoc = readFileSync('./src/test/mock.md', 'utf8');
+
     expect(markdown).toEqual(expectedDoc);
   });
 

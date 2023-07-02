@@ -9,9 +9,10 @@ import type {
 
 type Params = {name: string; documentation: string};
 
-type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> & {
-  params: Params[];
-};
+type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
+  Pick<DocEntry, 'line' | 'fileName'> & {
+    params: Params[];
+  };
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
   (parameters ?? []).map(({name, documentation}: DocEntry) => ({
@@ -69,8 +70,13 @@ const classesToMarkdown = ({
   markdown.push(`${headingLevel}# Methods\n`);
   markdown.push(`${tableOfContent({entries: methods ?? [], emoji})}\n`);
 
+  // Explicitly do not pass repo to generate the source code link afterwards for the all block
   markdown.push(
-    `${toMarkdown({entries: methods ?? [], headingLevel: `${headingLevel}#`, docType: 'Method'})}\n`
+    `${toMarkdown({
+      entries: methods ?? [],
+      headingLevel: `${headingLevel}#`,
+      docType: 'Method',
+    })}\n`
   );
 
   if (repo !== undefined) {
@@ -96,12 +102,14 @@ const sourceCodeLink = ({
 const toMarkdown = ({
   entries,
   headingLevel,
-  docType
+  docType,
+  emoji,
+  repo
 }: {
   entries: DocEntry[];
   headingLevel: MarkdownHeadingLevel | '####';
   docType: 'Constant' | 'Function' | 'Method';
-}): string => {
+} & Pick<MarkdownOptions, 'emoji' | 'repo'>): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
     const texts: (SymbolDisplayPart[] | undefined)[] = params.map(({text}) => text);
@@ -131,17 +139,21 @@ const toMarkdown = ({
     return parts.map(toParam).filter((param) => param !== undefined) as Params[];
   };
 
-  const rows: Row[] = entries.map(({name, type, documentation, parameters, jsDocs}: DocEntry) => ({
-    name,
-    type: type ?? '',
-    documentation: documentation ?? '',
-    params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])]
-  }));
+  const rows: Row[] = entries.map(
+    ({name, type, documentation, parameters, jsDocs, line, fileName}: DocEntry) => ({
+      name,
+      type: type ?? '',
+      documentation: documentation ?? '',
+      params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])],
+      line,
+      fileName
+    })
+  );
 
   // Avoid issue if the Markdown table gets formatted with Prettier
   const parseType = (type: string): string => type.replace(/ \| /, ' or ').replace(/ & /, ' and ');
 
-  const rowToMarkdown = ({name, documentation, type, params}: Row): string => {
+  const rowToMarkdown = ({name, documentation, type, params, line, fileName}: Row): string => {
     const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
 
     if (documentation.length) {
@@ -156,6 +168,10 @@ const toMarkdown = ({
       markdown.push('Parameters:\n');
       markdown.push(...inlineParams(params));
       markdown.push('\n');
+    }
+
+    if (repo !== undefined) {
+      markdown.push(sourceCodeLink({repo, emoji, fileName, line}));
     }
 
     return markdown.join('\n');
@@ -229,13 +245,17 @@ export const documentationToMarkdown = ({
   if (functions.length) {
     markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'functions'})} Functions\n`);
     markdown.push(`${tableOfContent({entries: functions, emoji})}\n`);
-    markdown.push(`${toMarkdown({entries: functions, headingLevel, docType: 'Function'})}\n`);
+    markdown.push(
+      `${toMarkdown({entries: functions, headingLevel, emoji, repo, docType: 'Function'})}\n`
+    );
   }
 
   if (constants.length) {
     markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'constants'})} Constants\n`);
     markdown.push(`${tableOfContent({entries: constants, emoji})}\n`);
-    markdown.push(`${toMarkdown({entries: constants, headingLevel, docType: 'Constant'})}\n`);
+    markdown.push(
+      `${toMarkdown({entries: constants, headingLevel, emoji, repo, docType: 'Constant'})}\n`
+    );
   }
 
   markdown.push(
