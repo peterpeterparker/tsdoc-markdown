@@ -110,3 +110,10 @@ export class SnsLedgerCanister extends Canister<SnsLedgerService> {
   metadata = (params: QueryParams): Promise<SnsTokenMetadataResponse> =>
     this.caller(params).icrc1_metadata();
 }
+
+export default class foo {
+  /**
+   * Description
+   */
+  bar() {}
+}

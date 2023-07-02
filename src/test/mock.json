@@ -164,5 +164,23 @@
     ],
     "name": "SnsLedgerCanister",
     "type": "typeof SnsLedgerCanister"
+  },
+  {
+    "constructors": [],
+    "doc_type": "class",
+    "documentation": "",
+    "fileName": "src/test/mock.ts",
+    "jsDocs": [],
+    "methods": [
+      {
+        "doc_type": "method",
+        "documentation": "Description",
+        "jsDocs": [],
+        "name": "bar",
+        "type": "() => void"
+      }
+    ],
+    "name": "default",
+    "type": "typeof foo"
   }
 ]

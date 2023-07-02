@@ -86,8 +86,6 @@ Returns the balance of the specified account identifier.
 
 ## :factory: SnsLedgerCanister
 
-
-
 ### Constructors
 
 `public`: The constructor is public as well.
@@ -114,4 +112,19 @@ The token metadata (name, symbol, etc.).
 | Method | Type |
 | ---------- | ---------- |
 | `metadata` | `(params: QueryParams) => Promise<SnsTokenMetadataResponse>` |
+
+
+## :factory: default
+
+### Methods
+
+- [bar](#gear-bar)
+
+#### :gear: bar
+
+Description
+
+| Method | Type |
+| ---------- | ---------- |
+| `bar` | `() => void` |
 

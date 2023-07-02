@@ -37,7 +37,7 @@ const classesToMarkdown = ({
   const {name, documentation, methods, constructors} = entry;
 
   const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
-  markdown.push(`${documentation}\n`);
+  (documentation !== undefined && documentation !== '') && markdown.push(`${documentation}\n`);
 
   const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
     ({visibility}) => visibility === 'public'
