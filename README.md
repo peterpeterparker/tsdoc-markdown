@@ -81,7 +81,12 @@ const utilsInputFiles = ['./packages/utils/src/index.ts'];
 generateDocumentation({
   inputFiles: utilsInputFiles,
   outputFile: './packages/utils/YOLO.md',
-  buildOptions: {explore: true}
+  buildOptions: {explore: true},
+  markdownOptions: {
+    repo: {
+      url: 'https://github.com/peterpeterparker/tsdoc-markdown'
+    }
+  }
 });
 ```
 
