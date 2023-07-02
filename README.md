@@ -81,8 +81,8 @@ const utilsInputFiles = ['./packages/utils/src/index.ts'];
 generateDocumentation({
   inputFiles: utilsInputFiles,
   outputFile: './packages/utils/YOLO.md',
-  buildOptions: {explore: true},
-  markdownOptions: {
+  buildOptions: {
+    explore: true,
     repo: {
       url: 'https://github.com/peterpeterparker/tsdoc-markdown'
     }
@@ -123,7 +123,7 @@ Parameters:
 - `params.inputFiles`: The list of files to scan and for which the documentation should be build.
 - `params.options`: Optional compiler options to generate the docs
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L212)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L213)
 
 ### :gear: documentationToMarkdown
 
@@ -138,7 +138,7 @@ Parameters:
 - `params.entries`: The entries of the documentation (functions, constants and classes).
 - `params.options`: Optional configuration to render the Markdown content. See `types.ts` for details.
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/markdown.ts#L230)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/markdown.ts#L211)
 
 ### :gear: generateDocumentation
 

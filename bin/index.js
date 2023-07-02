@@ -45,7 +45,7 @@ generateDocumentation({
   inputFiles,
   outputFile,
   ...(repoUrl !== undefined && {
-    markdownOptions: {
+    buildOptions: {
       repo: {
         url: repoUrl
       }
