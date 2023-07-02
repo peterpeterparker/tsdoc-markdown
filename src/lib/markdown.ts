@@ -75,7 +75,7 @@ const classesToMarkdown = ({
     `${toMarkdown({
       entries: methods ?? [],
       headingLevel: `${headingLevel}#`,
-      docType: 'Method',
+      docType: 'Method'
     })}\n`
   );
 
