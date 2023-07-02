@@ -40,6 +40,8 @@ The output file will be over write unless you specify a `TSDOC_START` and `TSDOC
 
 Specifying another output file is also supported with the parameter `--dest`.
 
+To generate links to the documented source code, you can also provide the `--repo` parameter, which corresponds to the URL of your repository on GitHub.
+
 Using above script is of course optional. You can also develop your own JavaScript script and use one of the functions here under.
 
 e.g.
@@ -98,6 +100,8 @@ Parameters:
 - `params.inputFiles`: The list of files to scan and for which the documentation should be build.
 - `params.options`: Optional compiler options to generate the docs
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L212)
+
 ### :gear: documentationToMarkdown
 
 Convert the documentation entries to an opinionated Markdown format.
@@ -110,6 +114,8 @@ Parameters:
 
 - `params.entries`: The entries of the documentation (functions, constants and classes).
 - `params.options`: Optional configuration to render the Markdown content. See `types.ts` for details.
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main//home/runner/work/tsdoc-markdown/tsdoc-markdown/src/lib/markdown.ts#L221)
 
 ### :gear: generateDocumentation
 
@@ -127,6 +133,8 @@ Parameters:
 - `params.outputFile`: The file to output the documentation in Markdown.
 - `params.markdownOptions`: Optional settings passed to the Markdown parser. See `MarkdownOptions` for details.
 - `params.buildOptions`: Options to construct the documentation tree. See `BuildOptions` for details.
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/index.ts#L27)
 
 <!-- TSDOC_END -->
 

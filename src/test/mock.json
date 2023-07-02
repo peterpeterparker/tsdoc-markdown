@@ -20,6 +20,7 @@
       }
     ],
     "name": "hello",
+    "line": 6,
     "type": "(world: string) => string"
   },
   {
@@ -27,6 +28,7 @@
     "documentation": "A constant",
     "fileName": "src/test/mock.ts",
     "jsDocs": [],
+    "line": 11,
     "name": "numberOne",
     "type": "2"
   },
@@ -35,6 +37,7 @@
     "documentation": "hello2",
     "fileName": "src/test/mock.ts",
     "jsDocs": [],
+    "line": 16,
     "name": "hello2",
     "type": "() => void"
   },
@@ -43,6 +46,7 @@
     "documentation": "Markdown should handle ` | ` for the type.",
     "fileName": "src/test/mock.ts",
     "jsDocs": [],
+    "line": 23,
     "name": "genericType",
     "type": "<T>(value: [] | [T]) => T"
   },
@@ -93,6 +97,7 @@
     "documentation": "LedgerCanister is a test class.",
     "fileName": "src/test/mock.ts",
     "jsDocs": [],
+    "line": 35,
     "methods": [
       {
         "doc_type": "method",
@@ -136,6 +141,7 @@
     "documentation": "",
     "fileName": "src/test/mock.ts",
     "jsDocs": [],
+    "line": 86,
     "methods": [
       {
         "doc_type": "method",
@@ -171,6 +177,7 @@
     "documentation": "",
     "fileName": "src/test/mock.ts",
     "jsDocs": [],
+    "line": 114,
     "methods": [
       {
         "doc_type": "method",
