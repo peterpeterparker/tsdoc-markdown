@@ -11,6 +11,7 @@ if (help !== undefined) {
 
   console.log('\nOptions:');
   console.log('--dest=<destination file> (default README.md)');
+  console.log('--repo=<GitHub repo URL>');
   return;
 }
 
@@ -34,8 +35,20 @@ const inputFiles = listInputs();
 const outputFile =
   process.argv.find((arg) => arg.indexOf('--dest=') > -1)?.replace('--dest=', '') ?? 'README.md';
 
+const repoUrl = process.argv.find((arg) => arg.indexOf('--repo=') > -1)?.replace('--repo=', '');
+
 if (!inputFiles || inputFiles.length === 0) {
   throw new Error('No source file(s) provided.');
 }
 
-generateDocumentation({inputFiles, outputFile});
+generateDocumentation({
+  inputFiles,
+  outputFile,
+  ...(repoUrl !== undefined && {
+    markdownOptions: {
+      repo: {
+        url: repoUrl
+      }
+    }
+  })
+});

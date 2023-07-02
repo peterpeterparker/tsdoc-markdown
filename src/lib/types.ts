@@ -17,6 +17,13 @@ export interface DocEntry {
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
   doc_type?: DocEntryType;
+  line?: number;
+}
+
+export interface MarkdownRepo {
+  url: string;
+  // Default: "main" branch
+  branch?: string;
 }
 
 /**
@@ -29,6 +36,7 @@ export interface MarkdownEmoji {
   constants: string;
   // A function, method or constant title - i.e. an entry of one above titles
   entry: string;
+  link: string;
 }
 
 export type MarkdownHeadingLevel = '#' | '##' | '###';
@@ -40,7 +48,9 @@ export interface MarkdownOptions {
   // Emoji configuration. `undefined` for default configuration, `null` for explicitly no emoji.
   emoji?: MarkdownEmoji | null;
   // The base heading level at which the documentation should start. Default ##
-  headingLevel: MarkdownHeadingLevel;
+  headingLevel?: MarkdownHeadingLevel;
+  // If provided, the Markdown parser will generate links to the documented source code
+  repo?: MarkdownRepo;
 }
 
 /**

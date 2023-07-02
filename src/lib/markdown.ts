@@ -28,16 +28,16 @@ const inlineParams = (params: Params[]): string[] =>
 const classesToMarkdown = ({
   entry,
   headingLevel,
-  emoji
+  emoji,
+  repo
 }: {
   entry: DocEntry;
-  headingLevel: MarkdownHeadingLevel;
-  emoji: MarkdownEmoji | undefined;
-}): string => {
-  const {name, documentation, methods, constructors} = entry;
+} & Required<Pick<MarkdownOptions, 'headingLevel'>> &
+  Omit<MarkdownOptions, 'headingLevel'>): string => {
+  const {name, fileName, line, documentation, methods, constructors} = entry;
 
   const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
-  (documentation !== undefined && documentation !== '') && markdown.push(`${documentation}\n`);
+  documentation !== undefined && documentation !== '' && markdown.push(`${documentation}\n`);
 
   const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
     ({visibility}) => visibility === 'public'
@@ -73,7 +73,24 @@ const classesToMarkdown = ({
     `${toMarkdown({entries: methods ?? [], headingLevel: `${headingLevel}#`, docType: 'Method'})}\n`
   );
 
+  if (repo !== undefined) {
+    markdown.push(sourceCodeLink({repo, emoji, fileName, line}));
+  }
+
   return markdown.join('\n');
+};
+
+const sourceCodeLink = ({
+  repo,
+  emoji,
+  fileName,
+  line
+}: Pick<MarkdownOptions, 'emoji'> &
+  Required<Pick<MarkdownOptions, 'repo'>> &
+  Pick<DocEntry, 'line' | 'fileName'>): string => {
+  const {url, branch} = repo;
+  const sourceCodeUrl = `${url.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${fileName}#L${line}`;
+  return `[Source${emojiTitle({emoji, key: 'link'})}](${sourceCodeUrl})\n`;
 };
 
 const toMarkdown = ({
@@ -152,12 +169,11 @@ const tableOfContent = ({
   emoji
 }: {
   entries: DocEntry[];
-  emoji: MarkdownEmoji | undefined;
-}): string =>
+} & Pick<MarkdownOptions, 'emoji'>): string =>
   entries
     .map(
       ({name}) =>
-        `- [${name}](#${emoji === undefined ? '' : `${emoji.entry}-`}${name
+        `- [${name}](#${emoji === undefined || emoji === null ? '' : `${emoji.entry}-`}${name
           .toLowerCase()
           .replace(/ /g, '-')})`
     )
@@ -167,15 +183,16 @@ const emojiTitle = ({
   emoji,
   key
 }: {
-  emoji: MarkdownEmoji | undefined;
   key: keyof MarkdownEmoji;
-}): string => (emoji === undefined ? '' : ` :${emoji[key]}:`);
+} & Pick<MarkdownOptions, 'emoji'>): string =>
+  emoji === undefined || emoji === null ? '' : ` :${emoji[key]}:`;
 
 const DEFAULT_EMOJI: MarkdownEmoji = {
   classes: 'factory',
   functions: 'toolbox',
   constants: 'wrench',
-  entry: 'gear'
+  entry: 'gear',
+  link: 'link'
 };
 
 /**
@@ -192,7 +209,13 @@ export const documentationToMarkdown = ({
   entries: DocEntry[];
   options?: MarkdownOptions;
 }): string => {
-  const {headingLevel, emoji: userEmoji} = options ?? {headingLevel: '##', emoji: DEFAULT_EMOJI};
+  const {
+    headingLevel: userHeadingLevel,
+    emoji: userEmoji,
+    repo
+  } = options ?? {headingLevel: '##', emoji: DEFAULT_EMOJI};
+
+  const headingLevel = userHeadingLevel ?? '##';
 
   const emoji: MarkdownEmoji | undefined =
     userEmoji === null ? undefined : userEmoji ?? DEFAULT_EMOJI;
@@ -216,7 +239,9 @@ export const documentationToMarkdown = ({
   }
 
   markdown.push(
-    classes.map((entry: DocEntry) => classesToMarkdown({entry, headingLevel, emoji})).join('\n')
+    classes
+      .map((entry: DocEntry) => classesToMarkdown({entry, headingLevel, emoji, repo}))
+      .join('\n')
   );
 
   return markdown.join('\n');

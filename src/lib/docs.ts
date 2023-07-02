@@ -244,7 +244,14 @@ export const buildDocumentation = ({
     // Walk the tree to search for classes
     forEachChild(sourceFile, (node: Node) => {
       const entries: DocEntry[] = visit({checker, node});
-      result.push(...entries.map((entry: DocEntry) => ({...entry, fileName: sourceFile.fileName})));
+      const {line} = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      result.push(
+        ...entries.map((entry: DocEntry) => ({
+          ...entry,
+          line: line + 1,
+          fileName: sourceFile.fileName
+        }))
+      );
     });
   }
 
