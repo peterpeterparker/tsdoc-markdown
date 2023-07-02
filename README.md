@@ -2,6 +2,16 @@
 
 Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
 
+## Table of contents
+
+- [Installation](#installation)
+- [GitHub Actions](#github-actions)
+- [Usage](#usage)
+- [Limitation](#limitation)
+- [Functions](#toolbox-functions)
+- [Useful Resources](#useful-resources)
+- [License](#license)
+
 ## Installation
 
 Install the library in your project from [npm](https://www.npmjs.com/package/tsdoc-markdown):
@@ -74,6 +84,14 @@ generateDocumentation({
   buildOptions: {explore: true}
 });
 ```
+
+## Limitation
+
+This library generates Markdown documentation from TypeScript source code for `Functions`, `Constants` and `Classes`. However, it currently does not generate documentation for `Interfaces` and `Types`.
+
+The library is designed to focus on documenting what developers consume, keeping the documentation compact. It serves as an entry point for getting started easily and accessing the code for more advanced features.
+
+If you would like the library to also document Interfaces and Types, pull requests are greatly appreciated (see feature request [#6](https://github.com/peterpeterparker/tsdoc-markdown/issues/6)).
 
 <br/>
 
