@@ -1,4 +1,4 @@
-import {relative, resolve} from 'path';
+import {posix} from 'path';
 import type {
   ArrowFunction,
   CompilerOptions,
@@ -7,12 +7,17 @@ import type {
   Node,
   Signature,
   SourceFile,
-  Symbol as TypeScriptSymbol,
   TypeChecker,
+  Symbol as TypeScriptSymbol,
   VariableDeclaration,
   VariableStatement
 } from 'typescript';
 import {
+  ModifierFlags,
+  ModuleKind,
+  NodeFlags,
+  ScriptTarget,
+  SyntaxKind,
   createProgram,
   displayPartsToString,
   forEachChild,
@@ -22,14 +27,11 @@ import {
   isFunctionDeclaration,
   isMethodDeclaration,
   isModuleDeclaration,
-  isVariableStatement,
-  ModifierFlags,
-  ModuleKind,
-  NodeFlags,
-  ScriptTarget,
-  SyntaxKind
+  isVariableStatement
 } from 'typescript';
 import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
+
+const {relative, resolve} = posix;
 
 /** Serialize a symbol into a json object */
 const serializeSymbol = ({
@@ -90,17 +92,28 @@ const serializeSignature = ({
   checker: TypeChecker;
   signature: Signature;
 }): DocEntryConstructor => {
-  return {
+  const result: DocEntryConstructor = {
     parameters: signature.parameters.map((symbol: TypeScriptSymbol) =>
       serializeSymbol({checker, symbol})
     ),
     returnType: checker.typeToString(signature.getReturnType()),
     documentation: displayPartsToString(signature.getDocumentationComment(checker)),
-    visibility:
-      signature.declaration?.modifiers?.[0].kind === SyntaxKind.PrivateKeyword
-        ? 'private'
-        : 'public'
+    visibility: 'public'
   };
+
+  if (!signature.declaration) {
+    return result;
+  }
+  if ('modifiers' in signature.declaration) {
+    return {
+      ...result,
+      visibility:
+        signature.declaration.modifiers?.[0].kind === SyntaxKind.PrivateKeyword
+          ? 'private'
+          : 'public'
+    };
+  }
+  return result;
 };
 
 // https://stackoverflow.com/a/73338964/5404186
@@ -237,7 +250,10 @@ const buildSource = ({
   const {line} = sourceFile.getLineAndCharacterOfPosition(node.getStart());
   const filePath = relative(process.cwd(), sourceFile.fileName);
 
-  const url = `${repoUrl.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${filePath}#L${line + 1}`;
+  const url = `${repoUrl.replace(/\/+$/, '')}/tree/${branch ?? 'main'}/${filePath.replace(
+    /^\.\.\//,
+    ''
+  )}#L${line + 1}`;
 
   return {
     fileName,
