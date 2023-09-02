@@ -109,7 +109,7 @@
           {
             "name": "throws",
             "text": [
-              {"kind": "text", "text": ""},
+              {"kind": "text", "text": "an "},
               {"kind": "link", "text": "{@link "},
               {"kind": "linkText", "text": "Error "},
               {"kind": "link", "text": "}"}
