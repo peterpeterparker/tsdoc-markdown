@@ -1,7 +1,7 @@
 # tsdoc-markdown
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
@@ -19,7 +19,7 @@ Generates markdown documentation from TypeScript source code. Useful for generat
     - [:gear: documentationToMarkdown](#gear-documentationtomarkdown)
     - [:gear: generateDocumentation](#gear-generatedocumentation)
   - [Useful Resources](#useful-resources)
-  - [Contributors ✨](#contributors-)
+  - [Contributors](#contributors)
   - [License](#license)
 
 ## Installation
@@ -116,9 +116,19 @@ _Note: Chapter "Functions" is auto-generated with `tsdoc-markdown`._
 
 ## :toolbox: Functions
 
-- [buildDocumentation](#gear-builddocumentation)
-- [documentationToMarkdown](#gear-documentationtomarkdown)
-- [generateDocumentation](#gear-generatedocumentation)
+- [tsdoc-markdown](#tsdoc-markdown)
+  - [Table of contents](#table-of-contents)
+  - [Installation](#installation)
+  - [GitHub Actions](#github-actions)
+  - [Usage](#usage)
+  - [Limitation](#limitation)
+  - [:toolbox: Functions](#toolbox-functions)
+    - [:gear: buildDocumentation](#gear-builddocumentation)
+    - [:gear: documentationToMarkdown](#gear-documentationtomarkdown)
+    - [:gear: generateDocumentation](#gear-generatedocumentation)
+  - [Useful Resources](#useful-resources)
+  - [Contributors](#contributors)
+  - [License](#license)
 
 ### :gear: buildDocumentation
 
@@ -177,7 +187,7 @@ Parameters:
 - [TypeScript AST Viewer](https://ts-ast-viewer.com/#)
 - List of [TypeScript node kind](https://github.com/microsoft/TypeScript/blob/main/lib/typescript.d.ts)
 
-## Contributors ✨
+## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 

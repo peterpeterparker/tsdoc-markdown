@@ -2,7 +2,9 @@
   "projectName": "tsdoc-markdown",
   "projectOwner": "David Dal Busco",
   "repoType": "github",
-  "files": ["README.md"],
+  "files": [
+    "README.md"
+  ],
   "imageSize": 48,
   "commit": true,
   "commitConvention": "gitmoji",
@@ -28,10 +30,14 @@
       "name": "mia.cx",
       "avatar_url": "https://avatars.githubusercontent.com/u/143718999?v=4",
       "profile": "https://github.com/mia-cx",
-      "contributions": ["code", "content", "maintenance", "test"]
+      "contributions": [
+        "code",
+        "content",
+        "maintenance",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "linkToUsage": false
 }
-
