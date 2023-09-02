@@ -22,6 +22,13 @@
         "test",
         "tutorial"
       ]
+    },
+    {
+      "login": "mia-cx",
+      "name": "mia.cx",
+      "avatar_url": "https://avatars.githubusercontent.com/u/143718999?v=4",
+      "profile": "https://github.com/mia-cx",
+      "contributions": ["code", "content", "maintenance", "test"]
     }
   ],
   "contributorsPerLine": 7,
