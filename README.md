@@ -1,16 +1,26 @@
 # tsdoc-markdown
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
 
 ## Table of contents
 
-- [Installation](#installation)
-- [GitHub Actions](#github-actions)
-- [Usage](#usage)
-- [Limitation](#limitation)
-- [Functions](#toolbox-functions)
-- [Useful Resources](#useful-resources)
-- [License](#license)
+- [tsdoc-markdown](#tsdoc-markdown)
+  - [Table of contents](#table-of-contents)
+  - [Installation](#installation)
+  - [GitHub Actions](#github-actions)
+  - [Usage](#usage)
+  - [Limitation](#limitation)
+  - [:toolbox: Functions](#toolbox-functions)
+    - [:gear: buildDocumentation](#gear-builddocumentation)
+    - [:gear: documentationToMarkdown](#gear-documentationtomarkdown)
+    - [:gear: generateDocumentation](#gear-generatedocumentation)
+  - [Useful Resources](#useful-resources)
+  - [Contributors ✨](#contributors-)
+  - [License](#license)
 
 ## Installation
 
@@ -166,6 +176,28 @@ Parameters:
 - [Using the TypeScript Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
 - [TypeScript AST Viewer](https://ts-ast-viewer.com/#)
 - List of [TypeScript node kind](https://github.com/microsoft/TypeScript/blob/main/lib/typescript.d.ts)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://daviddalbusco.com/"><img src="https://avatars.githubusercontent.com/u/16886711?v=4?s=48" width="48px;" alt="David Dal Busco"/><br /><sub><b>David Dal Busco</b></sub></a><br /><a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Code">💻</a> <a href="#data-peterpeterparker" title="Data">🔣</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Documentation">📖</a> <a href="#example-peterpeterparker" title="Examples">💡</a> <a href="#ideas-peterpeterparker" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-peterpeterparker" title="Maintenance">🚧</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Tests">⚠️</a> <a href="#tutorial-peterpeterparker" title="Tutorials">✅</a> <a href="#design-peterpeterparker" title="Design">🎨</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ## License
 
