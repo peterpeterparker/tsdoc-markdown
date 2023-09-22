@@ -134,7 +134,7 @@ Parameters:
 - `params.inputFiles`: The list of files to scan and for which the documentation should be build.
 - `params.options`: Optional compiler options to generate the docs
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L257)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L271)
 
 ### :gear: documentationToMarkdown
 
@@ -168,7 +168,7 @@ Parameters:
 - `params.markdownOptions`: Optional settings passed to the Markdown parser. See `MarkdownOptions` for details.
 - `params.buildOptions`: Options to construct the documentation tree. See `BuildOptions` for details.
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/index.ts#L27)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/index.ts#L26)
 
 <!-- TSDOC_END -->
 
