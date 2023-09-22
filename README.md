@@ -1,6 +1,6 @@
 # tsdoc-markdown
 
-<div style="display: flex; gap: 4px;">
+Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
 
 [![npm][npm-badge]][npm-badge-url]
 [![license][npm-license]][npm-license-url]
@@ -15,10 +15,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-</div>
-
-Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
 
 ## :1234: Table of contents
 
