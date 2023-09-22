@@ -1,7 +1,7 @@
 # tsdoc-markdown
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
@@ -187,6 +187,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://daviddalbusco.com/"><img src="https://avatars.githubusercontent.com/u/16886711?v=4?s=48" width="48px;" alt="David Dal Busco"/><br /><sub><b>David Dal Busco</b></sub></a><br /><a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Code">💻</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Documentation">📖</a> <a href="#example-peterpeterparker" title="Examples">💡</a> <a href="#ideas-peterpeterparker" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-peterpeterparker" title="Maintenance">🚧</a> <a href="#projectManagement-peterpeterparker" title="Project Management">📆</a> <a href="#research-peterpeterparker" title="Research">🔬</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/pulls?q=is%3Apr+reviewed-by%3Apeterpeterparker" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Tests">⚠️</a> <a href="#tool-peterpeterparker" title="Tools">🔧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://mia.cx/"><img src="https://avatars.githubusercontent.com/u/42698687?v=4?s=48" width="48px;" alt="Mia Riezebos"/><br /><sub><b>Mia Riezebos</b></sub></a><br /><a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=mia-riezebos" title="Code">💻</a> <a href="#platform-mia-riezebos" title="Packaging/porting to new platform">📦</a> <a href="#research-mia-riezebos" title="Research">🔬</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=mia-riezebos" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
