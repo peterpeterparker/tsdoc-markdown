@@ -20,6 +20,9 @@
     "format": "prettier --write .",
     "lint": "eslint --max-warnings 0 .",
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
+    "contributors:add": "all-contributors add",
+    "contributors:check": "all-contributors check",
+    "contributors:generate": "all-contributors generate",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir dist/types",
     "test": "jest",
     "start": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/test/mock.ts --dest=src/test/mock.md --repo=https://github.com/peterpeterparker/tsdoc-markdown",
@@ -35,6 +38,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "all-contributors-cli": "^6.26.1",
     "esbuild": "^0.18.11",
     "eslint": "^8.44.0",
     "eslint-config-standard": "^17.1.0",

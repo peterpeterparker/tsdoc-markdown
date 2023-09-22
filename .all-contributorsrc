@@ -1,0 +1,14 @@
+{
+  "projectName": "tsdoc-markdown",
+  "projectOwner": "David Dal Busco",
+  "repoType": "github",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 48,
+  "commit": true,
+  "commitConvention": "gitmoji",
+  "contributors": [],
+  "contributorsPerLine": 7,
+  "linkToUsage": false
+}
