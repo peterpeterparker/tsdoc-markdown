@@ -1,7 +1,9 @@
 # tsdoc-markdown
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
@@ -9,8 +11,8 @@ Generates markdown documentation from TypeScript source code. Useful for generat
 ## :1234: Table of contents
 
 - [:1234: Table of contents](#1234-table-of-contents)
-- [:arrow\_down: Installation](#arrow_down-installation)
-- [:electric\_plug: GitHub Actions](#electric_plug-github-actions)
+- [:arrow_down: Installation](#arrow_down-installation)
+- [:electric_plug: GitHub Actions](#electric_plug-github-actions)
 - [:zap: Usage](#zap-usage)
 - [:construction: Limitations](#construction-limitations)
 - [:toolbox: Functions](#toolbox-functions)
@@ -19,7 +21,7 @@ Generates markdown documentation from TypeScript source code. Useful for generat
   - [:gear: generateDocumentation](#gear-generatedocumentation)
 - [:books: Useful Resources](#books-useful-resources)
 - [:sparkles: Contributors](#sparkles-contributors)
-- [:page\_facing\_up: License](#page_facing_up-license)
+- [:page_facing_up: License](#page_facing_up-license)
 
 ## :arrow_down: Installation
 

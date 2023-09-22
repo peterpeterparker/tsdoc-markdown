@@ -1,4 +1,4 @@
-import {readFileSync, writeFileSync} from 'fs';
+import {readFileSync} from 'fs';
 import {documentationToMarkdown} from '../lib';
 import {buildDocumentation} from '../lib/docs';
 
