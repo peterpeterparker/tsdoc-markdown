@@ -183,6 +183,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://daviddalbusco.com/"><img src="https://avatars.githubusercontent.com/u/16886711?v=4?s=48" width="48px;" alt="David Dal Busco"/><br /><sub><b>David Dal Busco</b></sub></a><br /><a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Code">💻</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Documentation">📖</a> <a href="#example-peterpeterparker" title="Examples">💡</a> <a href="#ideas-peterpeterparker" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-peterpeterparker" title="Maintenance">🚧</a> <a href="#projectManagement-peterpeterparker" title="Project Management">📆</a> <a href="#research-peterpeterparker" title="Research">🔬</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/pulls?q=is%3Apr+reviewed-by%3Apeterpeterparker" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Tests">⚠️</a> <a href="#tool-peterpeterparker" title="Tools">🔧</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
