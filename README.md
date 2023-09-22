@@ -1,10 +1,22 @@
 # tsdoc-markdown
 
+<div style="display: flex; gap: 4px;">
+
+[![npm][npm-badge]][npm-badge-url]
+[![license][npm-license]][npm-license-url]
+
+[npm-badge]: https://img.shields.io/npm/v/tsdoc-markdown?style=flat-square
+[npm-badge-url]: https://www.npmjs.com/package/tsdoc-markdown
+[npm-license]: https://img.shields.io/npm/l/tsdoc-markdown?style=flat-square
+[npm-license-url]: https://github.com/buildwithjuno/juno-js/blob/main/LICENSE
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+</div>
 
 Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
 
