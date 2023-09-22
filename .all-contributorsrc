@@ -1,0 +1,39 @@
+{
+  "projectName": "tsdoc-markdown",
+  "projectOwner": "David Dal Busco",
+  "repoType": "github",
+  "files": ["README.md"],
+  "imageSize": 48,
+  "commit": true,
+  "commitConvention": "gitmoji",
+  "contributors": [
+    {
+      "login": "peterpeterparker",
+      "name": "David Dal Busco",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16886711?v=4",
+      "profile": "https://daviddalbusco.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "ideas",
+        "maintenance",
+        "projectManagement",
+        "research",
+        "review",
+        "test",
+        "tool"
+      ]
+    },
+    {
+      "login": "mia-riezebos",
+      "name": "Mia Riezebos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42698687?v=4",
+      "profile": "https://mia.cx/",
+      "contributions": ["code", "platform", "research", "test"]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": false
+}
+

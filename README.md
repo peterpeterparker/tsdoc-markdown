@@ -1,18 +1,27 @@
 # tsdoc-markdown
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 Generates markdown documentation from TypeScript source code. Useful for generating docs from code and injecting automatically the outcome into project README files.
 
-## Table of contents
+## :1234: Table of contents
 
-- [Installation](#installation)
-- [GitHub Actions](#github-actions)
-- [Usage](#usage)
-- [Limitation](#limitation)
-- [Functions](#toolbox-functions)
-- [Useful Resources](#useful-resources)
-- [License](#license)
+- [:1234: Table of contents](#1234-table-of-contents)
+- [:arrow\_down: Installation](#arrow_down-installation)
+- [:electric\_plug: GitHub Actions](#electric_plug-github-actions)
+- [:zap: Usage](#zap-usage)
+- [:construction: Limitations](#construction-limitations)
+- [:toolbox: Functions](#toolbox-functions)
+  - [:gear: buildDocumentation](#gear-builddocumentation)
+  - [:gear: documentationToMarkdown](#gear-documentationtomarkdown)
+  - [:gear: generateDocumentation](#gear-generatedocumentation)
+- [:books: Useful Resources](#books-useful-resources)
+- [:sparkles: Contributors](#sparkles-contributors)
+- [:page\_facing\_up: License](#page_facing_up-license)
 
-## Installation
+## :arrow_down: Installation
 
 Install the library in your project from [npm](https://www.npmjs.com/package/tsdoc-markdown):
 
@@ -20,11 +29,11 @@ Install the library in your project from [npm](https://www.npmjs.com/package/tsd
 npm install -D tsdoc-markdown
 ```
 
-## GitHub Actions
+## :electric_plug: GitHub Actions
 
 A GitHub Actions workflow that generates the documentation for pull requests using this library is available in [tsdoc.yml](/.github/workflows/tsdoc.yml).
 
-## Usage
+## :zap: Usage
 
 This tool is shipped with a NodeJS [bin](/bin/index.js) script that can be executed with the shortcut `tsdoc`.
 
@@ -90,7 +99,7 @@ generateDocumentation({
 });
 ```
 
-## Limitation
+## :construction: Limitations
 
 This library generates Markdown documentation from TypeScript source code for `Functions`, `Constants` and `Classes`. However, it currently does not generate documentation for `Interfaces` and `Types`.
 
@@ -161,12 +170,35 @@ Parameters:
 
 <!-- TSDOC_END -->
 
-## Useful Resources
+## :books: Useful Resources
 
 - [Using the TypeScript Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
 - [TypeScript AST Viewer](https://ts-ast-viewer.com/#)
 - List of [TypeScript node kind](https://github.com/microsoft/TypeScript/blob/main/lib/typescript.d.ts)
 
-## License
+## :sparkles: Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://daviddalbusco.com/"><img src="https://avatars.githubusercontent.com/u/16886711?v=4?s=48" width="48px;" alt="David Dal Busco"/><br /><sub><b>David Dal Busco</b></sub></a><br /><a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Code">💻</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Documentation">📖</a> <a href="#example-peterpeterparker" title="Examples">💡</a> <a href="#ideas-peterpeterparker" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-peterpeterparker" title="Maintenance">🚧</a> <a href="#projectManagement-peterpeterparker" title="Project Management">📆</a> <a href="#research-peterpeterparker" title="Research">🔬</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/pulls?q=is%3Apr+reviewed-by%3Apeterpeterparker" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=peterpeterparker" title="Tests">⚠️</a> <a href="#tool-peterpeterparker" title="Tools">🔧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://mia.cx/"><img src="https://avatars.githubusercontent.com/u/42698687?v=4?s=48" width="48px;" alt="Mia Riezebos"/><br /><sub><b>Mia Riezebos</b></sub></a><br /><a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=mia-riezebos" title="Code">💻</a> <a href="#platform-mia-riezebos" title="Packaging/porting to new platform">📦</a> <a href="#research-mia-riezebos" title="Research">🔬</a> <a href="https://github.com/David Dal Busco/tsdoc-markdown/commits?author=mia-riezebos" title="Tests">⚠️</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## :page_facing_up: License
 
 MIT © [David Dal Busco](mailto:david.dalbusco@outlook.com)
