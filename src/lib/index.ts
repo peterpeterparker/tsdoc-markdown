@@ -9,8 +9,7 @@ import type {
   MarkdownOptions
 } from './types';
 
-export {buildDocumentation};
-export {documentationToMarkdown};
+export {buildDocumentation, documentationToMarkdown};
 export type {DocEntry, DocEntryConstructor, DocEntryType};
 
 /**

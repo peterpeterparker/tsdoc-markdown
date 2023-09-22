@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
+    "@types/node": "^20.6.3",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "all-contributors-cli": "^6.26.1",
     "esbuild": "^0.18.11",
@@ -62,6 +63,6 @@
     "tsdoc-parser"
   ],
   "peerDependencies": {
-    "typescript": "4.X"
+    "typescript": "^5"
   }
 }

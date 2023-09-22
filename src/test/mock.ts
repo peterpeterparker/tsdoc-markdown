@@ -64,7 +64,7 @@ export class LedgerCanister {
    * @param {Object} params
    * @param params.certified Update calls?
    *
-   * @throws {@link Error}
+   * @throws an {@link Error}
    */
   public accountBalance = async ({
     certified = true

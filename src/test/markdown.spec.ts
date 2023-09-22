@@ -1,4 +1,4 @@
-import {readFileSync} from 'fs';
+import {readFileSync, writeFileSync} from 'fs';
 import {documentationToMarkdown} from '../lib';
 import {buildDocumentation} from '../lib/docs';
 
@@ -17,7 +17,7 @@ describe('markdown', () => {
       entries: doc
     });
 
-    const expectedDoc = readFileSync('./src/test/mock.md', 'utf8');
+    const expectedDoc = readFileSync('./src/test/mock.md', 'utf8').replace(/\r\n/g, '\n');
 
     expect(markdown).toEqual(expectedDoc);
   });
