@@ -45,12 +45,16 @@ A GitHub Actions workflow that generates the documentation for pull requests usi
 
 ## :zap: Usage
 
-This tool is shipped with a NodeJS [bin](/bin/index.js) script that can be executed with the shortcut `tsdoc`.
+This tool is shipped with a NodeJS [bin](/bin/index.js) script `tsdoc` that can be added to your `package.json`.
 
 e.g. generating the documentation for a source file `./src/index.ts`:
 
-```bash
-tsdoc --src=src/index.ts
+```json
+{
+  "script": {
+    "tsdoc": "tsdoc --src=src/index.ts"
+  }
+}
 ```
 
 The `--src` parameter accepts a comma separated list of paths and wildcards as well.
