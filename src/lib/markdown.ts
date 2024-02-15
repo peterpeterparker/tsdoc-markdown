@@ -182,7 +182,9 @@ const toMarkdown = ({
 
     markdown.push(`| ${type === 'Type' ? 'Type alias' : docType} | Type |`);
     markdown.push('| ---------- | ---------- |');
-    markdown.push(`| \`${name}\` | \`${parseType(type)}\` |\n`);
+    markdown.push(
+      `| \`${name}\` | ${type !== undefined && type !== '' ? `\`${parseType(type)}\`` : ''} |\n`
+    );
 
     if (params.length) {
       markdown.push('Parameters:\n');
