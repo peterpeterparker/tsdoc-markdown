@@ -9,7 +9,8 @@ describe('markdown', () => {
       options: {
         repo: {
           url: 'https://github.com/peterpeterparker/tsdoc-markdown'
-        }
+        },
+        types: true
       }
     });
 

@@ -12,6 +12,7 @@ if (help !== undefined) {
   console.log('\nOptions:');
   console.log('--dest=<destination file> (default README.md)');
   console.log('--repo=<GitHub repo URL>');
+  console.log('--types');
   return;
 }
 
@@ -37,6 +38,8 @@ const outputFile =
 
 const repoUrl = process.argv.find((arg) => arg.indexOf('--repo=') > -1)?.replace('--repo=', '');
 
+const types = process.argv.find((arg) => arg.indexOf('--types') > -1) !== undefined;
+
 if (!inputFiles || inputFiles.length === 0) {
   throw new Error('No source file(s) provided.');
 }
@@ -48,7 +51,8 @@ generateDocumentation({
     buildOptions: {
       repo: {
         url: repoUrl
-      }
+      },
+      types
     }
   })
 });

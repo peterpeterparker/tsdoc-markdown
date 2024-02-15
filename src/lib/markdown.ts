@@ -86,11 +86,43 @@ const classesToMarkdown = ({
   return markdown.join('\n');
 };
 
+const interfacesToMarkdown = ({
+  entry,
+  headingLevel
+}: {
+  entry: DocEntry;
+} & Required<Pick<MarkdownOptions, 'headingLevel'>> &
+  Omit<MarkdownOptions, 'headingLevel'>): string => {
+  const {name, documentation} = entry;
+
+  const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
+
+  if (documentation !== undefined) {
+    markdown.push(`${documentation}\n`);
+  }
+
+  markdown.push(`| Property | Type | Description |`);
+  markdown.push('| ---------- | ---------- | ---------- |');
+
+  (entry.properties ?? []).forEach(({name, type, documentation}) =>
+    markdown.push(
+      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `\`${parseType(documentation)}\`` : ''} |`
+    )
+  );
+
+  markdown.push('\n');
+
+  return markdown.join('\n');
+};
+
 const sourceCodeLink = ({
   url,
   emoji
 }: Pick<MarkdownOptions, 'emoji'> & Required<Pick<DocEntry, 'url'>>): string =>
   `[${emojiTitle({emoji, key: 'link'}).trim()} Source](${url})\n`;
+
+// Avoid issue if the Markdown table gets formatted with Prettier
+const parseType = (type: string): string => type.replace(/ \| /, ' or ').replace(/ & /, ' and ');
 
 const toMarkdown = ({
   entries,
@@ -100,7 +132,7 @@ const toMarkdown = ({
 }: {
   entries: DocEntry[];
   headingLevel: MarkdownHeadingLevel | '####';
-  docType: 'Constant' | 'Function' | 'Method';
+  docType: 'Constant' | 'Function' | 'Method' | 'Type';
 } & Pick<MarkdownOptions, 'emoji'>): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
@@ -141,9 +173,6 @@ const toMarkdown = ({
     })
   );
 
-  // Avoid issue if the Markdown table gets formatted with Prettier
-  const parseType = (type: string): string => type.replace(/ \| /, ' or ').replace(/ & /, ' and ');
-
   const rowToMarkdown = ({name, documentation, type, params, url}: Row): string => {
     const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
 
@@ -151,7 +180,7 @@ const toMarkdown = ({
       markdown.push(`${documentation}\n`);
     }
 
-    markdown.push(`| ${docType} | Type |`);
+    markdown.push(`| ${type === 'Type' ? 'Type alias' : docType} | Type |`);
     markdown.push('| ---------- | ---------- |');
     markdown.push(`| \`${name}\` | \`${parseType(type)}\` |\n`);
 
@@ -199,7 +228,9 @@ const DEFAULT_EMOJI: MarkdownEmoji = {
   functions: 'toolbox',
   constants: 'wrench',
   entry: 'gear',
-  link: 'link'
+  link: 'link',
+  interfaces: 'tropical_drink',
+  types: 'cocktail'
 };
 
 /**
@@ -229,6 +260,8 @@ export const documentationToMarkdown = ({
   const functions: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'function');
   const classes: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'class');
   const constants: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'const');
+  const types: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'type');
+  const interfaces: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'interface');
 
   const markdown: string[] = [];
 
@@ -251,6 +284,22 @@ export const documentationToMarkdown = ({
   markdown.push(
     classes.map((entry: DocEntry) => classesToMarkdown({entry, headingLevel, emoji})).join('\n')
   );
+
+  if (interfaces.length) {
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'interfaces'})} Interfaces\n`);
+    markdown.push(`${tableOfContent({entries: interfaces, emoji})}\n`);
+    markdown.push(
+      interfaces
+        .map((entry: DocEntry) => interfacesToMarkdown({entry, headingLevel, emoji}))
+        .join('\n')
+    );
+  }
+
+  if (types.length) {
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'types'})} Types\n`);
+    markdown.push(`${tableOfContent({entries: types, emoji})}\n`);
+    markdown.push(`${toMarkdown({entries: types, headingLevel, emoji, docType: 'Type'})}\n`);
+  }
 
   return markdown.join('\n');
 };

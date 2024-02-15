@@ -5,6 +5,7 @@ import type {
   Declaration,
   FunctionDeclaration,
   Node,
+  PropertyName,
   Signature,
   SourceFile,
   TypeChecker,
@@ -25,8 +26,12 @@ import {
   isArrowFunction,
   isClassDeclaration,
   isFunctionDeclaration,
+  isIdentifier,
+  isInterfaceDeclaration,
   isMethodDeclaration,
   isModuleDeclaration,
+  isPropertySignature,
+  isTypeAliasDeclaration,
   isVariableStatement
 } from 'typescript';
 import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
@@ -123,12 +128,46 @@ const findDescendantArrowFunction = (node: Node): Node | undefined => {
   return forEachChild(node, findDescendantArrowFunction);
 };
 
+// TODO: there is probably a better way
+const isTypeKind = (kind: SyntaxKind): boolean => {
+  const typeKinds: SyntaxKind[] = [
+    SyntaxKind.TypePredicate,
+    SyntaxKind.TypeReference,
+    SyntaxKind.FunctionType,
+    SyntaxKind.ConstructorType,
+    SyntaxKind.TypeQuery,
+    SyntaxKind.TypeLiteral,
+    SyntaxKind.ArrayType,
+    SyntaxKind.TupleType,
+    SyntaxKind.OptionalType,
+    SyntaxKind.RestType,
+    SyntaxKind.UnionType,
+    SyntaxKind.IntersectionType,
+    SyntaxKind.ConditionalType,
+    SyntaxKind.InferType,
+    SyntaxKind.ParenthesizedType,
+    SyntaxKind.ThisType,
+    SyntaxKind.TypeOperator,
+    SyntaxKind.IndexedAccessType,
+    SyntaxKind.MappedType,
+    SyntaxKind.LiteralType,
+    SyntaxKind.NamedTupleMember,
+    SyntaxKind.TemplateLiteralType,
+    // SyntaxKind.TemplateLiteralTypeSpan, // This is more of a structural part of template literal types
+    SyntaxKind.ImportType
+  ];
+
+  return typeKinds.includes(kind);
+};
+
 /** visit nodes finding exported classes */
 const visit = ({
   checker,
   node,
+  types,
   ...rest
-}: {checker: TypeChecker; node: Node} & Source): DocEntry[] => {
+}: {checker: TypeChecker; node: Node} & Source &
+  Required<Pick<BuildOptions, 'types'>>): DocEntry[] => {
   // // Only consider exported nodes
   if (!isNodeExportedOrPublic(node)) {
     return [];
@@ -174,7 +213,7 @@ const visit = ({
       };
 
       const visitChild = (node: Node) => {
-        const docEntries: DocEntry[] = visit({node, checker, ...rest});
+        const docEntries: DocEntry[] = visit({node, checker, types, ...rest});
         // We do not need to repeat the file name for class members
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         classEntry.methods?.push(...docEntries.map(({fileName: _, ...rest}) => rest));
@@ -186,7 +225,7 @@ const visit = ({
     }
   } else if (isModuleDeclaration(node)) {
     const visitChild = (node: Node) => {
-      const docEntries: DocEntry[] = visit({node, checker, ...rest});
+      const docEntries: DocEntry[] = visit({node, checker, types, ...rest});
       entries.push(...docEntries);
     };
 
@@ -218,6 +257,47 @@ const visit = ({
         // TODO: not sure what's the proper casting, VariableDeclaration does not contain Symbol but the test entity effectively does
         const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
         addDocEntry({symbol, doc_type: 'const', node});
+      }
+    } else if (types && isInterfaceDeclaration(node)) {
+      const symbol = checker.getSymbolAtLocation(node.name);
+
+      if (symbol) {
+        const members = node.members
+          .filter(
+            (member) =>
+              isPropertySignature(member) && member.name !== undefined && isIdentifier(member.name)
+          )
+          .map((member) => checker.getSymbolAtLocation(member.name as PropertyName))
+          .filter((symbol) => symbol !== undefined)
+          .map((symbol) => serializeSymbol({checker, symbol: symbol as TypeScriptSymbol}));
+
+        const interfaceEntry: DocEntry = {
+          ...serializeSymbol({checker, doc_type: 'interface', symbol}),
+          properties: members,
+          ...buildSource({
+            node,
+            ...rest
+          })
+        };
+
+        entries.push(interfaceEntry);
+      }
+    } else if (types && isTypeAliasDeclaration(node)) {
+      const symbol = checker.getSymbolAtLocation(node.name);
+
+      if (symbol) {
+        const child = node.getChildren().find(({kind}) => isTypeKind(kind));
+
+        const typeEntry: DocEntry = {
+          ...serializeSymbol({checker, doc_type: 'type', symbol}),
+          ...buildSource({
+            node,
+            ...rest
+          }),
+          type: child?.getText().replace(/^"|"$/g, '')
+        };
+
+        entries.push(typeEntry);
       }
     }
   }
@@ -278,13 +358,16 @@ export const buildDocumentation = ({
   const {
     compilerOptions,
     explore: userExplore,
-    repo
+    repo,
+    types: userTypes
   } = options ?? {
     explore: false,
-    compilerOptions: DEFAULT_COMPILER_OPTIONS
+    compilerOptions: DEFAULT_COMPILER_OPTIONS,
+    types: false
   };
 
   const explore = userExplore ?? false;
+  const types = userTypes ?? false;
 
   // Build a program using the set of root file names in fileNames
   const program = createProgram(inputFiles, compilerOptions ?? DEFAULT_COMPILER_OPTIONS);
@@ -308,7 +391,7 @@ export const buildDocumentation = ({
   for (const sourceFile of sourceFiles) {
     // Walk the tree to search for classes
     forEachChild(sourceFile, (node: Node) => {
-      const entries: DocEntry[] = visit({checker, node, sourceFile, repo});
+      const entries: DocEntry[] = visit({checker, node, sourceFile, repo, types});
       result.push(...entries);
     });
   }
