@@ -161,7 +161,7 @@ Parameters:
 - `params.entries`: The entries of the documentation (functions, constants and classes).
 - `params.options`: Optional configuration to render the Markdown content. See `types.ts` for details.
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/markdown.ts#L243)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/markdown.ts#L245)
 
 ### :gear: generateDocumentation
 
