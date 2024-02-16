@@ -22,7 +22,6 @@ Generates markdown documentation from TypeScript source code. Useful for generat
 - [:arrow_down: Installation](#arrow_down-installation)
 - [:electric_plug: GitHub Actions](#electric_plug-github-actions)
 - [:zap: Usage](#zap-usage)
-- [:construction: Limitations](#construction-limitations)
 - [:toolbox: Functions](#toolbox-functions)
   - [:gear: buildDocumentation](#gear-builddocumentation)
   - [:gear: documentationToMarkdown](#gear-documentationtomarkdown)
