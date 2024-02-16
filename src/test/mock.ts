@@ -127,6 +127,13 @@ export interface Foo {
    */
   hello: string;
 
+  /**
+   * Something
+   *
+   * @default `hello`
+   */
+  world?: string;
+
   abc: Abc;
 }
 

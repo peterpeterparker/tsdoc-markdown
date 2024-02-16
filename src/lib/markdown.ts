@@ -104,11 +104,16 @@ const interfacesToMarkdown = ({
   markdown.push(`| Property | Type | Description |`);
   markdown.push('| ---------- | ---------- | ---------- |');
 
-  (entry.properties ?? []).forEach(({name, type, documentation}) =>
+  (entry.properties ?? []).forEach(({name, type, documentation, jsDocs}) => {
+    const jsDocsDescription = (jsDocs ?? []).map(
+      ({name, text}: JSDocTagInfo) =>
+        `${name}${text !== undefined ? `: ${text.map(({text}) => text).join('')}` : ''}`
+    );
+
     markdown.push(
-      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''} |`
-    )
-  );
+      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''}${jsDocsDescription.length > 0 ? ` ${jsDocsDescription.join('')}` : ''} |`
+    );
+  });
 
   markdown.push('\n');
 
