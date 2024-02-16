@@ -163,7 +163,7 @@ A Foo interface description.
 
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
-| `hello` | `string` | `Says hello.` |
+| `hello` | `string` | Says hello. |
 | `abc` | `Abc` |  |
 
 
