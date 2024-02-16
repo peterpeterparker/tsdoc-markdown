@@ -105,13 +105,13 @@ const interfacesToMarkdown = ({
   markdown.push('| ---------- | ---------- | ---------- |');
 
   (entry.properties ?? []).forEach(({name, type, documentation, jsDocs}) => {
-    const docs = (jsDocs ?? []).map(
+    const jsDocsDescription = (jsDocs ?? []).map(
       ({name, text}: JSDocTagInfo) =>
         `${name}${text !== undefined ? `: ${text.map(({text}) => text).join('')}` : ''}`
     );
 
     markdown.push(
-      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''}${docs.length > 0 ? ` ${docs.join('')}` : ''} |`
+      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''}${jsDocsDescription.length > 0 ? ` ${jsDocsDescription.join('')}` : ''} |`
     );
   });
 
