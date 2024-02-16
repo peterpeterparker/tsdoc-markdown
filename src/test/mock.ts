@@ -117,3 +117,25 @@ export default class foo {
    */
   bar() {}
 }
+
+/**
+ * A Foo interface description.
+ */
+export interface Foo {
+  /**
+   * Says hello.
+   */
+  hello: string;
+
+  abc: Abc;
+}
+
+/**
+ * A type yolo
+ */
+export type yolo = 'string';
+
+/**
+ * A type yolo
+ */
+export type Abc = Foo & {hello: string};

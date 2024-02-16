@@ -25,8 +25,8 @@
     "contributors:generate": "all-contributors generate",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir dist/types",
     "test": "jest",
-    "start": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/test/mock.ts --dest=src/test/mock.md --repo=https://github.com/peterpeterparker/tsdoc-markdown",
-    "docs": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/lib/*  --repo=https://github.com/peterpeterparker/tsdoc-markdown && prettier --write ./README.md"
+    "start": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/test/mock.ts --dest=src/test/mock.md --repo=https://github.com/peterpeterparker/tsdoc-markdown --types",
+    "docs": "node rmdir.mjs && node esbuild.mjs && node bin/index.js --src=src/lib/* --repo=https://github.com/peterpeterparker/tsdoc-markdown && prettier --write ./README.md"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,10 @@ import {buildDocumentation} from '../lib/docs';
 describe('docs', () => {
   it('should generate json for mock', () => {
     const doc = buildDocumentation({
-      inputFiles: ['./src/test/mock.ts']
+      inputFiles: ['./src/test/mock.ts'],
+      options: {
+        types: true
+      }
     });
 
     const expectedDoc = readFileSync('./src/test/mock.json', 'utf8');

@@ -152,3 +152,43 @@ Description
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L118)
 
+
+## :tropical_drink: Interfaces
+
+- [Foo](#gear-foo)
+
+### :gear: Foo
+
+A Foo interface description.
+
+| Property | Type | Description |
+| ---------- | ---------- | ---------- |
+| `hello` | `string` | `Says hello.` |
+| `abc` | `Abc` |  |
+
+
+## :cocktail: Types
+
+- [yolo](#gear-yolo)
+- [Abc](#gear-abc)
+
+### :gear: yolo
+
+A type yolo
+
+| Type | Type |
+| ---------- | ---------- |
+| `yolo` | `'string'` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L136)
+
+### :gear: Abc
+
+A type yolo
+
+| Type | Type |
+| ---------- | ---------- |
+| `Abc` | `Foo and {hello: string}` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L141)
+

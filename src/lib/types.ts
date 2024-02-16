@@ -1,6 +1,6 @@
 import type {CompilerOptions, JSDocTagInfo} from 'typescript';
 
-export type DocEntryType = 'function' | 'method' | 'class' | 'const';
+export type DocEntryType = 'function' | 'method' | 'class' | 'const' | 'interface' | 'type';
 
 export type DocEntryConstructor = Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> & {
   visibility: 'private' | 'public';
@@ -15,6 +15,7 @@ export interface DocEntry {
   constructors?: DocEntryConstructor[];
   parameters?: DocEntry[];
   methods?: DocEntry[];
+  properties?: DocEntry[];
   returnType?: string;
   jsDocs?: JSDocTagInfo[];
   doc_type?: DocEntryType;
@@ -31,6 +32,8 @@ export interface MarkdownEmoji {
   // A function, method or constant title - i.e. an entry of one above titles
   entry: string;
   link: string;
+  interfaces: string;
+  types: string;
 }
 
 export type MarkdownHeadingLevel = '#' | '##' | '###';
@@ -61,4 +64,6 @@ export interface BuildOptions {
   explore?: boolean;
   // If provided, the Markdown parser will generate links to the documented source code
   repo?: RepoOptions;
+  // Documentation for Interfaces and Types is not generated per default. Set to true to include those.
+  types?: boolean;
 }

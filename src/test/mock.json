@@ -182,5 +182,33 @@
     ],
     "name": "default",
     "type": "typeof foo"
+  },
+  {
+    "name": "Foo",
+    "documentation": "A Foo interface description.",
+    "type": "any",
+    "jsDocs": [],
+    "doc_type": "interface",
+    "properties": [
+      {"name": "hello", "documentation": "Says hello.", "type": "string", "jsDocs": []},
+      {"name": "abc", "documentation": "", "type": "Abc", "jsDocs": []}
+    ],
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "yolo",
+    "documentation": "A type yolo",
+    "type": "'string'",
+    "jsDocs": [],
+    "doc_type": "type",
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "Abc",
+    "documentation": "A type yolo",
+    "type": "Foo & {hello: string}",
+    "jsDocs": [],
+    "doc_type": "type",
+    "fileName": "src/test/mock.ts"
   }
 ]
