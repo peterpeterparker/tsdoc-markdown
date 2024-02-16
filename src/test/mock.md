@@ -164,6 +164,7 @@ A Foo interface description.
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `hello` | `string` | Says hello. |
+| `world` | `string` | Something default: `hello` |
 | `abc` | `Abc` |  |
 
 
@@ -180,7 +181,7 @@ A type yolo
 | ---------- | ---------- |
 | `yolo` | `'string'` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L136)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L143)
 
 ### :gear: Abc
 
@@ -190,5 +191,5 @@ A type yolo
 | ---------- | ---------- |
 | `Abc` | `Foo and {hello: string}` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L141)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L148)
 

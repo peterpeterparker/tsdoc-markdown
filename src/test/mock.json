@@ -191,6 +191,12 @@
     "doc_type": "interface",
     "properties": [
       {"name": "hello", "documentation": "Says hello.", "type": "string", "jsDocs": []},
+      {
+        "name": "world",
+        "documentation": "Something",
+        "type": "string",
+        "jsDocs": [{"name": "default", "text": [{"text": "`hello`", "kind": "text"}]}]
+      },
       {"name": "abc", "documentation": "", "type": "Abc", "jsDocs": []}
     ],
     "fileName": "src/test/mock.ts"
