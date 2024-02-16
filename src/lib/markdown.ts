@@ -106,7 +106,7 @@ const interfacesToMarkdown = ({
 
   (entry.properties ?? []).forEach(({name, type, documentation}) =>
     markdown.push(
-      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `\`${parseType(documentation).replace(/\r?\n|\r/g, '')}\`` : ''} |`
+      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''} |`
     )
   );
 
