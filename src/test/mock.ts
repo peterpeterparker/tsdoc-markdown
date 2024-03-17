@@ -20,7 +20,7 @@ export function hello2() {
 /**
  * Markdown should handle ` | ` for the type.
  */
-export const genericType = <T>(value: [] | [T]): T => value?.[0];
+export const genericType = <T>(value: [] | [T]): T | undefined => value?.[0];
 
 /**
  * Should not be documented.

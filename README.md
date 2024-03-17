@@ -138,24 +138,24 @@ generateDocumentation({
 
 Build the documentation entries for the selected sources.
 
-| Function             | Type                                                                                         |
-| -------------------- | -------------------------------------------------------------------------------------------- |
-| `buildDocumentation` | `({ inputFiles, options }: { inputFiles: string[]; options?: BuildOptions; }) => DocEntry[]` |
+| Function             | Type                                                                                                      |
+| -------------------- | --------------------------------------------------------------------------------------------------------- |
+| `buildDocumentation` | `({ inputFiles, options }: { inputFiles: string[]; options?: BuildOptions or undefined; }) => DocEntry[]` |
 
 Parameters:
 
 - `params.inputFiles`: The list of files to scan and for which the documentation should be build.
 - `params.options`: Optional compiler options to generate the docs
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L351)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L352)
 
 ### :gear: documentationToMarkdown
 
 Convert the documentation entries to an opinionated Markdown format.
 
-| Function                  | Type                                                                                    |
-| ------------------------- | --------------------------------------------------------------------------------------- |
-| `documentationToMarkdown` | `({ entries, options }: { entries: DocEntry[]; options?: MarkdownOptions; }) => string` |
+| Function                  | Type                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `documentationToMarkdown` | `({ entries, options }: { entries: DocEntry[]; options?: MarkdownOptions or undefined; }) => string` |
 
 Parameters:
 
@@ -170,9 +170,9 @@ Generate documentation and write output to a file.
 If the file exists, it will try to insert the docs between <!-- TSDOC_START --> and <!-- TSDOC_END --> comments.
 If these does not exist, the output file will be overwritten.
 
-| Function                | Type                                                                                                                                                                                 |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `generateDocumentation` | `({ inputFiles, outputFile, markdownOptions, buildOptions }: { inputFiles: string[]; outputFile: string; markdownOptions?: MarkdownOptions; buildOptions?: BuildOptions; }) => void` |
+| Function                | Type                                                                                                                                                                                                           |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `generateDocumentation` | `({ inputFiles, outputFile, markdownOptions, buildOptions }: { inputFiles: string[]; outputFile: string; markdownOptions?: MarkdownOptions or undefined; buildOptions?: BuildOptions or undefined; }) => void` |
 
 Parameters:
 
