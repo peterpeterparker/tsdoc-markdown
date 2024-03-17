@@ -35,7 +35,7 @@ Markdown should handle ` | ` for the type.
 
 | Function | Type |
 | ---------- | ---------- |
-| `genericType` | `<T>(value: [] or [T]) => T` |
+| `genericType` | `<T>(value: [] or [T]) => T or undefined` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L23)
 
@@ -83,7 +83,7 @@ Create a LedgerCanister
 
 | Method | Type |
 | ---------- | ---------- |
-| `create` | `(options: { canisterId?: string; }) => LedgerCanister` |
+| `create` | `(options: { canisterId?: string or undefined; }) => LedgerCanister` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L55)
 
@@ -93,7 +93,7 @@ Returns the balance of the specified account identifier.
 
 | Method | Type |
 | ---------- | ---------- |
-| `accountBalance` | `({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>` |
+| `accountBalance` | `({ certified }: { certified?: boolean or undefined; }) => Promise<{ icp: bigint; }>` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L69)
 
@@ -119,7 +119,7 @@ This create function is public as well.
 
 | Method | Type |
 | ---------- | ---------- |
-| `create` | `(options: { canisterId?: string; }) => SnsLedgerCanister` |
+| `create` | `(options: { canisterId?: string or undefined; }) => SnsLedgerCanister` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L101)
 
@@ -164,7 +164,7 @@ A Foo interface description.
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `hello` | `string` | Says hello. |
-| `world` | `string` | Something default: `hello` |
+| `world` | `string or undefined` | Something default: `hello` |
 | `abc` | `Abc` |  |
 
 

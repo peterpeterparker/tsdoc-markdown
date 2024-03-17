@@ -44,7 +44,7 @@
     "fileName": "src/test/mock.ts",
     "jsDocs": [],
     "name": "genericType",
-    "type": "<T>(value: [] | [T]) => T"
+    "type": "<T>(value: [] | [T]) => T | undefined"
   },
   {
     "constructors": [
@@ -99,7 +99,7 @@
         "documentation": "Create a LedgerCanister",
         "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "params"}]}],
         "name": "create",
-        "type": "(options: { canisterId?: string; }) => LedgerCanister"
+        "type": "(options: { canisterId?: string | undefined; }) => LedgerCanister"
       },
       {
         "doc_type": "function",
@@ -117,7 +117,7 @@
           }
         ],
         "name": "accountBalance",
-        "type": "({ certified }: { certified?: boolean; }) => Promise<{ icp: bigint; }>"
+        "type": "({ certified }: { certified?: boolean | undefined; }) => Promise<{ icp: bigint; }>"
       }
     ],
     "name": "LedgerCanister",
@@ -152,7 +152,7 @@
           }
         ],
         "name": "create",
-        "type": "(options: { canisterId?: string; }) => SnsLedgerCanister"
+        "type": "(options: { canisterId?: string | undefined; }) => SnsLedgerCanister"
       },
       {
         "doc_type": "function",
@@ -194,7 +194,7 @@
       {
         "name": "world",
         "documentation": "Something",
-        "type": "string",
+        "type": "string | undefined",
         "jsDocs": [{"name": "default", "text": [{"text": "`hello`", "kind": "text"}]}]
       },
       {"name": "abc", "documentation": "", "type": "Abc", "jsDocs": []}

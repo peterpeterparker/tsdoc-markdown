@@ -307,7 +307,8 @@ const visit = ({
 
 const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
   target: ScriptTarget.ES2020,
-  module: ModuleKind.CommonJS
+  module: ModuleKind.CommonJS,
+  strictNullChecks: true
 };
 
 type Source = Pick<BuildOptions, 'repo'> & {sourceFile: SourceFile};
