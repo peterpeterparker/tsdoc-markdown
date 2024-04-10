@@ -137,7 +137,7 @@ const toMarkdown = ({
 }: {
   entries: DocEntry[];
   headingLevel: MarkdownHeadingLevel | '####';
-  docType: 'Constant' | 'Function' | 'Method' | 'Type';
+  docType: 'Constant' | 'Function' | 'Method' | 'Type' | 'Enum';
 } & Pick<MarkdownOptions, 'emoji'>): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
@@ -234,6 +234,7 @@ const DEFAULT_EMOJI: MarkdownEmoji = {
   classes: 'factory',
   functions: 'toolbox',
   constants: 'wrench',
+  enum: 'tropical_drink',
   entry: 'gear',
   link: 'link',
   interfaces: 'tropical_drink',
@@ -267,6 +268,7 @@ export const documentationToMarkdown = ({
   const functions: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'function');
   const classes: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'class');
   const constants: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'const');
+  const enums: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'enum');
   const types: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'type');
   const interfaces: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'interface');
 
@@ -287,11 +289,18 @@ export const documentationToMarkdown = ({
       `${toMarkdown({entries: constants, headingLevel, emoji, docType: 'Constant'})}\n`
     );
   }
-
   markdown.push(
     classes.map((entry: DocEntry) => classesToMarkdown({entry, headingLevel, emoji})).join('\n')
   );
-
+  if (enums.length) {
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'enum'})} Enum\n`);
+    markdown.push(`${tableOfContent({entries: enums, emoji})}\n`);
+    markdown.push(
+      enums
+        .map((entry: DocEntry) => interfacesToMarkdown({entry, headingLevel, emoji}))
+        .join('\n')
+    );
+  }
   if (interfaces.length) {
     markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'interfaces'})} Interfaces\n`);
     markdown.push(`${tableOfContent({entries: interfaces, emoji})}\n`);

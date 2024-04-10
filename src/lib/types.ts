@@ -1,6 +1,6 @@
 import type {CompilerOptions, JSDocTagInfo} from 'typescript';
 
-export type DocEntryType = 'function' | 'method' | 'class' | 'const' | 'interface' | 'type';
+export type DocEntryType = 'function' | 'method' | 'class' | 'const' | 'interface' | 'type' | 'enum';
 
 export type DocEntryConstructor = Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> & {
   visibility: 'private' | 'public';
@@ -29,6 +29,7 @@ export interface MarkdownEmoji {
   classes: string;
   functions: string;
   constants: string;
+  enum: string;
   // A function, method or constant title - i.e. an entry of one above titles
   entry: string;
   link: string;

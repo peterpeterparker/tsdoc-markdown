@@ -7,7 +7,10 @@
       {
         "name": "param",
         "text": [
-          {"kind": "parameterName", "text": "yolo"},
+          {
+            "kind": "parameterName",
+            "text": "yolo"
+          },
           {
             "kind": "space",
             "text": " "
@@ -57,7 +60,10 @@
               {
                 "name": "param",
                 "text": [
-                  {"kind": "parameterName", "text": "agent"},
+                  {
+                    "kind": "parameterName",
+                    "text": "agent"
+                  },
                   {
                     "kind": "space",
                     "text": " "
@@ -74,13 +80,33 @@
           },
           {
             "documentation": "",
-            "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "canisterId"}]}],
+            "jsDocs": [
+              {
+                "name": "param",
+                "text": [
+                  {
+                    "kind": "text",
+                    "text": "canisterId"
+                  }
+                ]
+              }
+            ],
             "name": "canisterId",
             "type": "{ canisterId: string; }"
           },
           {
             "documentation": "",
-            "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "hardwareWallet"}]}],
+            "jsDocs": [
+              {
+                "name": "param",
+                "text": [
+                  {
+                    "kind": "text",
+                    "text": "hardwareWallet"
+                  }
+                ]
+              }
+            ],
             "name": "hardwareWallet",
             "type": "boolean"
           }
@@ -97,7 +123,17 @@
       {
         "doc_type": "method",
         "documentation": "Create a LedgerCanister",
-        "jsDocs": [{"name": "param", "text": [{"kind": "text", "text": "params"}]}],
+        "jsDocs": [
+          {
+            "name": "param",
+            "text": [
+              {
+                "kind": "text",
+                "text": "params"
+              }
+            ]
+          }
+        ],
         "name": "create",
         "type": "(options: { canisterId?: string | undefined; }) => LedgerCanister"
       },
@@ -105,14 +141,34 @@
         "doc_type": "function",
         "documentation": "Returns the balance of the specified account identifier.",
         "jsDocs": [
-          {"name": "param", "text": [{"kind": "text", "text": "params"}]},
+          {
+            "name": "param",
+            "text": [
+              {
+                "kind": "text",
+                "text": "params"
+              }
+            ]
+          },
           {
             "name": "throws",
             "text": [
-              {"kind": "text", "text": "an "},
-              {"kind": "link", "text": "{@link "},
-              {"kind": "linkText", "text": "Error "},
-              {"kind": "link", "text": "}"}
+              {
+                "kind": "text",
+                "text": "an "
+              },
+              {
+                "kind": "link",
+                "text": "{@link "
+              },
+              {
+                "kind": "linkText",
+                "text": "Error "
+              },
+              {
+                "kind": "link",
+                "text": "}"
+              }
             ]
           }
         ],
@@ -190,14 +246,34 @@
     "jsDocs": [],
     "doc_type": "interface",
     "properties": [
-      {"name": "hello", "documentation": "Says hello.", "type": "string", "jsDocs": []},
+      {
+        "name": "hello",
+        "documentation": "Says hello.",
+        "type": "string",
+        "jsDocs": []
+      },
       {
         "name": "world",
         "documentation": "Something",
         "type": "string | undefined",
-        "jsDocs": [{"name": "default", "text": [{"text": "`hello`", "kind": "text"}]}]
+        "jsDocs": [
+          {
+            "name": "default",
+            "text": [
+              {
+                "text": "`hello`",
+                "kind": "text"
+              }
+            ]
+          }
+        ]
       },
-      {"name": "abc", "documentation": "", "type": "Abc", "jsDocs": []}
+      {
+        "name": "abc",
+        "documentation": "",
+        "type": "Abc",
+        "jsDocs": []
+      }
     ],
     "fileName": "src/test/mock.ts"
   },
@@ -215,6 +291,42 @@
     "type": "Foo & {hello: string}",
     "jsDocs": [],
     "doc_type": "type",
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "Time",
+    "documentation": "",
+    "properties": [
+      {
+        "name": "SECOND",
+        "type": "1000"
+      },
+      {
+        "name": "MINUTE",
+        "type": "60 * SECOND"
+      }
+    ],
+    "jsDocs": [],
+    "doc_type": "enum",
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "MemberType",
+    "documentation": "",
+    "properties": [
+      {
+        "name": "T1"
+      },
+      {
+        "name": "T2",
+        "documentation": "comment"
+      },
+      {
+        "name": "T3"
+      }
+    ],
+    "jsDocs": [],
+    "doc_type": "enum",
     "fileName": "src/test/mock.ts"
   }
 ]

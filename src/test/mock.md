@@ -153,6 +153,32 @@ Description
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L118)
 
 
+## :tropical_drink: Enum
+
+- [Time](#gear-time)
+- [MemberType](#gear-membertype)
+
+### :gear: Time
+
+
+
+| Property | Type | Description |
+| ---------- | ---------- | ---------- |
+| `SECOND` | `1000` |  |
+| `MINUTE` | `60 * SECOND` |  |
+
+
+### :gear: MemberType
+
+
+
+| Property | Type | Description |
+| ---------- | ---------- | ---------- |
+| `T1` | `` |  |
+| `T2` | `` | comment |
+| `T3` | `` |  |
+
+
 ## :tropical_drink: Interfaces
 
 - [Foo](#gear-foo)

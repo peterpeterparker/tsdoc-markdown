@@ -146,3 +146,17 @@ export type yolo = 'string';
  * A type yolo
  */
 export type Abc = Foo & {hello: string};
+
+export enum Time {
+  SECOND = 1000,
+  MINUTE = 60 * SECOND,
+}
+
+export enum MemberType {
+  T1,
+  /**
+   * comment
+   */
+  T2,
+  T3,
+}

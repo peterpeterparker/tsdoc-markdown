@@ -11,7 +11,8 @@ import type {
   TypeChecker,
   Symbol as TypeScriptSymbol,
   VariableDeclaration,
-  VariableStatement
+  VariableStatement,
+  EnumDeclaration,
 } from 'typescript';
 import {
   ModifierFlags,
@@ -32,7 +33,8 @@ import {
   isModuleDeclaration,
   isPropertySignature,
   isTypeAliasDeclaration,
-  isVariableStatement
+  isVariableStatement,
+  isEnumDeclaration,
 } from 'typescript';
 import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
 
@@ -52,6 +54,41 @@ const serializeSymbol = ({
     type: checker.typeToString(checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)),
     jsDocs: symbol.getJsDocTags(),
     ...(doc_type && {doc_type})
+  };
+};
+
+const serializeEnum = ({
+  checker,
+  symbol,
+}: {
+  checker: TypeChecker;
+  symbol: TypeScriptSymbol;
+  doc_type?: DocEntryType;
+}): DocEntry => {
+  const node = symbol.valueDeclaration as EnumDeclaration
+  const properties: DocEntry[] = []
+  node.members.forEach(member=>{
+    const type = member.initializer?.getText()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const documentation = displayPartsToString(member.symbol.getDocumentationComment(checker))
+    const property: DocEntry = {
+      name: member.name.getText(),
+    }
+    if (type){
+      property.type = type
+    }
+    if (documentation){
+      property.documentation = documentation
+    }
+    properties.push(property)
+  })
+  return {
+    name: symbol.getName(),
+    documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
+    properties,
+    jsDocs: symbol.getJsDocTags(),
+    doc_type: 'enum',
   };
 };
 
@@ -299,6 +336,16 @@ const visit = ({
 
         entries.push(typeEntry);
       }
+    } else if (isEnumDeclaration(node)) {
+      const symbol = checker.getSymbolAtLocation((node as EnumDeclaration).name)!;
+      const details = serializeEnum({checker, symbol});
+      entries.push({
+        ...details,
+        ...buildSource({
+          node,
+          ...rest
+        })
+      });
     }
   }
 
