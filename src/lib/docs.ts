@@ -3,6 +3,7 @@ import type {
   ArrowFunction,
   CompilerOptions,
   Declaration,
+  EnumDeclaration,
   FunctionDeclaration,
   Node,
   PropertyName,
@@ -11,8 +12,7 @@ import type {
   TypeChecker,
   Symbol as TypeScriptSymbol,
   VariableDeclaration,
-  VariableStatement,
-  EnumDeclaration,
+  VariableStatement
 } from 'typescript';
 import {
   ModifierFlags,
@@ -26,6 +26,7 @@ import {
   getCombinedModifierFlags,
   isArrowFunction,
   isClassDeclaration,
+  isEnumDeclaration,
   isFunctionDeclaration,
   isIdentifier,
   isInterfaceDeclaration,
@@ -33,8 +34,7 @@ import {
   isModuleDeclaration,
   isPropertySignature,
   isTypeAliasDeclaration,
-  isVariableStatement,
-  isEnumDeclaration,
+  isVariableStatement
 } from 'typescript';
 import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
 
@@ -59,36 +59,34 @@ const serializeSymbol = ({
 
 const serializeEnum = ({
   checker,
-  symbol,
+  symbol
 }: {
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
   doc_type?: DocEntryType;
 }): DocEntry => {
-  const node = symbol.valueDeclaration as EnumDeclaration
-  const properties: DocEntry[] = []
-  node.members.forEach(member=>{
-    const type = member.initializer?.getText()
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const documentation = displayPartsToString(member.symbol.getDocumentationComment(checker))
-    const property: DocEntry = {
+  const {members} = symbol.valueDeclaration as EnumDeclaration;
+
+  const properties: DocEntry[] = members.map((member) => {
+    const documentation = displayPartsToString(
+      (member as unknown as {symbol: TypeScriptSymbol}).symbol.getDocumentationComment(checker)
+    );
+
+    const type = member.initializer?.getText();
+
+    return {
       name: member.name.getText(),
-    }
-    if (type){
-      property.type = type
-    }
-    if (documentation){
-      property.documentation = documentation
-    }
-    properties.push(property)
-  })
+      ...(type !== undefined && {type}),
+      ...(documentation !== undefined && documentation !== '' && {documentation})
+    };
+  });
+
   return {
     name: symbol.getName(),
     documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
     properties,
     jsDocs: symbol.getJsDocTags(),
-    doc_type: 'enum',
+    doc_type: 'enum'
   };
 };
 

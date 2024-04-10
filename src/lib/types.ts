@@ -1,6 +1,13 @@
 import type {CompilerOptions, JSDocTagInfo} from 'typescript';
 
-export type DocEntryType = 'function' | 'method' | 'class' | 'const' | 'interface' | 'type' | 'enum';
+export type DocEntryType =
+  | 'function'
+  | 'method'
+  | 'class'
+  | 'const'
+  | 'interface'
+  | 'type'
+  | 'enum';
 
 export type DocEntryConstructor = Pick<DocEntry, 'parameters' | 'returnType' | 'documentation'> & {
   visibility: 'private' | 'public';
