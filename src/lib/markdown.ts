@@ -234,7 +234,7 @@ const DEFAULT_EMOJI: MarkdownEmoji = {
   classes: 'factory',
   functions: 'toolbox',
   constants: 'wrench',
-  enum: 'tropical_drink',
+  enum: 'nut_and_bolt',
   entry: 'gear',
   link: 'link',
   interfaces: 'tropical_drink',

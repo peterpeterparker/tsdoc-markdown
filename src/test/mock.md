@@ -153,7 +153,7 @@ Description
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L118)
 
 
-## :tropical_drink: Enum
+## :nut_and_bolt: Enum
 
 - [Time](#gear-time)
 - [MemberType](#gear-membertype)
