@@ -296,9 +296,7 @@ export const documentationToMarkdown = ({
     markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'enum'})} Enum\n`);
     markdown.push(`${tableOfContent({entries: enums, emoji})}\n`);
     markdown.push(
-      enums
-        .map((entry: DocEntry) => interfacesToMarkdown({entry, headingLevel, emoji}))
-        .join('\n')
+      enums.map((entry: DocEntry) => interfacesToMarkdown({entry, headingLevel, emoji})).join('\n')
     );
   }
   if (interfaces.length) {

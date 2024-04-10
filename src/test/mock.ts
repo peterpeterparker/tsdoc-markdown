@@ -149,7 +149,7 @@ export type Abc = Foo & {hello: string};
 
 export enum Time {
   SECOND = 1000,
-  MINUTE = 60 * SECOND,
+  MINUTE = 60 * SECOND
 }
 
 export enum MemberType {
@@ -158,5 +158,5 @@ export enum MemberType {
    * comment
    */
   T2,
-  T3,
+  T3
 }
