@@ -3,6 +3,7 @@
 - [hello](#gear-hello)
 - [hello2](#gear-hello2)
 - [genericType](#gear-generictype)
+- [formInvalidateHandler](#gear-forminvalidatehandler)
 
 ### :gear: hello
 
@@ -38,6 +39,54 @@ Markdown should handle ` | ` for the type.
 | `genericType` | `<T>(value: [] or [T]) => T or undefined` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L23)
+
+### :gear: formInvalidateHandler
+
+| Function | Type |
+| ---------- | ---------- |
+| `formInvalidateHandler` | `(form: any, err: any, cb?: ((msg: string) => void) or undefined) => void` |
+
+Examples:
+
+```vue
+<template>
+  <el-form ref="formEl" :model="form" :rules="rules" >
+    ....
+  </el-form>
+</template>
+
+<script lang="ts" setup>
+import { ref, reactive } from 'vue'
+import { ElMessage, FormInstance } from 'element-plus'
+
+const formEl = ref<FormInstance>()
+const form = reactive({
+  name: '',
+})
+const rules = {
+  name: [{ required: true, message: 'please input name', trigger: 'blur' }]
+}
+
+function submit() {
+  formEl.value
+    ?.validate()
+    .then(async () => {
+      // ...
+    })
+    .catch((err) => {
+      formInvalidateHandler(formEl.value!, err, (msg: string) =>
+        ElMessage({
+          type: 'warning',
+          message: msg,
+        }),
+      )
+    })
+}
+</script>
+```
+
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L206)
 
 
 ## :wrench: Constants

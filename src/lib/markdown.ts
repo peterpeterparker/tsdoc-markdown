@@ -12,6 +12,7 @@ type Params = {name: string; documentation: string};
 type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
   Pick<DocEntry, 'url'> & {
     params: Params[];
+    examples: string[];
   };
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
@@ -167,6 +168,14 @@ const toMarkdown = ({
 
     return parts.map(toParam).filter((param) => param !== undefined) as Params[];
   };
+  const jsDocsToExamples = (jsDocs: JSDocTagInfo[]): string[] => {
+    const examples: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'example');
+    const texts = examples
+      .map(({text}) => text)
+      .filter(Boolean)
+      .flat(1) as SymbolDisplayPart[];
+    return texts.map(({text}) => text).filter(Boolean);
+  };
 
   const rows: Row[] = entries.map(
     ({name, type, documentation, parameters, jsDocs, url}: DocEntry) => ({
@@ -174,11 +183,12 @@ const toMarkdown = ({
       type: type ?? '',
       documentation: documentation ?? '',
       params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])],
+      examples: [...jsDocsToExamples(jsDocs ?? [])],
       url
     })
   );
 
-  const rowToMarkdown = ({name, documentation, type, params, url}: Row): string => {
+  const rowToMarkdown = ({name, documentation, type, params, examples, url}: Row): string => {
     const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
 
     if (documentation.length) {
@@ -196,7 +206,11 @@ const toMarkdown = ({
       markdown.push(...inlineParams(params));
       markdown.push('\n');
     }
-
+    if (examples.length) {
+      markdown.push('Examples:\n');
+      markdown.push(...examples);
+      markdown.push('\n');
+    }
     if (url !== undefined) {
       markdown.push(sourceCodeLink({emoji, url}));
     }
