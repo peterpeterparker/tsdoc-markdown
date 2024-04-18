@@ -87,7 +87,7 @@ const serializeEnum = ({
     documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
     properties,
     jsDocs: symbol.getJsDocTags(),
-    doc_type: doc_type || 'enum'
+    doc_type: doc_type ?? 'enum'
   };
 };
 
