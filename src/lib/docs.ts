@@ -59,7 +59,8 @@ const serializeSymbol = ({
 
 const serializeEnum = ({
   checker,
-  symbol
+  symbol,
+  doc_type
 }: {
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
@@ -86,7 +87,7 @@ const serializeEnum = ({
     documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
     properties,
     jsDocs: symbol.getJsDocTags(),
-    doc_type: 'enum'
+    doc_type: doc_type || 'enum'
   };
 };
 

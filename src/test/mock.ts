@@ -160,3 +160,54 @@ export enum MemberType {
   T2,
   T3
 }
+
+/**
+ * @param form
+ * @param err
+ * @param cb
+ * @example
+ * ```vue
+ * <template>
+ *   <el-form ref="formEl" :model="form" :rules="rules" >
+ *     ....
+ *   </el-form>
+ * </template>
+ *
+ * <script lang="ts" setup>
+ * import { ref, reactive } from 'vue'
+ * import { ElMessage, FormInstance } from 'element-plus'
+ *
+ * const formEl = ref<FormInstance>()
+ * const form = reactive({
+ *   name: '',
+ * })
+ * const rules = {
+ *   name: [{ required: true, message: 'please input name', trigger: 'blur' }]
+ * }
+ *
+ * function submit() {
+ *   formEl.value
+ *     ?.validate()
+ *     .then(async () => {
+ *       // ...
+ *     })
+ *     .catch((err) => {
+ *       formInvalidateHandler(formEl.value!, err, (msg: string) =>
+ *         ElMessage({
+ *           type: 'warning',
+ *           message: msg,
+ *         }),
+ *       )
+ *     })
+ * }
+ * </script>
+ * ```
+ */
+export function formInvalidateHandler(form: any, err: any, cb?: (msg: string) => void) {
+  const keys = Object.keys(err);
+  if (keys.length) {
+    form.scrollToField?.(keys[0]);
+    const msg = err[keys[0]]?.[0]?.message;
+    if (msg && cb) cb(msg);
+  }
+}

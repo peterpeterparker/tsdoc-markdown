@@ -1,152 +1,154 @@
 [
   {
-    "doc_type": "function",
+    "name": "hello",
     "documentation": "Hello",
-    "fileName": "src/test/mock.ts",
+    "type": "(world: string) => string",
     "jsDocs": [
       {
         "name": "param",
         "text": [
           {
-            "kind": "parameterName",
-            "text": "yolo"
+            "text": "yolo",
+            "kind": "parameterName"
           },
           {
-            "kind": "space",
-            "text": " "
+            "text": " ",
+            "kind": "space"
           },
           {
-            "kind": "text",
-            "text": "this is a jsdoc"
+            "text": "this is a jsdoc",
+            "kind": "text"
           }
         ]
       }
     ],
-    "name": "hello",
-    "type": "(world: string) => string"
+    "doc_type": "function",
+    "fileName": "src/test/mock.ts"
   },
   {
-    "doc_type": "const",
-    "documentation": "A constant",
-    "fileName": "src/test/mock.ts",
-    "jsDocs": [],
     "name": "numberOne",
-    "type": "2"
+    "documentation": "A constant",
+    "type": "2",
+    "jsDocs": [],
+    "doc_type": "const",
+    "fileName": "src/test/mock.ts"
   },
   {
-    "doc_type": "function",
-    "documentation": "hello2",
-    "fileName": "src/test/mock.ts",
-    "jsDocs": [],
     "name": "hello2",
-    "type": "() => void"
-  },
-  {
-    "doc_type": "function",
-    "documentation": "Markdown should handle ` | ` for the type.",
-    "fileName": "src/test/mock.ts",
+    "documentation": "hello2",
+    "type": "() => void",
     "jsDocs": [],
-    "name": "genericType",
-    "type": "<T>(value: [] | [T]) => T | undefined"
+    "doc_type": "function",
+    "fileName": "src/test/mock.ts"
   },
   {
+    "name": "genericType",
+    "documentation": "Markdown should handle ` | ` for the type.",
+    "type": "<T>(value: [] | [T]) => T | undefined",
+    "jsDocs": [],
+    "doc_type": "function",
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "LedgerCanister",
+    "documentation": "LedgerCanister is a test class.",
+    "type": "typeof LedgerCanister",
+    "jsDocs": [],
+    "doc_type": "class",
     "constructors": [
       {
-        "documentation": "The constructor is public.",
         "parameters": [
           {
-            "documentation": "Agent js",
-            "jsDocs": [
-              {
-                "name": "param",
-                "text": [
-                  {
-                    "kind": "parameterName",
-                    "text": "agent"
-                  },
-                  {
-                    "kind": "space",
-                    "text": " "
-                  },
-                  {
-                    "kind": "text",
-                    "text": "Agent js"
-                  }
-                ]
-              }
-            ],
             "name": "agent",
-            "type": "number"
-          },
-          {
-            "documentation": "",
+            "documentation": "Agent js",
+            "type": "number",
             "jsDocs": [
               {
                 "name": "param",
                 "text": [
                   {
-                    "kind": "text",
-                    "text": "canisterId"
+                    "text": "agent",
+                    "kind": "parameterName"
+                  },
+                  {
+                    "text": " ",
+                    "kind": "space"
+                  },
+                  {
+                    "text": "Agent js",
+                    "kind": "text"
                   }
                 ]
               }
-            ],
+            ]
+          },
+          {
             "name": "canisterId",
-            "type": "{ canisterId: string; }"
-          },
-          {
             "documentation": "",
+            "type": "{ canisterId: string; }",
             "jsDocs": [
               {
                 "name": "param",
                 "text": [
                   {
-                    "kind": "text",
-                    "text": "hardwareWallet"
+                    "text": "canisterId",
+                    "kind": "text"
                   }
                 ]
               }
-            ],
-            "name": "hardwareWallet",
-            "type": "boolean"
-          }
-        ],
-        "returnType": "LedgerCanister",
-        "visibility": "public"
-      }
-    ],
-    "doc_type": "class",
-    "documentation": "LedgerCanister is a test class.",
-    "fileName": "src/test/mock.ts",
-    "jsDocs": [],
-    "methods": [
-      {
-        "doc_type": "method",
-        "documentation": "Create a LedgerCanister",
-        "jsDocs": [
+            ]
+          },
           {
-            "name": "param",
-            "text": [
+            "name": "hardwareWallet",
+            "documentation": "",
+            "type": "boolean",
+            "jsDocs": [
               {
-                "kind": "text",
-                "text": "params"
+                "name": "param",
+                "text": [
+                  {
+                    "text": "hardwareWallet",
+                    "kind": "text"
+                  }
+                ]
               }
             ]
           }
         ],
-        "name": "create",
-        "type": "(options: { canisterId?: string | undefined; }) => LedgerCanister"
-      },
+        "returnType": "LedgerCanister",
+        "documentation": "The constructor is public.",
+        "visibility": "public"
+      }
+    ],
+    "methods": [
       {
-        "doc_type": "function",
-        "documentation": "Returns the balance of the specified account identifier.",
+        "name": "create",
+        "documentation": "Create a LedgerCanister",
+        "type": "(options: { canisterId?: string | undefined; }) => LedgerCanister",
         "jsDocs": [
           {
             "name": "param",
             "text": [
               {
-                "kind": "text",
-                "text": "params"
+                "text": "params",
+                "kind": "text"
+              }
+            ]
+          }
+        ],
+        "doc_type": "method"
+      },
+      {
+        "name": "accountBalance",
+        "documentation": "Returns the balance of the specified account identifier.",
+        "type": "({ certified }: { certified?: boolean | undefined; }) => Promise<{ icp: bigint; }>",
+        "jsDocs": [
+          {
+            "name": "param",
+            "text": [
+              {
+                "text": "params",
+                "kind": "text"
               }
             ]
           },
@@ -154,90 +156,88 @@
             "name": "throws",
             "text": [
               {
-                "kind": "text",
-                "text": "an "
+                "text": "an ",
+                "kind": "text"
               },
               {
-                "kind": "link",
-                "text": "{@link "
+                "text": "{@link ",
+                "kind": "link"
               },
               {
-                "kind": "linkText",
-                "text": "Error "
+                "text": "Error ",
+                "kind": "linkText"
               },
               {
-                "kind": "link",
-                "text": "}"
+                "text": "}",
+                "kind": "link"
               }
             ]
           }
         ],
-        "name": "accountBalance",
-        "type": "({ certified }: { certified?: boolean | undefined; }) => Promise<{ icp: bigint; }>"
+        "doc_type": "function"
       }
     ],
-    "name": "LedgerCanister",
-    "type": "typeof LedgerCanister"
+    "fileName": "src/test/mock.ts"
   },
   {
+    "name": "SnsLedgerCanister",
+    "documentation": "",
+    "type": "typeof SnsLedgerCanister",
+    "jsDocs": [],
+    "doc_type": "class",
     "constructors": [
       {
-        "documentation": "The constructor is public as well.",
         "parameters": [],
         "returnType": "SnsLedgerCanister",
+        "documentation": "The constructor is public as well.",
         "visibility": "public"
       }
     ],
-    "doc_type": "class",
-    "documentation": "",
-    "fileName": "src/test/mock.ts",
-    "jsDocs": [],
     "methods": [
       {
-        "doc_type": "method",
+        "name": "create",
         "documentation": "This create function is public as well.",
+        "type": "(options: { canisterId?: string | undefined; }) => SnsLedgerCanister",
         "jsDocs": [
           {
             "name": "param",
             "text": [
               {
-                "kind": "text",
-                "text": "params"
+                "text": "params",
+                "kind": "text"
               }
             ]
           }
         ],
-        "name": "create",
-        "type": "(options: { canisterId?: string | undefined; }) => SnsLedgerCanister"
+        "doc_type": "method"
       },
       {
-        "doc_type": "function",
-        "documentation": "The token metadata (name, symbol, etc.).",
-        "jsDocs": [],
         "name": "metadata",
-        "type": "(params: QueryParams) => Promise<SnsTokenMetadataResponse>"
+        "documentation": "The token metadata (name, symbol, etc.).",
+        "type": "(params: QueryParams) => Promise<SnsTokenMetadataResponse>",
+        "jsDocs": [],
+        "doc_type": "function"
       }
     ],
-    "name": "SnsLedgerCanister",
-    "type": "typeof SnsLedgerCanister"
+    "fileName": "src/test/mock.ts"
   },
   {
-    "constructors": [],
-    "doc_type": "class",
+    "name": "default",
     "documentation": "",
-    "fileName": "src/test/mock.ts",
+    "type": "typeof foo",
     "jsDocs": [],
+    "doc_type": "class",
+    "constructors": [],
     "methods": [
       {
-        "doc_type": "method",
-        "documentation": "Description",
-        "jsDocs": [],
         "name": "bar",
-        "type": "() => void"
+        "documentation": "Description",
+        "type": "() => void",
+        "jsDocs": [],
+        "doc_type": "method"
       }
     ],
-    "name": "default",
-    "type": "typeof foo"
+    "fileName": "src/test/mock.ts"
   },
   {
     "name": "Foo",
@@ -327,6 +327,51 @@
     ],
     "jsDocs": [],
     "doc_type": "enum",
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "formInvalidateHandler",
+    "documentation": "",
+    "type": "(form: any, err: any, cb?: ((msg: string) => void) | undefined) => void",
+    "jsDocs": [
+      {
+        "name": "param",
+        "text": [
+          {
+            "text": "form",
+            "kind": "text"
+          }
+        ]
+      },
+      {
+        "name": "param",
+        "text": [
+          {
+            "text": "err",
+            "kind": "text"
+          }
+        ]
+      },
+      {
+        "name": "param",
+        "text": [
+          {
+            "text": "cb",
+            "kind": "text"
+          }
+        ]
+      },
+      {
+        "name": "example",
+        "text": [
+          {
+            "text": "```vue\n<template>\n  <el-form ref=\"formEl\" :model=\"form\" :rules=\"rules\" >\n    ....\n  </el-form>\n</template>\n\n<script lang=\"ts\" setup>\nimport { ref, reactive } from 'vue'\nimport { ElMessage, FormInstance } from 'element-plus'\n\nconst formEl = ref<FormInstance>()\nconst form = reactive({\n  name: '',\n})\nconst rules = {\n  name: [{ required: true, message: 'please input name', trigger: 'blur' }]\n}\n\nfunction submit() {\n  formEl.value\n    ?.validate()\n    .then(async () => {\n      // ...\n    })\n    .catch((err) => {\n      formInvalidateHandler(formEl.value!, err, (msg: string) =>\n        ElMessage({\n          type: 'warning',\n          message: msg,\n        }),\n      )\n    })\n}\n</script>\n```",
+            "kind": "text"
+          }
+        ]
+      }
+    ],
+    "doc_type": "function",
     "fileName": "src/test/mock.ts"
   }
 ]
