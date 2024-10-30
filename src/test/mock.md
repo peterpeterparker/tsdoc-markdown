@@ -252,7 +252,7 @@ Use a URL redirect to prevent broken links if you've moved a page or to shorten 
 | ---------- | ---------- | ---------- |
 | `source` | `string` | The glob pattern or specific path to match for incoming requests that should be redirected. type: {StorageConfigSourceGlob} |
 | `location` | `string` | The URL or path to which the request should be redirected. type: {string} |
-| `code` | `301 or 302` | The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect). type: {301 | 302} |
+| `code` | `301 or 302` | The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect). type: {301 or 302} |
 
 
 ## :cocktail: Types
