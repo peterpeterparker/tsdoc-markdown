@@ -231,6 +231,7 @@ Description
 ## :tropical_drink: Interfaces
 
 - [Foo](#gear-foo)
+- [StorageConfigRedirect](#gear-storageconfigredirect)
 
 ### :gear: Foo
 
@@ -243,10 +244,22 @@ A Foo interface description.
 | `abc` | `Abc` |  |
 
 
+### :gear: StorageConfigRedirect
+
+Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.
+
+| Property | Type | Description |
+| ---------- | ---------- | ---------- |
+| `source` | `string` | The glob pattern or specific path to match for incoming requests that should be redirected. type: {StorageConfigSourceGlob} |
+| `location` | `string` | The URL or path to which the request should be redirected. type: {string} |
+| `code` | `301 or 302` | The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect). type: {301 or 302} |
+
+
 ## :cocktail: Types
 
 - [yolo](#gear-yolo)
 - [Abc](#gear-abc)
+- [StorageConfigSourceGlob](#gear-storageconfigsourceglob)
 
 ### :gear: yolo
 
@@ -267,4 +280,12 @@ A type yolo
 | `Abc` | `Foo and {hello: string}` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L148)
+
+### :gear: StorageConfigSourceGlob
+
+| Type | Type |
+| ---------- | ---------- |
+| `StorageConfigSourceGlob` |  |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L219)
 

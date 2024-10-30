@@ -112,7 +112,7 @@ const interfacesToMarkdown = ({
     );
 
     markdown.push(
-      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''}${jsDocsDescription.length > 0 ? ` ${jsDocsDescription.join('')}` : ''} |`
+      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''}${jsDocsDescription.length > 0 ? ` ${parseType(jsDocsDescription.join(''))}` : ''} |`
     );
   });
 
@@ -180,7 +180,7 @@ const toMarkdown = ({
   const rows: Row[] = entries.map(
     ({name, type, documentation, parameters, jsDocs, url}: DocEntry) => ({
       name,
-      type: type ?? '',
+      type: parseType(type ?? ''),
       documentation: documentation ?? '',
       params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])],
       examples: [...jsDocsToExamples(jsDocs ?? [])],

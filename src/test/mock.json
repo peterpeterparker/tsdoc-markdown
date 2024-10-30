@@ -373,5 +373,80 @@
     ],
     "doc_type": "function",
     "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "StorageConfigSourceGlob",
+    "documentation": "",
+    "jsDocs": [],
+    "doc_type": "type",
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "StorageConfigRedirect",
+    "documentation": "Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.",
+    "type": "any",
+    "jsDocs": [
+      {
+        "name": "interface",
+        "text": [
+          {
+            "text": "StorageConfigRedirect",
+            "kind": "text"
+          }
+        ]
+      }
+    ],
+    "doc_type": "interface",
+    "properties": [
+      {
+        "name": "source",
+        "documentation": "The glob pattern or specific path to match for incoming requests that should be redirected.",
+        "type": "string",
+        "jsDocs": [
+          {
+            "name": "type",
+            "text": [
+              {
+                "text": "{StorageConfigSourceGlob}",
+                "kind": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "location",
+        "documentation": "The URL or path to which the request should be redirected.",
+        "type": "string",
+        "jsDocs": [
+          {
+            "name": "type",
+            "text": [
+              {
+                "text": "{string}",
+                "kind": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "code",
+        "documentation": "The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect).",
+        "type": "301 | 302",
+        "jsDocs": [
+          {
+            "name": "type",
+            "text": [
+              {
+                "text": "{301 | 302}",
+                "kind": "text"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "fileName": "src/test/mock.ts"
   }
 ]
