@@ -180,7 +180,7 @@ const toMarkdown = ({
   const rows: Row[] = entries.map(
     ({name, type, documentation, parameters, jsDocs, url}: DocEntry) => ({
       name,
-      type: parseType(type ?? ''),
+      type: type ?? '',
       documentation: documentation ?? '',
       params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])],
       examples: [...jsDocsToExamples(jsDocs ?? [])],
