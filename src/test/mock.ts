@@ -211,3 +211,33 @@ export function formInvalidateHandler(form: any, err: any, cb?: (msg: string) =>
     if (msg && cb) cb(msg);
   }
 }
+
+/**
+ * Represents a glob pattern for matching files in the Storage configuration.
+ * @typedef {string} StorageConfigSourceGlob
+ */
+export type StorageConfigSourceGlob = string;
+
+/**
+ * Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.
+ * @interface StorageConfigRedirect
+ */
+export interface StorageConfigRedirect {
+  /**
+   * The glob pattern or specific path to match for incoming requests that should be redirected.
+   * @type {StorageConfigSourceGlob}
+   */
+  source: StorageConfigSourceGlob;
+
+  /**
+   * The URL or path to which the request should be redirected.
+   * @type {string}
+   */
+  location: string;
+
+  /**
+   * The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect).
+   * @type {301 | 302}
+   */
+  code: 301 | 302;
+}
