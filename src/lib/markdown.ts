@@ -37,7 +37,7 @@ const classesToMarkdown = ({
   Omit<MarkdownOptions, 'headingLevel'>): string => {
   const {name, url, documentation, methods, constructors} = entry;
 
-  const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
+  const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})}${name}\n`];
   documentation !== undefined && documentation !== '' && markdown.push(`${documentation}\n`);
 
   if (url !== undefined) {
@@ -129,7 +129,7 @@ const sourceCodeLink = ({
   url,
   emoji
 }: Pick<MarkdownOptions, 'emoji'> & Required<Pick<DocEntry, 'url'>>): string =>
-  `[${`${emojiTitle({emoji, key: 'link'}).trim()} `.trim()}Source](${url})\n`;
+  `[${emojiTitle({emoji, key: 'link'}).trim()}Source](${url})\n`;
 
 // Avoid issue if the Markdown table gets formatted with Prettier
 const parseType = (type: string): string =>
@@ -254,7 +254,7 @@ const emojiTitle = ({
 }: {
   key: keyof MarkdownEmoji;
 } & Pick<MarkdownOptions, 'emoji'>): string =>
-  emoji === undefined || emoji === null ? '' : ` :${emoji[key]}:`;
+  emoji === undefined || emoji === null ? '' : ` :${emoji[key]}: `;
 
 const DEFAULT_EMOJI: MarkdownEmoji = {
   classes: 'factory',
@@ -301,7 +301,7 @@ export const documentationToMarkdown = ({
   const markdown: string[] = [];
 
   if (functions.length) {
-    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'functions'})} Functions\n`);
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'functions'})}Functions\n`);
     markdown.push(`${tableOfContent({entries: functions, emoji})}\n`);
     markdown.push(
       `${toMarkdown({entries: functions, headingLevel, emoji, docType: 'Function'})}\n`
@@ -309,7 +309,7 @@ export const documentationToMarkdown = ({
   }
 
   if (constants.length) {
-    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'constants'})} Constants\n`);
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'constants'})}Constants\n`);
     markdown.push(`${tableOfContent({entries: constants, emoji})}\n`);
     markdown.push(
       `${toMarkdown({entries: constants, headingLevel, emoji, docType: 'Constant'})}\n`
@@ -319,14 +319,14 @@ export const documentationToMarkdown = ({
     classes.map((entry: DocEntry) => classesToMarkdown({entry, headingLevel, emoji})).join('\n')
   );
   if (enums.length) {
-    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'enum'})} Enum\n`);
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'enum'})}Enum\n`);
     markdown.push(`${tableOfContent({entries: enums, emoji})}\n`);
     markdown.push(
       enums.map((entry: DocEntry) => interfacesToMarkdown({entry, headingLevel, emoji})).join('\n')
     );
   }
   if (interfaces.length) {
-    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'interfaces'})} Interfaces\n`);
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'interfaces'})}Interfaces\n`);
     markdown.push(`${tableOfContent({entries: interfaces, emoji})}\n`);
     markdown.push(
       interfaces
@@ -336,7 +336,7 @@ export const documentationToMarkdown = ({
   }
 
   if (types.length) {
-    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'types'})} Types\n`);
+    markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'types'})}Types\n`);
     markdown.push(`${tableOfContent({entries: types, emoji})}\n`);
     markdown.push(`${toMarkdown({entries: types, headingLevel, emoji, docType: 'Type'})}\n`);
   }
