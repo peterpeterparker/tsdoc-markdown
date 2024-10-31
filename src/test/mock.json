@@ -448,5 +448,13 @@
       }
     ],
     "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "SatelliteConfig",
+    "documentation": "",
+    "type": "Either<SatelliteId, SatelliteIds> &\n    CliConfig &\n    SatelliteConfigOptions",
+    "jsDocs": [],
+    "doc_type": "type",
+    "fileName": "src/test/mock.ts"
   }
 ]

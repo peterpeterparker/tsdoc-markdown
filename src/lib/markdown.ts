@@ -128,7 +128,13 @@ const sourceCodeLink = ({
   `[${emojiTitle({emoji, key: 'link'}).trim()} Source](${url})\n`;
 
 // Avoid issue if the Markdown table gets formatted with Prettier
-const parseType = (type: string): string => type.replace(/ \| /g, ' or ').replace(/ & /g, ' and ');
+const parseType = (type: string): string =>
+  type
+    .split('\n')
+    .map((line) => line.trim())
+    .join(' ')
+    .replace(/ \| /g, ' or ')
+    .replace(/ & /g, ' and ');
 
 const toMarkdown = ({
   entries,

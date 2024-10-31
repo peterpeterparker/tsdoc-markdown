@@ -241,3 +241,7 @@ export interface StorageConfigRedirect {
    */
   code: 301 | 302;
 }
+
+export type SatelliteConfig = Either<SatelliteId, SatelliteIds> &
+    CliConfig &
+    SatelliteConfigOptions;

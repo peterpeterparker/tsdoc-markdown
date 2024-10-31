@@ -260,6 +260,7 @@ Use a URL redirect to prevent broken links if you've moved a page or to shorten 
 - [yolo](#gear-yolo)
 - [Abc](#gear-abc)
 - [StorageConfigSourceGlob](#gear-storageconfigsourceglob)
+- [SatelliteConfig](#gear-satelliteconfig)
 
 ### :gear: yolo
 
@@ -288,4 +289,12 @@ A type yolo
 | `StorageConfigSourceGlob` |  |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L219)
+
+### :gear: SatelliteConfig
+
+| Type | Type |
+| ---------- | ---------- |
+| `SatelliteConfig` | `Either<SatelliteId, SatelliteIds> and CliConfig and SatelliteConfigOptions` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L245)
 
