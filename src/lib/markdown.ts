@@ -89,14 +89,18 @@ const classesToMarkdown = ({
 
 const interfacesToMarkdown = ({
   entry,
-  headingLevel
+  headingLevel,
+  emoji
 }: {
   entry: DocEntry;
 } & Required<Pick<MarkdownOptions, 'headingLevel'>> &
-  Omit<MarkdownOptions, 'headingLevel'>): string => {
+  Omit<MarkdownOptions, 'headingLevel'> &
+  Pick<MarkdownOptions, 'emoji'>): string => {
   const {name, documentation} = entry;
 
-  const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
+  const markdown: string[] = [
+    `${headingLevel}# ${emoji === undefined || emoji === null ? '' : ':gear: '}${name}\n`
+  ];
 
   if (documentation !== undefined) {
     markdown.push(`${documentation}\n`);
@@ -125,7 +129,7 @@ const sourceCodeLink = ({
   url,
   emoji
 }: Pick<MarkdownOptions, 'emoji'> & Required<Pick<DocEntry, 'url'>>): string =>
-  `[${emojiTitle({emoji, key: 'link'}).trim()} Source](${url})\n`;
+  `[${`${emojiTitle({emoji, key: 'link'}).trim()} `.trim()}Source](${url})\n`;
 
 // Avoid issue if the Markdown table gets formatted with Prettier
 const parseType = (type: string): string =>
@@ -195,7 +199,9 @@ const toMarkdown = ({
   );
 
   const rowToMarkdown = ({name, documentation, type, params, examples, url}: Row): string => {
-    const markdown: string[] = [`${headingLevel}# :gear: ${name}\n`];
+    const markdown: string[] = [
+      `${headingLevel}# ${emoji === undefined || emoji === null ? '' : ':gear: '}${name}\n`
+    ];
 
     if (documentation.length) {
       markdown.push(`${documentation}\n`);
