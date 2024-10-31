@@ -294,9 +294,7 @@ A type yolo
 
 | Type | Type |
 | ---------- | ---------- |
-| `SatelliteConfig` | `Either<SatelliteId, SatelliteIds> &
-    CliConfig &
-    SatelliteConfigOptions` |
+| `SatelliteConfig` | `Either<SatelliteId, SatelliteIds> and CliConfig and SatelliteConfigOptions` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L245)
 
