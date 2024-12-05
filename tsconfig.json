@@ -7,7 +7,7 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "lib": ["dom", "es2017"],
-    "isolatedModules": true
+    "isolatedModules": true,
   },
   "include": ["src/lib/**/*"],
   "exclude": [
