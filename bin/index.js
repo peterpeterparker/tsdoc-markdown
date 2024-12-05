@@ -13,6 +13,7 @@ if (help !== undefined) {
   console.log('--dest=<destination file> (default README.md)');
   console.log('--repo=<GitHub repo URL>');
   console.log('--types');
+  console.log('--noemoji');
   return;
 }
 
@@ -40,6 +41,8 @@ const repoUrl = process.argv.find((arg) => arg.indexOf('--repo=') > -1)?.replace
 
 const types = process.argv.find((arg) => arg.indexOf('--types') > -1) !== undefined;
 
+const noEmoji = process.argv.find((arg) => arg.indexOf('--noemoji') > -1) !== undefined;
+
 if (!inputFiles || inputFiles.length === 0) {
   throw new Error('No source file(s) provided.');
 }
@@ -47,12 +50,17 @@ if (!inputFiles || inputFiles.length === 0) {
 generateDocumentation({
   inputFiles,
   outputFile,
-  ...(repoUrl !== undefined && {
-    buildOptions: {
+  buildOptions: {
+    ...(repoUrl !== undefined && {
       repo: {
         url: repoUrl
-      },
-      types
-    }
-  })
+      }
+    }),
+    ...(types && {types})
+  },
+  markdownOptions: {
+    ...(noEmoji && {
+      emoji: null
+    })
+  }
 });
