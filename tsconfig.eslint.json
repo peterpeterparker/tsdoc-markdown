@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": true
   },
   "include": ["src/lib/**/*", "**/*.mjs"],
   "exclude": []

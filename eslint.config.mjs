@@ -2,9 +2,9 @@ import {FlatCompat} from '@eslint/eslintrc';
 import js from '@eslint/js';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import globals from 'globals';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import globals from 'globals';
 
 // eslint-disable-next-line no-redeclare
 const __filename = fileURLToPath(import.meta.url);
