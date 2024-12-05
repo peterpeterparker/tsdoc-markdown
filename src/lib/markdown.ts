@@ -289,7 +289,7 @@ export const documentationToMarkdown = ({
   const headingLevel = userHeadingLevel ?? '##';
 
   const emoji: MarkdownEmoji | undefined =
-    userEmoji === null ? undefined : userEmoji ?? DEFAULT_EMOJI;
+    userEmoji === null ? undefined : (userEmoji ?? DEFAULT_EMOJI);
 
   const functions: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'function');
   const classes: DocEntry[] = entries.filter(({doc_type}: DocEntry) => doc_type === 'class');
