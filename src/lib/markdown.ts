@@ -38,7 +38,10 @@ const classesToMarkdown = ({
   const {name, url, documentation, methods, constructors} = entry;
 
   const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
-  documentation !== undefined && documentation !== '' && markdown.push(`${documentation}\n`);
+
+  if (documentation !== undefined && documentation !== '') {
+    markdown.push(`${documentation}\n`);
+  }
 
   if (url !== undefined) {
     markdown.push(sourceCodeLink({emoji, url}));
