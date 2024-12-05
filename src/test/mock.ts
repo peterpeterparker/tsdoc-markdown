@@ -243,5 +243,5 @@ export interface StorageConfigRedirect {
 }
 
 export type SatelliteConfig = Either<SatelliteId, SatelliteIds> &
-    CliConfig &
-    SatelliteConfigOptions;
+  CliConfig &
+  SatelliteConfigOptions;
