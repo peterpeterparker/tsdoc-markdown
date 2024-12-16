@@ -175,6 +175,13 @@
           }
         ],
         "doc_type": "function"
+      },
+      {
+        "name": "shouldBeDocumented",
+        "documentation": "Public method.",
+        "type": "() => void",
+        "jsDocs": [],
+        "doc_type": "method"
       }
     ],
     "fileName": "src/test/mock.ts"
