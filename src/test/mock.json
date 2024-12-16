@@ -235,7 +235,6 @@
         "doc_type": "function"
       }
     ],
-    "properties": [],
     "fileName": "src/test/mock.ts"
   },
   {
@@ -254,7 +253,6 @@
         "doc_type": "method"
       }
     ],
-    "properties": [],
     "fileName": "src/test/mock.ts"
   },
   {

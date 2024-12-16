@@ -251,7 +251,6 @@ const visit = ({
       const classEntry: DocEntry = {
         ...serializeClass({checker, symbol}),
         methods: [],
-        properties: [],
         ...buildSource({
           node,
           ...rest
@@ -270,9 +269,14 @@ const visit = ({
             .filter(({doc_type}) => doc_type === 'method' || doc_type === 'function')
             .map(omitFilename)
         );
-        classEntry.properties?.push(
-          ...docEntries.filter(({doc_type}) => doc_type === 'property').map(omitFilename)
-        );
+
+        const properties = docEntries
+          .filter(({doc_type}) => doc_type === 'property')
+          .map(omitFilename);
+
+        if (properties.length > 0) {
+          classEntry.properties = [...(classEntry?.properties ?? []), ...properties];
+        }
       };
 
       forEachChild(node, visitChild);
