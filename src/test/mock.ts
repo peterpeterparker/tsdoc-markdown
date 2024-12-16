@@ -75,6 +75,23 @@ export class LedgerCanister {
   };
 
   /**
+   * The documentation of the public property.
+   */
+  publicShouldBeDocumented = 'hello';
+
+  /**
+   * Private property.
+   * @private
+   */
+  private privateShouldNoBeDocumented = 'hello';
+
+  /**
+   * Private property with a # identifier.
+   * @private
+   */
+  #privateShouldNoBeDocumentedNeither = 'hello';
+
+  /**
    * Public method.
    */
   shouldBeDocumented() {

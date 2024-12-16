@@ -184,6 +184,15 @@
         "doc_type": "method"
       }
     ],
+    "properties": [
+      {
+        "name": "publicShouldBeDocumented",
+        "documentation": "The documentation of the public property.",
+        "type": "string",
+        "jsDocs": [],
+        "doc_type": "property"
+      }
+    ],
     "fileName": "src/test/mock.ts"
   },
   {

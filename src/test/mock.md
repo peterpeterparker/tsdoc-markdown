@@ -86,7 +86,7 @@ function submit() {
 ```
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L221)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L238)
 
 
 ## :wrench: Constants
@@ -155,12 +155,25 @@ Public method.
 | ---------- | ---------- |
 | `shouldBeDocumented` | `() => void` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L80)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L97)
 
+### Properties
+
+- [publicShouldBeDocumented](#gear-publicshouldbedocumented)
+
+#### :gear: publicShouldBeDocumented
+
+The documentation of the public property.
+
+| Property | Type |
+| ---------- | ---------- |
+| `publicShouldBeDocumented` | `string` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L80)
 
 ## :factory: SnsLedgerCanister
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L101)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L118)
 
 ### Constructors
 
@@ -181,7 +194,7 @@ This create function is public as well.
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string or undefined; }) => SnsLedgerCanister` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L116)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L133)
 
 #### :gear: metadata
 
@@ -191,12 +204,11 @@ The token metadata (name, symbol, etc.).
 | ---------- | ---------- |
 | `metadata` | `(params: QueryParams) => Promise<SnsTokenMetadataResponse>` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L125)
-
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L142)
 
 ## :factory: default
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L129)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L146)
 
 ### Methods
 
@@ -210,8 +222,7 @@ Description
 | ---------- | ---------- |
 | `bar` | `() => void` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L133)
-
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L150)
 
 ## :nut_and_bolt: Enum
 
@@ -281,7 +292,7 @@ A type yolo
 | ---------- | ---------- |
 | `yolo` | `'string'` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L158)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L175)
 
 ### :gear: Abc
 
@@ -291,7 +302,7 @@ A type yolo
 | ---------- | ---------- |
 | `Abc` | `Foo and {hello: string}` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L163)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L180)
 
 ### :gear: StorageConfigSourceGlob
 
@@ -299,7 +310,7 @@ A type yolo
 | ---------- | ---------- |
 | `StorageConfigSourceGlob` |  |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L234)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L251)
 
 ### :gear: SatelliteConfig
 
@@ -307,5 +318,5 @@ A type yolo
 | ---------- | ---------- |
 | `SatelliteConfig` | `Either<SatelliteId, SatelliteIds> and CliConfig and SatelliteConfigOptions` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L260)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L277)
 
