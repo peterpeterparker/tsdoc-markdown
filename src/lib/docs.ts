@@ -12,8 +12,7 @@ import type {
   TypeChecker,
   Symbol as TypeScriptSymbol,
   VariableDeclaration,
-  VariableStatement
-} from 'typescript';
+  VariableStatement} from 'typescript';
 import {
   ModifierFlags,
   ModuleKind,
@@ -115,6 +114,11 @@ const serializeClass = ({
 /** True if this is visible outside this file, false otherwise */
 const isNodeExportedOrPublic = (node: Node): boolean => {
   const flags = getCombinedModifierFlags(node as Declaration);
+
+  // Check for '#' methods or properties
+  if (isMethodDeclaration(node) && node.name.kind === SyntaxKind.PrivateIdentifier) {
+    return false;
+  }
 
   return (
     (flags & ModifierFlags.Export) !== 0 ||

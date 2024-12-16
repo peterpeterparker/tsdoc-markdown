@@ -75,10 +75,25 @@ export class LedgerCanister {
   };
 
   /**
+   * Public method.
+   */
+  shouldBeDocumented() {
+    console.log('hello');
+  }
+
+  /**
    * Private method.
    * @private
    */
   private shouldNoBeDocumented() {
+    console.log('hello');
+  }
+
+  /**
+   * Private identifier method.
+   * @private
+   */
+  #shouldNoBeDocumentedNeither() {
     console.log('hello');
   }
 }
