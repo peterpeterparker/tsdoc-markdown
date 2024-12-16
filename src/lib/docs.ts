@@ -12,7 +12,8 @@ import type {
   TypeChecker,
   Symbol as TypeScriptSymbol,
   VariableDeclaration,
-  VariableStatement} from 'typescript';
+  VariableStatement
+} from 'typescript';
 import {
   ModifierFlags,
   ModuleKind,
