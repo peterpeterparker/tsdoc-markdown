@@ -35,7 +35,7 @@ const classesToMarkdown = ({
   entry: DocEntry;
 } & Required<Pick<MarkdownOptions, 'headingLevel'>> &
   Omit<MarkdownOptions, 'headingLevel'>): string => {
-  const {name, url, documentation, methods, constructors} = entry;
+  const {name, url, documentation, methods, properties, constructors} = entry;
 
   const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
 
@@ -70,22 +70,35 @@ const classesToMarkdown = ({
     markdown.push('\n');
   }
 
-  if (!methods || methods.length === 0) {
-    return markdown.join('\n');
+  if ((methods?.length ?? 0) > 0) {
+    markdown.push(`${headingLevel}# Methods\n`);
+    markdown.push(`${tableOfContent({entries: methods ?? [], emoji})}\n`);
+
+    // Explicitly do not pass repo to generate the source code link afterwards for the all block
+    markdown.push(
+      `${toMarkdown({
+        entries: methods ?? [],
+        headingLevel: `${headingLevel}#`,
+        docType: 'Method',
+        emoji
+      })}`
+    );
   }
 
-  markdown.push(`${headingLevel}# Methods\n`);
-  markdown.push(`${tableOfContent({entries: methods ?? [], emoji})}\n`);
+  if ((properties?.length ?? 0) > 0) {
+    markdown.push(`${headingLevel}# Properties\n`);
+    markdown.push(`${tableOfContent({entries: properties ?? [], emoji})}\n`);
 
-  // Explicitly do not pass repo to generate the source code link afterwards for the all block
-  markdown.push(
-    `${toMarkdown({
-      entries: methods ?? [],
-      headingLevel: `${headingLevel}#`,
-      docType: 'Method',
-      emoji
-    })}\n`
-  );
+    // Explicitly do not pass repo to generate the source code link afterwards for the all block
+    markdown.push(
+      `${toMarkdown({
+        entries: properties ?? [],
+        headingLevel: `${headingLevel}#`,
+        docType: 'Property',
+        emoji
+      })}`
+    );
+  }
 
   return markdown.join('\n');
 };
@@ -151,7 +164,7 @@ const toMarkdown = ({
 }: {
   entries: DocEntry[];
   headingLevel: MarkdownHeadingLevel | '####';
-  docType: 'Constant' | 'Function' | 'Method' | 'Type' | 'Enum';
+  docType: 'Constant' | 'Function' | 'Method' | 'Property' | 'Type' | 'Enum';
 } & Pick<MarkdownOptions, 'emoji'>): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');

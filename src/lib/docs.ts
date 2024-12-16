@@ -32,6 +32,7 @@ import {
   isInterfaceDeclaration,
   isMethodDeclaration,
   isModuleDeclaration,
+  isPropertyDeclaration,
   isPropertySignature,
   isTypeAliasDeclaration,
   isVariableStatement
@@ -117,7 +118,10 @@ const isNodeExportedOrPublic = (node: Node): boolean => {
   const flags = getCombinedModifierFlags(node as Declaration);
 
   // Check for '#' methods or properties
-  if (isMethodDeclaration(node) && node.name.kind === SyntaxKind.PrivateIdentifier) {
+  if (
+    (isMethodDeclaration(node) || isPropertyDeclaration(node)) &&
+    node.name.kind === SyntaxKind.PrivateIdentifier
+  ) {
     return false;
   }
 
@@ -247,6 +251,7 @@ const visit = ({
       const classEntry: DocEntry = {
         ...serializeClass({checker, symbol}),
         methods: [],
+        properties: [],
         ...buildSource({
           node,
           ...rest
@@ -255,9 +260,19 @@ const visit = ({
 
       const visitChild = (node: Node) => {
         const docEntries: DocEntry[] = visit({node, checker, types, ...rest});
+
         // We do not need to repeat the file name for class members
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        classEntry.methods?.push(...docEntries.map(({fileName: _, ...rest}) => rest));
+        const omitFilename = ({fileName: _, ...rest}: DocEntry): Omit<DocEntry, 'fileName'> => rest;
+
+        classEntry.methods?.push(
+          ...docEntries
+            .filter(({doc_type}) => doc_type === 'method' || doc_type === 'function')
+            .map(omitFilename)
+        );
+        classEntry.properties?.push(
+          ...docEntries.filter(({doc_type}) => doc_type === 'property').map(omitFilename)
+        );
       };
 
       forEachChild(node, visitChild);
@@ -286,6 +301,10 @@ const visit = ({
         ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
       );
       addDocEntry({symbol, doc_type: 'function', node: arrowFunc});
+    } else if (isPropertyDeclaration(node)) {
+      // We test for the property after the arrow function because a public property of a class can be an arrow function.
+      const symbol = checker.getSymbolAtLocation(node.name);
+      addDocEntry({symbol, doc_type: 'property', node});
     } else if (isVariableStatement(node)) {
       const {
         declarationList: {declarations, flags}

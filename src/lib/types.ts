@@ -1,6 +1,7 @@
 import type {CompilerOptions, JSDocTagInfo} from 'typescript';
 
 export type DocEntryType =
+  | 'property'
   | 'function'
   | 'method'
   | 'class'
