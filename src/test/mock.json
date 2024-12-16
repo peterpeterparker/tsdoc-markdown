@@ -1,476 +1,478 @@
 [
-  {
-    "name": "hello",
-    "documentation": "Hello",
-    "type": "(world: string) => string",
-    "jsDocs": [
-      {
-        "name": "param",
-        "text": [
-          {
-            "text": "yolo",
-            "kind": "parameterName"
-          },
-          {
-            "text": " ",
-            "kind": "space"
-          },
-          {
-            "text": "this is a jsdoc",
-            "kind": "text"
-          }
-        ]
-      }
-    ],
-    "doc_type": "function",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "numberOne",
-    "documentation": "A constant",
-    "type": "2",
-    "jsDocs": [],
-    "doc_type": "const",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "hello2",
-    "documentation": "hello2",
-    "type": "() => void",
-    "jsDocs": [],
-    "doc_type": "function",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "genericType",
-    "documentation": "Markdown should handle ` | ` for the type.",
-    "type": "<T>(value: [] | [T]) => T | undefined",
-    "jsDocs": [],
-    "doc_type": "function",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "LedgerCanister",
-    "documentation": "LedgerCanister is a test class.",
-    "type": "typeof LedgerCanister",
-    "jsDocs": [],
-    "doc_type": "class",
-    "constructors": [
-      {
-        "parameters": [
-          {
-            "name": "agent",
-            "documentation": "Agent js",
-            "type": "number",
-            "jsDocs": [
-              {
-                "name": "param",
-                "text": [
-                  {
-                    "text": "agent",
-                    "kind": "parameterName"
-                  },
-                  {
-                    "text": " ",
-                    "kind": "space"
-                  },
-                  {
-                    "text": "Agent js",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "canisterId",
-            "documentation": "",
-            "type": "{ canisterId: string; }",
-            "jsDocs": [
-              {
-                "name": "param",
-                "text": [
-                  {
-                    "text": "canisterId",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "hardwareWallet",
-            "documentation": "",
-            "type": "boolean",
-            "jsDocs": [
-              {
-                "name": "param",
-                "text": [
-                  {
-                    "text": "hardwareWallet",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "returnType": "LedgerCanister",
-        "documentation": "The constructor is public.",
-        "visibility": "public"
-      }
-    ],
-    "methods": [
-      {
-        "name": "create",
-        "documentation": "Create a LedgerCanister",
-        "type": "(options: { canisterId?: string | undefined; }) => LedgerCanister",
-        "jsDocs": [
-          {
-            "name": "param",
-            "text": [
-              {
-                "text": "params",
-                "kind": "text"
-              }
-            ]
-          }
-        ],
-        "doc_type": "method"
-      },
-      {
-        "name": "accountBalance",
-        "documentation": "Returns the balance of the specified account identifier.",
-        "type": "({ certified }: { certified?: boolean | undefined; }) => Promise<{ icp: bigint; }>",
-        "jsDocs": [
-          {
-            "name": "param",
-            "text": [
-              {
-                "text": "params",
-                "kind": "text"
-              }
-            ]
-          },
-          {
-            "name": "throws",
-            "text": [
-              {
-                "text": "an ",
-                "kind": "text"
-              },
-              {
-                "text": "{@link ",
-                "kind": "link"
-              },
-              {
-                "text": "Error ",
-                "kind": "linkText"
-              },
-              {
-                "text": "}",
-                "kind": "link"
-              }
-            ]
-          }
-        ],
-        "doc_type": "function"
-      },
-      {
-        "name": "shouldBeDocumented",
-        "documentation": "Public method.",
-        "type": "() => void",
-        "jsDocs": [],
-        "doc_type": "method"
-      }
-    ],
-    "properties": [
-      {
-        "name": "publicShouldBeDocumented",
-        "documentation": "The documentation of the public property.",
-        "type": "string",
-        "jsDocs": [],
-        "doc_type": "property"
-      }
-    ],
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "SnsLedgerCanister",
-    "documentation": "",
-    "type": "typeof SnsLedgerCanister",
-    "jsDocs": [],
-    "doc_type": "class",
-    "constructors": [
-      {
-        "parameters": [],
-        "returnType": "SnsLedgerCanister",
-        "documentation": "The constructor is public as well.",
-        "visibility": "public"
-      }
-    ],
-    "methods": [
-      {
-        "name": "create",
-        "documentation": "This create function is public as well.",
-        "type": "(options: { canisterId?: string | undefined; }) => SnsLedgerCanister",
-        "jsDocs": [
-          {
-            "name": "param",
-            "text": [
-              {
-                "text": "params",
-                "kind": "text"
-              }
-            ]
-          }
-        ],
-        "doc_type": "method"
-      },
-      {
-        "name": "metadata",
-        "documentation": "The token metadata (name, symbol, etc.).",
-        "type": "(params: QueryParams) => Promise<SnsTokenMetadataResponse>",
-        "jsDocs": [],
-        "doc_type": "function"
-      }
-    ],
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "default",
-    "documentation": "",
-    "type": "typeof foo",
-    "jsDocs": [],
-    "doc_type": "class",
-    "constructors": [],
-    "methods": [
-      {
-        "name": "bar",
-        "documentation": "Description",
-        "type": "() => void",
-        "jsDocs": [],
-        "doc_type": "method"
-      }
-    ],
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "Foo",
-    "documentation": "A Foo interface description.",
-    "type": "any",
-    "jsDocs": [],
-    "doc_type": "interface",
-    "properties": [
-      {
+    {
         "name": "hello",
-        "documentation": "Says hello.",
-        "type": "string",
-        "jsDocs": []
-      },
-      {
-        "name": "world",
-        "documentation": "Something",
-        "type": "string | undefined",
+        "documentation": "Hello",
+        "type": "(world: string) => string",
         "jsDocs": [
-          {
-            "name": "default",
-            "text": [
-              {
-                "text": "`hello`",
-                "kind": "text"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "abc",
+            {
+                "name": "param",
+                "text": [
+                    {
+                        "text": "yolo",
+                        "kind": "parameterName"
+                    },
+                    {
+                        "text": " ",
+                        "kind": "space"
+                    },
+                    {
+                        "text": "this is a jsdoc",
+                        "kind": "text"
+                    }
+                ]
+            }
+        ],
+        "doc_type": "function",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "numberOne",
+        "documentation": "A constant",
+        "type": "2",
+        "jsDocs": [],
+        "doc_type": "const",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "hello2",
+        "documentation": "hello2",
+        "type": "() => void",
+        "jsDocs": [],
+        "doc_type": "function",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "genericType",
+        "documentation": "Markdown should handle ` | ` for the type.",
+        "type": "<T>(value: [] | [T]) => T | undefined",
+        "jsDocs": [],
+        "doc_type": "function",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "LedgerCanister",
+        "documentation": "LedgerCanister is a test class.",
+        "type": "typeof LedgerCanister",
+        "jsDocs": [],
+        "doc_type": "class",
+        "constructors": [
+            {
+                "parameters": [
+                    {
+                        "name": "agent",
+                        "documentation": "Agent js",
+                        "type": "number",
+                        "jsDocs": [
+                            {
+                                "name": "param",
+                                "text": [
+                                    {
+                                        "text": "agent",
+                                        "kind": "parameterName"
+                                    },
+                                    {
+                                        "text": " ",
+                                        "kind": "space"
+                                    },
+                                    {
+                                        "text": "Agent js",
+                                        "kind": "text"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "canisterId",
+                        "documentation": "",
+                        "type": "{ canisterId: string; }",
+                        "jsDocs": [
+                            {
+                                "name": "param",
+                                "text": [
+                                    {
+                                        "text": "canisterId",
+                                        "kind": "text"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hardwareWallet",
+                        "documentation": "",
+                        "type": "boolean",
+                        "jsDocs": [
+                            {
+                                "name": "param",
+                                "text": [
+                                    {
+                                        "text": "hardwareWallet",
+                                        "kind": "text"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "returnType": "LedgerCanister",
+                "documentation": "The constructor is public.",
+                "visibility": "public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "create",
+                "documentation": "Create a LedgerCanister",
+                "type": "(options: { canisterId?: string | undefined; }) => LedgerCanister",
+                "jsDocs": [
+                    {
+                        "name": "param",
+                        "text": [
+                            {
+                                "text": "params",
+                                "kind": "text"
+                            }
+                        ]
+                    }
+                ],
+                "doc_type": "method"
+            },
+            {
+                "name": "accountBalance",
+                "documentation": "Returns the balance of the specified account identifier.",
+                "type": "({ certified }: { certified?: boolean | undefined; }) => Promise<{ icp: bigint; }>",
+                "jsDocs": [
+                    {
+                        "name": "param",
+                        "text": [
+                            {
+                                "text": "params",
+                                "kind": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "throws",
+                        "text": [
+                            {
+                                "text": "an ",
+                                "kind": "text"
+                            },
+                            {
+                                "text": "{@link ",
+                                "kind": "link"
+                            },
+                            {
+                                "text": "Error ",
+                                "kind": "linkText"
+                            },
+                            {
+                                "text": "}",
+                                "kind": "link"
+                            }
+                        ]
+                    }
+                ],
+                "doc_type": "function"
+            },
+            {
+                "name": "shouldBeDocumented",
+                "documentation": "Public method.",
+                "type": "() => void",
+                "jsDocs": [],
+                "doc_type": "method"
+            }
+        ],
+        "properties": [
+            {
+                "name": "publicShouldBeDocumented",
+                "documentation": "The documentation of the public property.",
+                "type": "string",
+                "jsDocs": [],
+                "doc_type": "property"
+            }
+        ],
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "SnsLedgerCanister",
         "documentation": "",
-        "type": "Abc",
-        "jsDocs": []
-      }
-    ],
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "yolo",
-    "documentation": "A type yolo",
-    "type": "'string'",
-    "jsDocs": [],
-    "doc_type": "type",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "Abc",
-    "documentation": "A type yolo",
-    "type": "Foo & {hello: string}",
-    "jsDocs": [],
-    "doc_type": "type",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "Time",
-    "documentation": "",
-    "properties": [
-      {
-        "name": "SECOND",
-        "type": "1000"
-      },
-      {
-        "name": "MINUTE",
-        "type": "60 * SECOND"
-      }
-    ],
-    "jsDocs": [],
-    "doc_type": "enum",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "MemberType",
-    "documentation": "",
-    "properties": [
-      {
-        "name": "T1"
-      },
-      {
-        "name": "T2",
-        "documentation": "comment"
-      },
-      {
-        "name": "T3"
-      }
-    ],
-    "jsDocs": [],
-    "doc_type": "enum",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "formInvalidateHandler",
-    "documentation": "",
-    "type": "(form: any, err: any, cb?: ((msg: string) => void) | undefined) => void",
-    "jsDocs": [
-      {
-        "name": "param",
-        "text": [
-          {
-            "text": "form",
-            "kind": "text"
-          }
-        ]
-      },
-      {
-        "name": "param",
-        "text": [
-          {
-            "text": "err",
-            "kind": "text"
-          }
-        ]
-      },
-      {
-        "name": "param",
-        "text": [
-          {
-            "text": "cb",
-            "kind": "text"
-          }
-        ]
-      },
-      {
-        "name": "example",
-        "text": [
-          {
-            "text": "```vue\n<template>\n  <el-form ref=\"formEl\" :model=\"form\" :rules=\"rules\" >\n    ....\n  </el-form>\n</template>\n\n<script lang=\"ts\" setup>\nimport { ref, reactive } from 'vue'\nimport { ElMessage, FormInstance } from 'element-plus'\n\nconst formEl = ref<FormInstance>()\nconst form = reactive({\n  name: '',\n})\nconst rules = {\n  name: [{ required: true, message: 'please input name', trigger: 'blur' }]\n}\n\nfunction submit() {\n  formEl.value\n    ?.validate()\n    .then(async () => {\n      // ...\n    })\n    .catch((err) => {\n      formInvalidateHandler(formEl.value!, err, (msg: string) =>\n        ElMessage({\n          type: 'warning',\n          message: msg,\n        }),\n      )\n    })\n}\n</script>\n```",
-            "kind": "text"
-          }
-        ]
-      }
-    ],
-    "doc_type": "function",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "StorageConfigSourceGlob",
-    "documentation": "",
-    "jsDocs": [],
-    "doc_type": "type",
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "StorageConfigRedirect",
-    "documentation": "Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.",
-    "type": "any",
-    "jsDocs": [
-      {
-        "name": "interface",
-        "text": [
-          {
-            "text": "StorageConfigRedirect",
-            "kind": "text"
-          }
-        ]
-      }
-    ],
-    "doc_type": "interface",
-    "properties": [
-      {
-        "name": "source",
-        "documentation": "The glob pattern or specific path to match for incoming requests that should be redirected.",
-        "type": "string",
+        "type": "typeof SnsLedgerCanister",
+        "jsDocs": [],
+        "doc_type": "class",
+        "constructors": [
+            {
+                "parameters": [],
+                "returnType": "SnsLedgerCanister",
+                "documentation": "The constructor is public as well.",
+                "visibility": "public"
+            }
+        ],
+        "methods": [
+            {
+                "name": "create",
+                "documentation": "This create function is public as well.",
+                "type": "(options: { canisterId?: string | undefined; }) => SnsLedgerCanister",
+                "jsDocs": [
+                    {
+                        "name": "param",
+                        "text": [
+                            {
+                                "text": "params",
+                                "kind": "text"
+                            }
+                        ]
+                    }
+                ],
+                "doc_type": "method"
+            },
+            {
+                "name": "metadata",
+                "documentation": "The token metadata (name, symbol, etc.).",
+                "type": "(params: QueryParams) => Promise<SnsTokenMetadataResponse>",
+                "jsDocs": [],
+                "doc_type": "function"
+            }
+        ],
+        "properties": [],
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "default",
+        "documentation": "",
+        "type": "typeof foo",
+        "jsDocs": [],
+        "doc_type": "class",
+        "constructors": [],
+        "methods": [
+            {
+                "name": "bar",
+                "documentation": "Description",
+                "type": "() => void",
+                "jsDocs": [],
+                "doc_type": "method"
+            }
+        ],
+        "properties": [],
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "Foo",
+        "documentation": "A Foo interface description.",
+        "type": "any",
+        "jsDocs": [],
+        "doc_type": "interface",
+        "properties": [
+            {
+                "name": "hello",
+                "documentation": "Says hello.",
+                "type": "string",
+                "jsDocs": []
+            },
+            {
+                "name": "world",
+                "documentation": "Something",
+                "type": "string | undefined",
+                "jsDocs": [
+                    {
+                        "name": "default",
+                        "text": [
+                            {
+                                "text": "`hello`",
+                                "kind": "text"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "abc",
+                "documentation": "",
+                "type": "Abc",
+                "jsDocs": []
+            }
+        ],
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "yolo",
+        "documentation": "A type yolo",
+        "type": "'string'",
+        "jsDocs": [],
+        "doc_type": "type",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "Abc",
+        "documentation": "A type yolo",
+        "type": "Foo & {hello: string}",
+        "jsDocs": [],
+        "doc_type": "type",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "Time",
+        "documentation": "",
+        "properties": [
+            {
+                "name": "SECOND",
+                "type": "1000"
+            },
+            {
+                "name": "MINUTE",
+                "type": "60 * SECOND"
+            }
+        ],
+        "jsDocs": [],
+        "doc_type": "enum",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "MemberType",
+        "documentation": "",
+        "properties": [
+            {
+                "name": "T1"
+            },
+            {
+                "name": "T2",
+                "documentation": "comment"
+            },
+            {
+                "name": "T3"
+            }
+        ],
+        "jsDocs": [],
+        "doc_type": "enum",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "formInvalidateHandler",
+        "documentation": "",
+        "type": "(form: any, err: any, cb?: ((msg: string) => void) | undefined) => void",
         "jsDocs": [
-          {
-            "name": "type",
-            "text": [
-              {
-                "text": "{StorageConfigSourceGlob}",
-                "kind": "text"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "location",
-        "documentation": "The URL or path to which the request should be redirected.",
-        "type": "string",
+            {
+                "name": "param",
+                "text": [
+                    {
+                        "text": "form",
+                        "kind": "text"
+                    }
+                ]
+            },
+            {
+                "name": "param",
+                "text": [
+                    {
+                        "text": "err",
+                        "kind": "text"
+                    }
+                ]
+            },
+            {
+                "name": "param",
+                "text": [
+                    {
+                        "text": "cb",
+                        "kind": "text"
+                    }
+                ]
+            },
+            {
+                "name": "example",
+                "text": [
+                    {
+                        "text": "```vue\n<template>\n  <el-form ref=\"formEl\" :model=\"form\" :rules=\"rules\" >\n    ....\n  </el-form>\n</template>\n\n<script lang=\"ts\" setup>\nimport { ref, reactive } from 'vue'\nimport { ElMessage, FormInstance } from 'element-plus'\n\nconst formEl = ref<FormInstance>()\nconst form = reactive({\n  name: '',\n})\nconst rules = {\n  name: [{ required: true, message: 'please input name', trigger: 'blur' }]\n}\n\nfunction submit() {\n  formEl.value\n    ?.validate()\n    .then(async () => {\n      // ...\n    })\n    .catch((err) => {\n      formInvalidateHandler(formEl.value!, err, (msg: string) =>\n        ElMessage({\n          type: 'warning',\n          message: msg,\n        }),\n      )\n    })\n}\n</script>\n```",
+                        "kind": "text"
+                    }
+                ]
+            }
+        ],
+        "doc_type": "function",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "StorageConfigSourceGlob",
+        "documentation": "",
+        "jsDocs": [],
+        "doc_type": "type",
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "StorageConfigRedirect",
+        "documentation": "Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.",
+        "type": "any",
         "jsDocs": [
-          {
-            "name": "type",
-            "text": [
-              {
-                "text": "{string}",
-                "kind": "text"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "code",
-        "documentation": "The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect).",
-        "type": "301 | 302",
-        "jsDocs": [
-          {
-            "name": "type",
-            "text": [
-              {
-                "text": "{301 | 302}",
-                "kind": "text"
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "fileName": "src/test/mock.ts"
-  },
-  {
-    "name": "SatelliteConfig",
-    "documentation": "",
-    "type": "Either<SatelliteId, SatelliteIds> &\n  CliConfig &\n  SatelliteConfigOptions",
-    "jsDocs": [],
-    "doc_type": "type",
-    "fileName": "src/test/mock.ts"
-  }
+            {
+                "name": "interface",
+                "text": [
+                    {
+                        "text": "StorageConfigRedirect",
+                        "kind": "text"
+                    }
+                ]
+            }
+        ],
+        "doc_type": "interface",
+        "properties": [
+            {
+                "name": "source",
+                "documentation": "The glob pattern or specific path to match for incoming requests that should be redirected.",
+                "type": "string",
+                "jsDocs": [
+                    {
+                        "name": "type",
+                        "text": [
+                            {
+                                "text": "{StorageConfigSourceGlob}",
+                                "kind": "text"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "location",
+                "documentation": "The URL or path to which the request should be redirected.",
+                "type": "string",
+                "jsDocs": [
+                    {
+                        "name": "type",
+                        "text": [
+                            {
+                                "text": "{string}",
+                                "kind": "text"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "code",
+                "documentation": "The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect).",
+                "type": "301 | 302",
+                "jsDocs": [
+                    {
+                        "name": "type",
+                        "text": [
+                            {
+                                "text": "{301 | 302}",
+                                "kind": "text"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "fileName": "src/test/mock.ts"
+    },
+    {
+        "name": "SatelliteConfig",
+        "documentation": "",
+        "type": "Either<SatelliteId, SatelliteIds> &\n  CliConfig &\n  SatelliteConfigOptions",
+        "jsDocs": [],
+        "doc_type": "type",
+        "fileName": "src/test/mock.ts"
+    }
 ]
