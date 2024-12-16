@@ -35,6 +35,7 @@ import {
   isPropertyDeclaration,
   isPropertySignature,
   isTypeAliasDeclaration,
+  isVariableDeclaration,
   isVariableStatement
 } from 'typescript';
 import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
@@ -205,6 +206,51 @@ const isTypeKind = (kind: SyntaxKind): boolean => {
   return typeKinds.includes(kind);
 };
 
+const getRootParentName = (node: Node): string | undefined => {
+  if (!node.parent) {
+    return undefined;
+  }
+
+  if (isVariableDeclaration(node.parent) && isIdentifier(node.parent.name)) {
+    return node.parent.name.text;
+  }
+
+  return getRootParentName(node.parent);
+};
+
+const isRootOrClassLevelArrowFunction = (node: Node): boolean => {
+  const parent = node.parent;
+
+  if (!parent) {
+    return false;
+  }
+
+  if (parent.kind === SyntaxKind.SourceFile) {
+    return true;
+  }
+
+  if (parent.kind === SyntaxKind.ClassDeclaration) {
+    return true;
+  }
+
+  if (
+    parent.kind === SyntaxKind.FunctionDeclaration ||
+    parent.kind === SyntaxKind.FunctionExpression ||
+    parent.kind === SyntaxKind.ArrowFunction
+  ) {
+    return false;
+  }
+
+  if (
+    parent.kind === SyntaxKind.PropertyAssignment ||
+    parent.kind === SyntaxKind.ObjectLiteralExpression
+  ) {
+    return false;
+  }
+
+  return isRootOrClassLevelArrowFunction(parent);
+};
+
 /** visit nodes finding exported classes */
 const visit = ({
   checker,
@@ -220,6 +266,16 @@ const visit = ({
 
   const entries: DocEntry[] = [];
 
+  const pushEntry = ({details, node}: {details: DocEntry; node: Node}) => {
+    entries.push({
+      ...details,
+      ...buildSource({
+        node,
+        ...rest
+      })
+    });
+  };
+
   const addDocEntry = ({
     symbol,
     doc_type,
@@ -234,13 +290,7 @@ const visit = ({
     }
 
     const details = serializeSymbol({checker, symbol, doc_type});
-    entries.push({
-      ...details,
-      ...buildSource({
-        node,
-        ...rest
-      })
-    });
+    pushEntry({node, details});
   };
 
   if (isClassDeclaration(node) && node.name) {
@@ -301,7 +351,21 @@ const visit = ({
       const symbol = checker.getSymbolAtLocation(
         ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
       );
-      addDocEntry({symbol, doc_type: 'function', node: arrowFunc});
+
+      if (symbol !== undefined) {
+        const parentName = !isRootOrClassLevelArrowFunction(arrowFunc)
+          ? getRootParentName(arrowFunc)
+          : undefined;
+
+        const details = serializeSymbol({checker, symbol, doc_type: 'function'});
+        pushEntry({
+          node,
+          details: {
+            ...details,
+            name: parentName !== undefined ? `${parentName}.${details.name}` : details.name
+          }
+        });
+      }
     } else if (isPropertyDeclaration(node)) {
       // We test for the property after the arrow function because a public property of a class can be an arrow function.
       const symbol = checker.getSymbolAtLocation(node.name);
@@ -363,13 +427,7 @@ const visit = ({
     } else if (isEnumDeclaration(node)) {
       const symbol = checker.getSymbolAtLocation((node as EnumDeclaration).name)!;
       const details = serializeEnum({checker, symbol});
-      entries.push({
-        ...details,
-        ...buildSource({
-          node,
-          ...rest
-        })
-      });
+      pushEntry({node, details});
     }
   }
 
