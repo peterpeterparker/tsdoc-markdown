@@ -4,6 +4,7 @@
 - [hello2](#gear-hello2)
 - [genericType](#gear-generictype)
 - [formInvalidateHandler](#gear-forminvalidatehandler)
+- [MyObject.someFunction](#gear-myobject.somefunction)
 
 ### :gear: hello
 
@@ -87,6 +88,14 @@ function submit() {
 
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L238)
+
+### :gear: MyObject.someFunction
+
+| Function | Type |
+| ---------- | ---------- |
+| `MyObject.someFunction` | `() => void` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L281)
 
 
 ## :wrench: Constants
