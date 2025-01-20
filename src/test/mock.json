@@ -482,5 +482,23 @@
     "jsDocs": [],
     "doc_type": "function",
     "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "PrincipalTextSchema",
+    "documentation": "Zod schema to validate a string as a valid textual representation of a Principal.\n\nThis schema checks if the provided string can be converted into a `Principal` instance.\nIf the conversion fails, validation will return an error message.",
+    "type": "any",
+    "jsDocs": [
+      {
+        "name": "example",
+        "text": [
+          {
+            "text": "```typescript\nconst result = PrincipalTextSchema.safeParse('aaaaa-aa');\nconsole.log(result.success); // true or false\n```",
+            "kind": "text"
+          }
+        ]
+      }
+    ],
+    "doc_type": "const",
+    "fileName": "src/test/mock.ts"
   }
 ]

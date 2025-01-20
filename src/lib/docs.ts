@@ -347,25 +347,26 @@ const visit = ({
   } else {
     const arrowFunc: Node | undefined = findDescendantArrowFunction(node);
 
-    if (arrowFunc !== undefined) {
-      const symbol = checker.getSymbolAtLocation(
-        ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
-      );
+    const arrowFuncSymbol =
+      arrowFunc !== undefined
+        ? checker.getSymbolAtLocation(
+            ((arrowFunc as ArrowFunction).parent as VariableDeclaration).name
+          )
+        : undefined;
 
-      if (symbol !== undefined) {
-        const parentName = !isRootOrClassLevelArrowFunction(arrowFunc)
-          ? getRootParentName(arrowFunc)
-          : undefined;
+    if (arrowFunc !== undefined && arrowFuncSymbol !== undefined) {
+      const parentName = !isRootOrClassLevelArrowFunction(arrowFunc)
+        ? getRootParentName(arrowFunc)
+        : undefined;
 
-        const details = serializeSymbol({checker, symbol, doc_type: 'function'});
-        pushEntry({
-          node,
-          details: {
-            ...details,
-            name: parentName !== undefined ? `${parentName}.${details.name}` : details.name
-          }
-        });
-      }
+      const details = serializeSymbol({checker, symbol: arrowFuncSymbol, doc_type: 'function'});
+      pushEntry({
+        node,
+        details: {
+          ...details,
+          name: parentName !== undefined ? `${parentName}.${details.name}` : details.name
+        }
+      });
     } else if (isPropertyDeclaration(node)) {
       // We test for the property after the arrow function because a public property of a class can be an arrow function.
       const symbol = checker.getSymbolAtLocation(node.name);
