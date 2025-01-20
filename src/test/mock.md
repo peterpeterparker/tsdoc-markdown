@@ -101,6 +101,7 @@ function submit() {
 ## :wrench: Constants
 
 - [numberOne](#gear-numberone)
+- [PrincipalTextSchema](#gear-principaltextschema)
 
 ### :gear: numberOne
 
@@ -111,6 +112,27 @@ A constant
 | `numberOne` | `2` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L11)
+
+### :gear: PrincipalTextSchema
+
+Zod schema to validate a string as a valid textual representation of a Principal.
+
+This schema checks if the provided string can be converted into a `Principal` instance.
+If the conversion fails, validation will return an error message.
+
+| Constant | Type |
+| ---------- | ---------- |
+| `PrincipalTextSchema` | `any` |
+
+Examples:
+
+```typescript
+const result = PrincipalTextSchema.safeParse('aaaaa-aa');
+console.log(result.success); // true or false
+```
+
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L298)
 
 
 ## :factory: LedgerCanister
