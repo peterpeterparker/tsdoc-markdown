@@ -277,7 +277,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n1: Number, n2: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L327)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L325)
 
 ### Methods
 
@@ -289,7 +289,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L323)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L321)
 
 ### Static Properties
 
@@ -301,7 +301,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `world` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L317)
 
 ### Properties
 
@@ -313,7 +313,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `hello` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L317)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L316)
 
 ## :nut_and_bolt: Enum
 
