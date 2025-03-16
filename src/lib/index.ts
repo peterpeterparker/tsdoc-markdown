@@ -33,9 +33,9 @@ export const generateDocumentation = ({
   outputFile: string;
   markdownOptions?: MarkdownOptions;
   buildOptions?: BuildOptions;
-}) => {
+}): void => {
   const entries: DocEntry[] = buildDocumentation({
-    inputFiles: inputFiles,
+    inputFiles,
     options: buildOptions
   });
 
@@ -46,7 +46,7 @@ export const generateDocumentation = ({
 
     const regex = /(<!-- TSDOC_START -->)[\s\S]*?(<!-- TSDOC_END -->)$/gm;
 
-    if (!fileContent.match(regex)) {
+    if (fileContent.match(regex) === null) {
       writeFileSync(outputFile, markdown, 'utf-8');
       return;
     }

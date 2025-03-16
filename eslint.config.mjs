@@ -29,8 +29,13 @@ export default [
 
   {
     rules: {
+      complexity: 'off',
       '@typescript-eslint/naming-convention': 'off',
-      complexity: 'off'
+      '@typescript-eslint/no-magic-numbers': 'off',
+      '@typescript-eslint/no-unsafe-type-assertion': 'off',
+      '@typescript-eslint/strict-boolean-expressions': 'off',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off'
     }
   }
 ];

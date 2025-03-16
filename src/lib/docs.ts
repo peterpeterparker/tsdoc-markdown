@@ -4,15 +4,12 @@ import type {
   CompilerOptions,
   Declaration,
   EnumDeclaration,
-  FunctionDeclaration,
   Node,
-  PropertyName,
   Signature,
   SourceFile,
   TypeChecker,
   Symbol as TypeScriptSymbol,
-  VariableDeclaration,
-  VariableStatement
+  VariableDeclaration
 } from 'typescript';
 import {
   ModifierFlags,
@@ -49,15 +46,13 @@ const serializeSymbol = ({
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
   doc_type?: DocEntryType;
-}): DocEntry => {
-  return {
-    name: symbol.getName(),
-    documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
-    type: checker.typeToString(checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)),
-    jsDocs: symbol.getJsDocTags(),
-    ...(doc_type && {doc_type})
-  };
-};
+}): DocEntry => ({
+  name: symbol.getName(),
+  documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
+  type: checker.typeToString(checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)),
+  jsDocs: symbol.getJsDocTags(),
+  ...(doc_type !== undefined && {doc_type})
+});
 
 const serializeEnum = ({
   checker,
@@ -80,7 +75,7 @@ const serializeEnum = ({
     return {
       name: member.name.getText(),
       ...(type !== undefined && {type}),
-      ...(documentation !== undefined && documentation !== '' && {documentation})
+      ...(documentation !== '' && {documentation})
     };
   });
 
@@ -149,7 +144,7 @@ const serializeSignature = ({
     documentation: displayPartsToString(signature.getDocumentationComment(checker))
   };
 
-  if (!!signature.declaration && 'modifiers' in signature.declaration) {
+  if (!(signature.declaration == null) && 'modifiers' in signature.declaration) {
     return {
       ...result,
       visibility:
@@ -219,7 +214,7 @@ const getRootParentName = (node: Node): string | undefined => {
 };
 
 const isRootOrClassLevelArrowFunction = (node: Node): boolean => {
-  const parent = node.parent;
+  const {parent} = node;
 
   if (!parent) {
     return false;
@@ -266,7 +261,7 @@ const visit = ({
 
   const entries: DocEntry[] = [];
 
-  const pushEntry = ({details, node}: {details: DocEntry; node: Node}) => {
+  const pushEntry = ({details, node}: {details: DocEntry; node: Node}): void => {
     entries.push({
       ...details,
       ...buildSource({
@@ -284,7 +279,7 @@ const visit = ({
     symbol: TypeScriptSymbol | undefined;
     doc_type: DocEntryType;
     node: Node;
-  }) => {
+  }): void => {
     if (!symbol) {
       return;
     }
@@ -308,11 +303,11 @@ const visit = ({
         })
       };
 
-      const visitChild = (node: Node) => {
+      const visitChild = (node: Node): void => {
         const docEntries: DocEntry[] = visit({node, checker, types, ...rest});
 
         // We do not need to repeat the file name for class members
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
         const omitFilename = ({fileName: _, ...rest}: DocEntry): Omit<DocEntry, 'fileName'> => rest;
 
         classEntry.methods?.push(
@@ -331,7 +326,7 @@ const visit = ({
       entries.push(classEntry);
     }
   } else if (isModuleDeclaration(node)) {
-    const visitChild = (node: Node) => {
+    const visitChild = (node: Node): void => {
       const docEntries: DocEntry[] = visit({node, checker, types, ...rest});
       entries.push(...docEntries);
     };
@@ -342,7 +337,7 @@ const visit = ({
     const symbol = checker.getSymbolAtLocation(node.name);
     addDocEntry({symbol, doc_type: 'method', node});
   } else if (isFunctionDeclaration(node)) {
-    const symbol = checker.getSymbolAtLocation((node as FunctionDeclaration).name ?? node);
+    const symbol = checker.getSymbolAtLocation(node.name ?? node);
     addDocEntry({symbol, doc_type: 'function', node});
   } else {
     const arrowFunc: Node | undefined = findDescendantArrowFunction(node);
@@ -374,14 +369,14 @@ const visit = ({
     } else if (isVariableStatement(node)) {
       const {
         declarationList: {declarations, flags}
-      } = node as VariableStatement;
+      } = node;
 
       // https://stackoverflow.com/a/69801125/5404186
       const isConst = (flags & NodeFlags.Const) !== 0;
 
       if (isConst) {
         // TODO: not sure what's the proper casting, VariableDeclaration does not contain Symbol but the test entity effectively does
-        const symbol = (declarations[0] as unknown as {symbol: TypeScriptSymbol}).symbol;
+        const {symbol} = declarations[0] as unknown as {symbol: TypeScriptSymbol};
         addDocEntry({symbol, doc_type: 'const', node});
       }
     } else if (types && isInterfaceDeclaration(node)) {
@@ -393,9 +388,9 @@ const visit = ({
             (member) =>
               isPropertySignature(member) && member.name !== undefined && isIdentifier(member.name)
           )
-          .map((member) => checker.getSymbolAtLocation(member.name as PropertyName))
+          .map((member) => checker.getSymbolAtLocation(member.name!))
           .filter((symbol) => symbol !== undefined)
-          .map((symbol) => serializeSymbol({checker, symbol: symbol as TypeScriptSymbol}));
+          .map((symbol) => serializeSymbol({checker, symbol: symbol!}));
 
         const interfaceEntry: DocEntry = {
           ...serializeSymbol({checker, doc_type: 'interface', symbol}),
@@ -426,7 +421,7 @@ const visit = ({
         entries.push(typeEntry);
       }
     } else if (isEnumDeclaration(node)) {
-      const symbol = checker.getSymbolAtLocation((node as EnumDeclaration).name)!;
+      const symbol = checker.getSymbolAtLocation(node.name)!;
       const details = serializeEnum({checker, symbol});
       pushEntry({node, details});
     }
@@ -448,7 +443,7 @@ const buildSource = ({
   node,
   sourceFile
 }: Source & {node: Node}): Pick<DocEntry, 'url' | 'fileName'> => {
-  const fileName = sourceFile.fileName;
+  const {fileName} = sourceFile;
 
   if (repo === undefined) {
     return {fileName};
