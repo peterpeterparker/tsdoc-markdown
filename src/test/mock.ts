@@ -313,12 +313,10 @@ export const PrincipalTextSchema = z.string().refine(
  * Should differentiate methods / properties and static methods / properties
  */
 export class Number {
-
   hello: string;
   static world: string;
 
-  constructor(public value: number) {
-  }
+  constructor(public value: number) {}
 
   add(n: Number) {
     return new Number(this.value + n.value);
