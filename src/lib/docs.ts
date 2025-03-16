@@ -128,6 +128,18 @@ const isNodeExportedOrPublic = (node: Node): boolean => {
   );
 };
 
+/**
+ * True if node is a method or property and is declaration is static.
+ */
+const isNodeStatic = (node: Node): boolean | undefined => {
+  if (!isMethodDeclaration(node) && !isPropertyDeclaration(node)) {
+    return undefined;
+  }
+
+  const flags = getCombinedModifierFlags(node as Declaration);
+  return (flags & ModifierFlags.Static) !== 0;
+};
+
 /** Serialize a signature (call or construct) */
 const serializeSignature = ({
   checker,
@@ -274,17 +286,22 @@ const visit = ({
   const addDocEntry = ({
     symbol,
     doc_type,
+    isStatic,
     node
   }: {
     symbol: TypeScriptSymbol | undefined;
     doc_type: DocEntryType;
     node: Node;
-  }): void => {
+  } & Pick<DocEntry, 'isStatic'>): void => {
     if (!symbol) {
       return;
     }
 
-    const details = serializeSymbol({checker, symbol, doc_type});
+    const details = {
+      ...serializeSymbol({checker, symbol, doc_type}),
+      isStatic
+    };
+
     pushEntry({node, details});
   };
 
@@ -335,7 +352,8 @@ const visit = ({
     forEachChild(node, visitChild);
   } else if (isMethodDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation(node.name);
-    addDocEntry({symbol, doc_type: 'method', node});
+    const isStatic = isNodeStatic(node);
+    addDocEntry({symbol, doc_type: 'method', isStatic, node});
   } else if (isFunctionDeclaration(node)) {
     const symbol = checker.getSymbolAtLocation(node.name ?? node);
     addDocEntry({symbol, doc_type: 'function', node});
@@ -365,7 +383,8 @@ const visit = ({
     } else if (isPropertyDeclaration(node)) {
       // We test for the property after the arrow function because a public property of a class can be an arrow function.
       const symbol = checker.getSymbolAtLocation(node.name);
-      addDocEntry({symbol, doc_type: 'property', node});
+      const isStatic = isNodeStatic(node);
+      addDocEntry({symbol, doc_type: 'property', isStatic, node});
     } else if (isVariableStatement(node)) {
       const {
         declarationList: {declarations, flags}
