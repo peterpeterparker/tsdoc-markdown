@@ -30,6 +30,15 @@ const inlineDocParam = (documentation: string | undefined): string =>
 const inlineParams = (params: Params[]): string[] =>
   params.map(({name, documentation}) => `* \`${name}\`${inlineDocParam(documentation)}`);
 
+const reduceStatic = (values: DocEntry[]): [DocEntry[], DocEntry[]] =>
+  values.reduce<[DocEntry[], DocEntry[]]>(
+    ([i, s], value) => [
+      [...i, ...(value.isStatic !== true ? [value] : [])],
+      [...s, ...(value.isStatic === true ? [value] : [])]
+    ],
+    [[], []]
+  );
+
 const classesToMarkdown = ({
   entry,
   headingLevel,
@@ -73,9 +82,19 @@ const classesToMarkdown = ({
     markdown.push('\n');
   }
 
-  if ((methods?.length ?? 0) > 0) {
-    markdown.push(`${headingLevel}# Methods\n`);
-    markdown.push(`${tableOfContent({entries: methods ?? [], emoji})}\n`);
+  const methodsToMarkdown = ({
+    methods,
+    titlePrefix
+  }: {
+    methods: DocEntry[];
+    titlePrefix?: string;
+  }): void => {
+    if ((methods?.length ?? 0) === 0) {
+      return;
+    }
+
+    markdown.push(`${headingLevel}# ${titlePrefix ?? ''}Methods\n`);
+    markdown.push(`${tableOfContent({entries: methods, emoji})}\n`);
 
     // Explicitly do not pass repo to generate the source code link afterwards for the all block
     markdown.push(
@@ -86,10 +105,25 @@ const classesToMarkdown = ({
         emoji
       })
     );
-  }
+  };
 
-  if ((properties?.length ?? 0) > 0) {
-    markdown.push(`${headingLevel}# Properties\n`);
+  const [instanceMethods, staticMethods] = reduceStatic(methods ?? []);
+
+  methodsToMarkdown({methods: staticMethods, titlePrefix: 'Static '});
+  methodsToMarkdown({methods: instanceMethods});
+
+  const propertiesToMarkdown = ({
+    properties,
+    titlePrefix
+  }: {
+    properties: DocEntry[];
+    titlePrefix?: string;
+  }): void => {
+    if ((properties?.length ?? 0) === 0) {
+      return;
+    }
+
+    markdown.push(`${headingLevel}# ${titlePrefix ?? ''}Properties\n`);
     markdown.push(`${tableOfContent({entries: properties ?? [], emoji})}\n`);
 
     // Explicitly do not pass repo to generate the source code link afterwards for the all block
@@ -101,7 +135,12 @@ const classesToMarkdown = ({
         emoji
       })
     );
-  }
+  };
+
+  const [instanceProperties, staticProperties] = reduceStatic(properties ?? []);
+
+  propertiesToMarkdown({properties: staticProperties, titlePrefix: 'Static '});
+  propertiesToMarkdown({properties: instanceProperties});
 
   return markdown.join('\n');
 };

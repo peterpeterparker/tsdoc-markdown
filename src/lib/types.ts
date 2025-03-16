@@ -20,6 +20,7 @@ export interface DocEntry {
   url?: string;
   documentation?: string;
   type?: string;
+  isStatic?: boolean;
   constructors?: DocEntryConstructor[];
   parameters?: DocEntry[];
   methods?: DocEntry[];

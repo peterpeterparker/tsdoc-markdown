@@ -152,11 +152,9 @@ Parameters:
 * `hardwareWallet`
 
 
-### Methods
+### Static Methods
 
 - [create](#gear-create)
-- [accountBalance](#gear-accountbalance)
-- [shouldBeDocumented](#gear-shouldbedocumented)
 
 #### :gear: create
 
@@ -167,6 +165,11 @@ Create a LedgerCanister
 | `create` | `(options: { canisterId?: string or undefined; }) => LedgerCanister` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L55)
+
+### Methods
+
+- [accountBalance](#gear-accountbalance)
+- [shouldBeDocumented](#gear-shouldbedocumented)
 
 #### :gear: accountBalance
 
@@ -212,10 +215,9 @@ The documentation of the public property.
 
 
 
-### Methods
+### Static Methods
 
 - [create](#gear-create)
-- [metadata](#gear-metadata)
 
 #### :gear: create
 
@@ -226,6 +228,10 @@ This create function is public as well.
 | `create` | `(options: { canisterId?: string or undefined; }) => SnsLedgerCanister` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L133)
+
+### Methods
+
+- [metadata](#gear-metadata)
 
 #### :gear: metadata
 
@@ -254,6 +260,60 @@ Description
 | `bar` | `() => void` |
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L150)
+
+## :factory: Number
+
+Should differentiate methods / properties and static methods / properties
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L315)
+
+### Static Methods
+
+- [add](#gear-add)
+
+#### :gear: add
+
+| Method | Type |
+| ---------- | ---------- |
+| `add` | `(n1: Number, n2: Number) => Number` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L327)
+
+### Methods
+
+- [add](#gear-add)
+
+#### :gear: add
+
+| Method | Type |
+| ---------- | ---------- |
+| `add` | `(n: Number) => Number` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L323)
+
+### Static Properties
+
+- [world](#gear-world)
+
+#### :gear: world
+
+| Property | Type |
+| ---------- | ---------- |
+| `world` | `string` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
+
+### Properties
+
+- [hello](#gear-hello)
+
+#### :gear: hello
+
+| Property | Type |
+| ---------- | ---------- |
+| `hello` | `string` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L317)
 
 ## :nut_and_bolt: Enum
 

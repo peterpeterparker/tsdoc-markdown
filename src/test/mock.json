@@ -136,7 +136,8 @@
             ]
           }
         ],
-        "doc_type": "method"
+        "doc_type": "method",
+        "isStatic": true
       },
       {
         "name": "accountBalance",
@@ -181,7 +182,8 @@
         "documentation": "Public method.",
         "type": "() => void",
         "jsDocs": [],
-        "doc_type": "method"
+        "doc_type": "method",
+        "isStatic": false
       }
     ],
     "properties": [
@@ -190,7 +192,8 @@
         "documentation": "The documentation of the public property.",
         "type": "string",
         "jsDocs": [],
-        "doc_type": "property"
+        "doc_type": "property",
+        "isStatic": false
       }
     ],
     "fileName": "src/test/mock.ts"
@@ -225,7 +228,8 @@
             ]
           }
         ],
-        "doc_type": "method"
+        "doc_type": "method",
+        "isStatic": true
       },
       {
         "name": "metadata",
@@ -251,7 +255,8 @@
         "documentation": "Description",
         "type": "() => void",
         "jsDocs": [],
-        "doc_type": "method"
+        "doc_type": "method",
+        "isStatic": false
       }
     ],
     "properties": [],
@@ -499,6 +504,51 @@
       }
     ],
     "doc_type": "const",
+    "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "Number",
+    "documentation": "Should differentiate methods / properties and static methods / properties",
+    "type": "typeof Number",
+    "jsDocs": [],
+    "doc_type": "class",
+    "constructors": [],
+    "methods": [
+      {
+        "name": "add",
+        "documentation": "",
+        "type": "(n: Number) => Number",
+        "jsDocs": [],
+        "doc_type": "method",
+        "isStatic": false
+      },
+      {
+        "name": "add",
+        "documentation": "",
+        "type": "(n1: Number, n2: Number) => Number",
+        "jsDocs": [],
+        "doc_type": "method",
+        "isStatic": true
+      }
+    ],
+    "properties": [
+      {
+        "name": "hello",
+        "documentation": "",
+        "type": "string",
+        "jsDocs": [],
+        "doc_type": "property",
+        "isStatic": false
+      },
+      {
+        "name": "world",
+        "documentation": "",
+        "type": "string",
+        "jsDocs": [],
+        "doc_type": "property",
+        "isStatic": true
+      }
+    ],
     "fileName": "src/test/mock.ts"
   }
 ]

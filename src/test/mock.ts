@@ -308,3 +308,23 @@ export const PrincipalTextSchema = z.string().refine(
     message: 'Invalid textual representation of a Principal.'
   }
 );
+
+/**
+ * Should differentiate methods / properties and static methods / properties
+ */
+export class Number {
+
+  hello: string;
+  static world: string;
+
+  constructor(public value: number) {
+  }
+
+  add(n: Number) {
+    return new Number(this.value + n.value);
+  }
+
+  static add(n1: Number, n2: Number) {
+    return new Number(n1.value + n2.value);
+  }
+}
