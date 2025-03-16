@@ -18,6 +18,7 @@
   },
   "scripts": {
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint --max-warnings 0 .",
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
     "contributors:add": "all-contributors add",
