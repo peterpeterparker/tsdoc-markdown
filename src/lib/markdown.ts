@@ -7,7 +7,10 @@ import type {
   MarkdownOptions
 } from './types';
 
-type Params = {name: string; documentation: string};
+interface Params {
+  name: string;
+  documentation: string;
+}
 
 type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
   Pick<DocEntry, 'url'> & {
@@ -51,14 +54,14 @@ const classesToMarkdown = ({
     ({visibility}) => visibility === 'public'
   );
 
-  if (publicConstructors?.length) {
+  if (publicConstructors.length > 0) {
     markdown.push(`${headingLevel}# Constructors\n`);
 
     markdown.push(
       ...publicConstructors.map(({parameters, documentation, visibility}) => {
         const docs: string[] = [`\`${visibility}\`${inlineDocParam(documentation)}\n`];
 
-        if (parameters?.length) {
+        if ((parameters?.length ?? 0) > 0) {
           docs.push(`Parameters:\n`);
           docs.push(...inlineParams(toParams(parameters)));
         }
@@ -76,12 +79,12 @@ const classesToMarkdown = ({
 
     // Explicitly do not pass repo to generate the source code link afterwards for the all block
     markdown.push(
-      `${toMarkdown({
+      toMarkdown({
         entries: methods ?? [],
         headingLevel: `${headingLevel}#`,
         docType: 'Method',
         emoji
-      })}`
+      })
     );
   }
 
@@ -91,12 +94,12 @@ const classesToMarkdown = ({
 
     // Explicitly do not pass repo to generate the source code link afterwards for the all block
     markdown.push(
-      `${toMarkdown({
+      toMarkdown({
         entries: properties ?? [],
         headingLevel: `${headingLevel}#`,
         docType: 'Property',
         emoji
-      })}`
+      })
     );
   }
 
@@ -132,7 +135,7 @@ const interfacesToMarkdown = ({
     );
 
     markdown.push(
-      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? `${parseType(documentation).replace(/\r?\n|\r/g, '')}` : ''}${jsDocsDescription.length > 0 ? ` ${parseType(jsDocsDescription.join(''))}` : ''} |`
+      `| \`${name}\` | \`${parseType(type ?? '')}\` | ${documentation !== undefined && documentation !== '' ? parseType(documentation).replace(/\r?\n|\r/g, '') : ''}${jsDocsDescription.length > 0 ? ` ${parseType(jsDocsDescription.join(''))}` : ''} |`
     );
   });
 
@@ -168,7 +171,7 @@ const toMarkdown = ({
 } & Pick<MarkdownOptions, 'emoji'>): string => {
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
-    const texts: (SymbolDisplayPart[] | undefined)[] = params.map(({text}) => text);
+    const texts: Array<SymbolDisplayPart[] | undefined> = params.map(({text}) => text);
 
     const parts: SymbolDisplayPart[][] = texts.reduce(
       (acc: SymbolDisplayPart[][], values: SymbolDisplayPart[] | undefined) => {
