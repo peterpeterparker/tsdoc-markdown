@@ -40,17 +40,17 @@
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.22.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.13.10",
     "all-contributors-cli": "^6.26.1",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.1",
     "eslint": "^9.22.0",
     "eslint-config-love": "^119.0.0",
     "eslint-config-prettier": "^10.1.1",
     "globals": "^16.0.0",
     "jest": "^29.7.0",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "ts-jest": "^29.2.5"
+    "ts-jest": "^29.2.6"
   },
   "keywords": [
     "jsdoc",
