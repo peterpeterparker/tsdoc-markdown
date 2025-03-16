@@ -4,7 +4,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['dist']
+    ignores: ['dist', '**/mock.ts', 'bin/index.js', 'jest.config.js', '**/*.spec.ts']
   },
   {
     ...love,
@@ -22,14 +22,15 @@ export default [
       sourceType: 'module',
 
       parserOptions: {
-        project: ['./tsconfig.eslint.json']
+        project: ['tsconfig.json']
       }
     }
   },
 
   {
     rules: {
-      '@typescript-eslint/naming-convention': 'off'
+      '@typescript-eslint/naming-convention': 'off',
+      complexity: 'off'
     }
   }
 ];
