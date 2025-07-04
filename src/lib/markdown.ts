@@ -16,6 +16,7 @@ type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
   Pick<DocEntry, 'url'> & {
     params: Params[];
     examples: string[];
+    returnType?: string;
   };
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
@@ -208,6 +209,19 @@ const toMarkdown = ({
   headingLevel: MarkdownHeadingLevel | '####';
   docType: 'Constant' | 'Function' | 'Method' | 'Property' | 'Type' | 'Enum';
 } & Pick<MarkdownOptions, 'emoji'>): string => {
+  const jsDocsToReturnType = (jsDocs: JSDocTagInfo[]): string => {
+    const returns: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'returns');
+    const texts: Array<SymbolDisplayPart[] | undefined> = returns.map(({text}) => text);
+    const returnType = texts.reduce((acc: SymbolDisplayPart[][], values: SymbolDisplayPart[] | undefined) => {
+      if (values === undefined) {
+        return acc;
+      }
+
+      return [...acc, values];
+    }, []);
+
+    return returnType.map((parts) => parts.map(({text}) => text).join('')).join(' ');
+  };
   const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
     const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
     const texts: Array<SymbolDisplayPart[] | undefined> = params.map(({text}) => text);
@@ -251,12 +265,13 @@ const toMarkdown = ({
       type: type ?? '',
       documentation: documentation ?? '',
       params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])],
+      returnType: jsDocsToReturnType(jsDocs ?? []),
       examples: [...jsDocsToExamples(jsDocs ?? [])],
       url
     })
   );
 
-  const rowToMarkdown = ({name, documentation, type, params, examples, url}: Row): string => {
+  const rowToMarkdown = ({name, documentation, type, params, returnType, examples, url}: Row): string => {
     const markdown: string[] = [
       `${headingLevel}# ${emoji === undefined || emoji === null ? '' : ':gear: '}${name}\n`
     ];
@@ -275,6 +290,9 @@ const toMarkdown = ({
       markdown.push('Parameters:\n');
       markdown.push(...inlineParams(params));
       markdown.push('\n');
+    }
+    if (returnType) {
+      markdown.push(`Returns:\n\t${returnType}\n`);
     }
     if (examples.length) {
       markdown.push('Examples:\n');

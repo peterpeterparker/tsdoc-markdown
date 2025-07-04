@@ -65,6 +65,7 @@ export class LedgerCanister {
    * @param params.certified Update calls?
    *
    * @throws an {@link Error}
+   * @returns {Promise<{icp: bigint}>} The balance of the specified account identifier
    */
   public accountBalance = async ({
     certified = true
