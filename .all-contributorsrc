@@ -38,8 +38,16 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/22953606?v=4",
       "profile": "https://github.com/mingtianyihou33",
       "contributions": ["code", "test", "ideas"]
+    },
+    {
+      "login": "edewit",
+      "name": "Erik Jan de Wit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51133?v=4",
+      "profile": "https://github.com/edewit",
+      "contributions": ["question", "code", "ideas"]
     }
   ],
   "contributorsPerLine": 7,
   "linkToUsage": false
 }
+
