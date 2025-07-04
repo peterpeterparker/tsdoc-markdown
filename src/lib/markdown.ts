@@ -212,13 +212,16 @@ const toMarkdown = ({
   const jsDocsToReturnType = (jsDocs: JSDocTagInfo[]): string => {
     const returns: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'returns');
     const texts: Array<SymbolDisplayPart[] | undefined> = returns.map(({text}) => text);
-    const returnType = texts.reduce((acc: SymbolDisplayPart[][], values: SymbolDisplayPart[] | undefined) => {
-      if (values === undefined) {
-        return acc;
-      }
+    const returnType = texts.reduce(
+      (acc: SymbolDisplayPart[][], values: SymbolDisplayPart[] | undefined) => {
+        if (values === undefined) {
+          return acc;
+        }
 
-      return [...acc, values];
-    }, []);
+        return [...acc, values];
+      },
+      []
+    );
 
     return returnType.map((parts) => parts.map(({text}) => text).join('')).join(' ');
   };
@@ -271,7 +274,15 @@ const toMarkdown = ({
     })
   );
 
-  const rowToMarkdown = ({name, documentation, type, params, returnType, examples, url}: Row): string => {
+  const rowToMarkdown = ({
+    name,
+    documentation,
+    type,
+    params,
+    returnType,
+    examples,
+    url
+  }: Row): string => {
     const markdown: string[] = [
       `${headingLevel}# ${emoji === undefined || emoji === null ? '' : ':gear: '}${name}\n`
     ];
