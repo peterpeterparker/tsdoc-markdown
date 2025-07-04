@@ -209,36 +209,32 @@ const toMarkdown = ({
   headingLevel: MarkdownHeadingLevel | '####';
   docType: 'Constant' | 'Function' | 'Method' | 'Property' | 'Type' | 'Enum';
 } & Pick<MarkdownOptions, 'emoji'>): string => {
-  const jsDocsToReturnType = (jsDocs: JSDocTagInfo[]): string => {
-    const returns: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'returns');
-    const texts: Array<SymbolDisplayPart[] | undefined> = returns.map(({text}) => text);
-    const returnType = texts.reduce(
-      (acc: SymbolDisplayPart[][], values: SymbolDisplayPart[] | undefined) => {
-        if (values === undefined) {
-          return acc;
-        }
+  const jsDocsToSymbolDisplayParts = ({
+    jsDocs = [],
+    tagInfoName
+  }: {
+    jsDocs?: JSDocTagInfo[];
+    tagInfoName: 'returns' | 'param';
+  }): SymbolDisplayPart[][] => {
+    const tags = jsDocs.filter(({name}: JSDocTagInfo) => name === tagInfoName);
+    const texts = tags.map(({text}) => text);
 
-        return [...acc, values];
-      },
-      []
-    );
+    return texts.reduce<SymbolDisplayPart[][]>((acc, values) => {
+      if (values === undefined) {
+        return acc;
+      }
 
-    return returnType.map((parts) => parts.map(({text}) => text).join('')).join(' ');
+      return [...acc, values];
+    }, []);
   };
-  const jsDocsToParams = (jsDocs: JSDocTagInfo[]): Params[] => {
-    const params: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'param');
-    const texts: Array<SymbolDisplayPart[] | undefined> = params.map(({text}) => text);
 
-    const parts: SymbolDisplayPart[][] = texts.reduce(
-      (acc: SymbolDisplayPart[][], values: SymbolDisplayPart[] | undefined) => {
-        if (values === undefined) {
-          return acc;
-        }
+  const jsDocsToReturnType = (jsDocs?: JSDocTagInfo[]): string => {
+    const returns = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'returns'});
+    return returns.map((parts) => parts.map(({text}) => text).join('')).join(' ');
+  };
 
-        return [...acc, values];
-      },
-      []
-    );
+  const jsDocsToParams = (jsDocs?: JSDocTagInfo[]): Params[] => {
+    const params = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'param'});
 
     const toParam = (parts: SymbolDisplayPart[]): Params | undefined => {
       if (parts.find(({kind, text}) => kind === 'parameterName' && text !== '') === undefined) {
@@ -251,7 +247,7 @@ const toMarkdown = ({
       return {name, documentation};
     };
 
-    return parts.map(toParam).filter((param) => param !== undefined) as Params[];
+    return params.map(toParam).filter((param) => param !== undefined) as Params[];
   };
   const jsDocsToExamples = (jsDocs: JSDocTagInfo[]): string[] => {
     const examples: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'example');
@@ -267,8 +263,8 @@ const toMarkdown = ({
       name,
       type: type ?? '',
       documentation: documentation ?? '',
-      params: [...toParams(parameters), ...jsDocsToParams(jsDocs ?? [])],
-      returnType: jsDocsToReturnType(jsDocs ?? []),
+      params: [...toParams(parameters), ...jsDocsToParams(jsDocs)],
+      returnType: jsDocsToReturnType(jsDocs),
       examples: [...jsDocsToExamples(jsDocs ?? [])],
       url
     })
