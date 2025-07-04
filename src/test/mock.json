@@ -173,6 +173,15 @@
                 "kind": "link"
               }
             ]
+          },
+          {
+            "name": "returns",
+            "text": [
+              {
+                "text": "The balance of the specified account identifier",
+                "kind": "text"
+              }
+            ]
           }
         ],
         "doc_type": "function"

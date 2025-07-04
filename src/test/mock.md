@@ -87,7 +87,7 @@ function submit() {
 ```
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L238)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L239)
 
 ### :gear: MyObject.someFunction
 
@@ -95,7 +95,7 @@ function submit() {
 | ---------- | ---------- |
 | `MyObject.someFunction` | `() => void` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L281)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L282)
 
 
 ## :wrench: Constants
@@ -132,7 +132,7 @@ console.log(result.success); // true or false
 ```
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L298)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L299)
 
 
 ## :factory: LedgerCanister
@@ -179,7 +179,10 @@ Returns the balance of the specified account identifier.
 | ---------- | ---------- |
 | `accountBalance` | `({ certified }: { certified?: boolean or undefined; }) => Promise<{ icp: bigint; }>` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L69)
+Returns:
+	The balance of the specified account identifier
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L70)
 
 #### :gear: shouldBeDocumented
 
@@ -189,7 +192,7 @@ Public method.
 | ---------- | ---------- |
 | `shouldBeDocumented` | `() => void` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L97)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L98)
 
 ### Properties
 
@@ -203,11 +206,11 @@ The documentation of the public property.
 | ---------- | ---------- |
 | `publicShouldBeDocumented` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L80)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L81)
 
 ## :factory: SnsLedgerCanister
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L118)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L119)
 
 ### Constructors
 
@@ -227,7 +230,7 @@ This create function is public as well.
 | ---------- | ---------- |
 | `create` | `(options: { canisterId?: string or undefined; }) => SnsLedgerCanister` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L133)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L134)
 
 ### Methods
 
@@ -241,11 +244,11 @@ The token metadata (name, symbol, etc.).
 | ---------- | ---------- |
 | `metadata` | `(params: QueryParams) => Promise<SnsTokenMetadataResponse>` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L142)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L143)
 
 ## :factory: default
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L146)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L147)
 
 ### Methods
 
@@ -259,13 +262,13 @@ Description
 | ---------- | ---------- |
 | `bar` | `() => void` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L150)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L151)
 
 ## :factory: Number
 
 Should differentiate methods / properties and static methods / properties
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L315)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L316)
 
 ### Static Methods
 
@@ -277,7 +280,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n1: Number, n2: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L325)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L326)
 
 ### Methods
 
@@ -289,7 +292,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L321)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L322)
 
 ### Static Properties
 
@@ -301,7 +304,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `world` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L317)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
 
 ### Properties
 
@@ -313,7 +316,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `hello` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L316)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L317)
 
 ## :nut_and_bolt: Enum
 
@@ -383,7 +386,7 @@ A type yolo
 | ---------- | ---------- |
 | `yolo` | `'string'` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L175)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L176)
 
 ### :gear: Abc
 
@@ -393,7 +396,7 @@ A type yolo
 | ---------- | ---------- |
 | `Abc` | `Foo and {hello: string}` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L180)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L181)
 
 ### :gear: StorageConfigSourceGlob
 
@@ -401,7 +404,7 @@ A type yolo
 | ---------- | ---------- |
 | `StorageConfigSourceGlob` |  |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L251)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L252)
 
 ### :gear: SatelliteConfig
 
@@ -409,5 +412,5 @@ A type yolo
 | ---------- | ---------- |
 | `SatelliteConfig` | `Either<SatelliteId, SatelliteIds> and CliConfig and SatelliteConfigOptions` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L277)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L278)
 

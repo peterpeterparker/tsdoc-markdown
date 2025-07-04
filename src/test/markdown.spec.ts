@@ -21,7 +21,7 @@ describe('markdown', () => {
     expect(markdown).toEqual(expectedDoc);
   });
 
-  it.each([35, 118, 146])('should generate a markdown link to line %s', (line) => {
+  it.each([35, 119, 147])('should generate a markdown link to line %s', (line) => {
     const doc = buildDocumentation({
       inputFiles: ['./src/test/mock.ts'],
       options: {
