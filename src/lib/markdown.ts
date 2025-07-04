@@ -298,8 +298,9 @@ const toMarkdown = ({
       markdown.push(...inlineParams(params));
       markdown.push('\n');
     }
-    if (returnType) {
-      markdown.push(`Returns:\n\t${returnType}\n`);
+    if (returnType !== undefined && returnType !== '') {
+      markdown.push(`Returns:\n`);
+      markdown.push(`${returnType}\n`);
     }
     if (examples.length) {
       markdown.push('Examples:\n');

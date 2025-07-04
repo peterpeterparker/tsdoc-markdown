@@ -180,7 +180,8 @@ Returns the balance of the specified account identifier.
 | `accountBalance` | `({ certified }: { certified?: boolean or undefined; }) => Promise<{ icp: bigint; }>` |
 
 Returns:
-	The balance of the specified account identifier
+
+The balance of the specified account identifier
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L70)
 
