@@ -102,6 +102,7 @@ function submit() {
 
 - [numberOne](#gear-numberone)
 - [PrincipalTextSchema](#gear-principaltextschema)
+- [SOMETHING](#gear-something)
 
 ### :gear: numberOne
 
@@ -133,6 +134,16 @@ console.log(result.success); // true or false
 
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L299)
+
+### :gear: SOMETHING
+
+A constant
+
+| Constant | Type |
+| ---------- | ---------- |
+| `SOMETHING` | `"abc"` |
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L338)
 
 
 ## :factory: LedgerCanister

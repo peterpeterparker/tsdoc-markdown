@@ -559,5 +559,90 @@
       }
     ],
     "fileName": "src/test/mock.ts"
+  },
+  {
+    "name": "SOMETHING",
+    "documentation": "A constant",
+    "type": "\"abc\"",
+    "jsDocs": [
+      {
+        "name": "see",
+        "text": [
+          {
+            "text": "hello2",
+            "kind": "text"
+          },
+          {
+            "text": " ",
+            "kind": "space"
+          },
+          {
+            "text": "*",
+            "kind": "text"
+          }
+        ]
+      },
+      {
+        "name": "see",
+        "text": [
+          {
+            "text": "https",
+            "kind": "text"
+          },
+          {
+            "text": "://daviddalbusco.com",
+            "kind": "text"
+          }
+        ]
+      },
+      {
+        "name": "see",
+        "text": [
+          {
+            "text": "",
+            "kind": "text"
+          },
+          {
+            "text": "{@link ",
+            "kind": "link"
+          },
+          {
+            "text": "hello ",
+            "kind": "linkText"
+          },
+          {
+            "text": "}",
+            "kind": "link"
+          },
+          {
+            "text": " – Another related function",
+            "kind": "text"
+          }
+        ]
+      },
+      {
+        "name": "see",
+        "text": [
+          {
+            "text": "",
+            "kind": "text"
+          },
+          {
+            "text": "{@link ",
+            "kind": "link"
+          },
+          {
+            "text": "https://github.com/peterpeterparker/tsdoc-markdown Source code",
+            "kind": "linkText"
+          },
+          {
+            "text": "}",
+            "kind": "link"
+          }
+        ]
+      }
+    ],
+    "doc_type": "const",
+    "fileName": "src/test/mock.ts"
   }
 ]
