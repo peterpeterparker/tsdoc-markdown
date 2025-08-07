@@ -150,7 +150,7 @@ const interfacesToMarkdown = ({
 } & Required<Pick<MarkdownOptions, 'headingLevel'>> &
   Omit<MarkdownOptions, 'headingLevel'> &
   Pick<MarkdownOptions, 'emoji'>): string => {
-  const {name, documentation} = entry;
+  const {name, documentation, jsDocs, url} = entry;
 
   const markdown: string[] = [
     `${headingLevel}# ${emoji === undefined || emoji === null ? '' : ':gear: '}${name}\n`
@@ -159,6 +159,14 @@ const interfacesToMarkdown = ({
   if (documentation !== undefined) {
     markdown.push(`${documentation}\n`);
   }
+
+  const metadata = metadataToMarkdown({
+    ...jsDocsMetadata(jsDocs),
+    url,
+    emoji
+  });
+
+  markdown.push(...metadata);
 
   markdown.push(`| Property | Type | Description |`);
   markdown.push('| ---------- | ---------- | ---------- |');

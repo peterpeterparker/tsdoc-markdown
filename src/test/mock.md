@@ -352,6 +352,8 @@ References:
 
 
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L183)
+
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `SECOND` | `1000` |  |
@@ -361,6 +363,8 @@ References:
 ### :gear: MemberType
 
 
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L188)
 
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
@@ -378,6 +382,8 @@ References:
 
 A Foo interface description.
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L157)
+
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `hello` | `string` | Says hello. |
@@ -388,6 +394,13 @@ A Foo interface description.
 ### :gear: StorageConfigRedirect
 
 Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.
+
+References:
+
+* [https://github.com/peterpeterparker/tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown)
+
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L259)
 
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
