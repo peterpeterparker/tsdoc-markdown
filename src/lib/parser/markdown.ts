@@ -12,7 +12,7 @@ import {
   jsDocsToReferences,
   jsDocsToReturnType
 } from './jdocs/mapper';
-import {inlineReferences} from './jdocs/parser';
+import {inlineReferences} from './jdocs/render';
 import type {Params, Row} from './types';
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
