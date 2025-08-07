@@ -5,7 +5,7 @@ export interface Params {
   documentation: string;
 }
 
-export interface MappedJsDocs {
+export interface JsDocsMetadata {
   examples: string[];
   returnType?: string;
   references?: string[];
@@ -14,4 +14,4 @@ export interface MappedJsDocs {
 export type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
   Pick<DocEntry, 'url'> & {
     params: Params[];
-  } & MappedJsDocs;
+  } & JsDocsMetadata;
