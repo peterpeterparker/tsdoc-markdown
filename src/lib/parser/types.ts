@@ -5,10 +5,13 @@ export interface Params {
   documentation: string;
 }
 
+export interface MappedJsDocs {
+  examples: string[];
+  returnType?: string;
+  references?: string[];
+}
+
 export type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
   Pick<DocEntry, 'url'> & {
     params: Params[];
-    examples: string[];
-    returnType?: string;
-    references?: string[];
-  };
+  } & MappedJsDocs;

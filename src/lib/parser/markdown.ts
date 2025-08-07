@@ -12,7 +12,7 @@ import {
   jsDocsToReferences,
   jsDocsToReturnType
 } from './jdocs/mapper';
-import {inlineReferences} from './jdocs/render';
+import {emojiTitle, metadataToMarkdown, sourceCodeLink} from './render';
 import type {Params, Row} from './types';
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
@@ -180,12 +180,6 @@ const interfacesToMarkdown = ({
   return markdown.join('\n');
 };
 
-const sourceCodeLink = ({
-  url,
-  emoji
-}: Pick<MarkdownOptions, 'emoji'> & Required<Pick<DocEntry, 'url'>>): string =>
-  `[${emojiTitle({emoji, key: 'link'}).trim()}${emoji !== null && emoji !== undefined ? ' ' : ''}Source](${url})\n`;
-
 // Avoid issue if the Markdown table gets formatted with Prettier
 const parseType = (type: string): string =>
   type
@@ -248,26 +242,15 @@ const toMarkdown = ({
       markdown.push('\n');
     }
 
-    if (returnType !== undefined && returnType !== '') {
-      markdown.push(`Returns:\n`);
-      markdown.push(`${returnType}\n`);
-    }
+    const metadata = metadataToMarkdown({
+      returnType,
+      references,
+      examples,
+      url,
+      emoji
+    });
 
-    if (references?.length) {
-      markdown.push(`References:\n`);
-      markdown.push(...inlineReferences(references));
-      markdown.push('\n');
-    }
-
-    if (examples.length) {
-      markdown.push('Examples:\n');
-      markdown.push(...examples);
-      markdown.push('\n');
-    }
-
-    if (url !== undefined) {
-      markdown.push(sourceCodeLink({emoji, url}));
-    }
+    markdown.push(...metadata);
 
     return markdown.join('\n');
   };
@@ -289,14 +272,6 @@ const tableOfContent = ({
           .replace(/ /g, '-')})`
     )
     .join('\n');
-
-const emojiTitle = ({
-  emoji,
-  key
-}: {
-  key: keyof MarkdownEmoji;
-} & Pick<MarkdownOptions, 'emoji'>): string =>
-  emoji === undefined || emoji === null ? '' : ` :${emoji[key]}:`;
 
 const DEFAULT_EMOJI: MarkdownEmoji = {
   classes: 'factory',
