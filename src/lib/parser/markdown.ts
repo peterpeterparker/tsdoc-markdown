@@ -6,12 +6,7 @@ import type {
   MarkdownHeadingLevel,
   MarkdownOptions
 } from '../types';
-import {
-  jsDocsToExamples,
-  jsDocsToParams,
-  jsDocsToReferences,
-  jsDocsToReturnType
-} from './jdocs/mapper';
+import {jsDocsMetadata, jsDocsToParams} from './jdocs/mapper';
 import {emojiTitle, metadataToMarkdown, sourceCodeLink} from './render';
 import type {Params, Row} from './types';
 
@@ -205,9 +200,7 @@ const toMarkdown = ({
       type: type ?? '',
       documentation: documentation ?? '',
       params: [...toParams(parameters), ...jsDocsToParams(jsDocs)],
-      returnType: jsDocsToReturnType(jsDocs),
-      references: jsDocsToReferences(jsDocs),
-      examples: [...jsDocsToExamples(jsDocs ?? [])],
+      ...jsDocsMetadata(jsDocs),
       url
     })
   );

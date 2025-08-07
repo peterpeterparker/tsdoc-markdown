@@ -1,6 +1,6 @@
 import type {DocEntry, MarkdownEmoji, MarkdownOptions} from '../types';
 import {inlineReferences} from './jdocs/render';
-import type {MappedJsDocs} from './types';
+import type {JsDocsMetadata} from './types';
 
 export const emojiTitle = ({
   emoji,
@@ -22,7 +22,8 @@ export const metadataToMarkdown = ({
   examples,
   url,
   emoji
-}: MappedJsDocs & Pick<DocEntry, 'url'> & {emoji: MarkdownEmoji | null | undefined}): string[] => {
+}: JsDocsMetadata &
+  Pick<DocEntry, 'url'> & {emoji: MarkdownEmoji | null | undefined}): string[] => {
   const markdown: string[] = [];
 
   if (returnType !== undefined && returnType !== '') {
