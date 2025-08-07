@@ -288,6 +288,11 @@ Description
 
 Should differentiate methods / properties and static methods / properties
 
+References:
+
+* [https://github.com/peterpeterparker/tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown)
+
+
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
 
 ### Static Methods

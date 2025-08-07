@@ -7,7 +7,7 @@ import type {
   MarkdownOptions
 } from '../types';
 import {jsDocsMetadata, jsDocsToParams} from './jdocs/mapper';
-import {emojiTitle, metadataToMarkdown, sourceCodeLink} from './render';
+import {emojiTitle, metadataToMarkdown} from './render';
 import type {Params, Row} from './types';
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
@@ -39,7 +39,7 @@ const classesToMarkdown = ({
   entry: DocEntry;
 } & Required<Pick<MarkdownOptions, 'headingLevel'>> &
   Omit<MarkdownOptions, 'headingLevel'>): string => {
-  const {name, url, documentation, methods, properties, constructors} = entry;
+  const {name, url, documentation, methods, properties, constructors, jsDocs} = entry;
 
   const markdown: string[] = [`${headingLevel}${emojiTitle({emoji, key: 'classes'})} ${name}\n`];
 
@@ -47,9 +47,13 @@ const classesToMarkdown = ({
     markdown.push(`${documentation}\n`);
   }
 
-  if (url !== undefined) {
-    markdown.push(sourceCodeLink({emoji, url}));
-  }
+  const metadata = metadataToMarkdown({
+    ...jsDocsMetadata(jsDocs),
+    url,
+    emoji
+  });
+
+  markdown.push(...metadata);
 
   const publicConstructors: DocEntryConstructor[] = (constructors ?? []).filter(
     ({visibility}) => visibility === 'public'
