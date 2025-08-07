@@ -1,5 +1,5 @@
 import type {JSDocTagInfo, SymbolDisplayPart} from 'typescript';
-import type {Params} from '../types';
+import type {JsDocsMetadata, Params} from '../types';
 
 const jsDocsToSymbolDisplayParts = ({
   jsDocs = [],
@@ -20,12 +20,12 @@ const jsDocsToSymbolDisplayParts = ({
   }, []);
 };
 
-export const jsDocsToReturnType = (jsDocs?: JSDocTagInfo[]): string => {
+const jsDocsToReturnType = (jsDocs?: JSDocTagInfo[]): string => {
   const returns = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'returns'});
   return returns.map((parts) => parts.map(({text}) => text).join('')).join(' ');
 };
 
-export const jsDocsToReferences = (jsDocs?: JSDocTagInfo[]): string[] => {
+const jsDocsToReferences = (jsDocs?: JSDocTagInfo[]): string[] => {
   const sees = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'see'});
 
   return sees
@@ -55,7 +55,7 @@ export const jsDocsToParams = (jsDocs?: JSDocTagInfo[]): Params[] => {
   return params.map(toParam).filter((param) => param !== undefined) as Params[];
 };
 
-export const jsDocsToExamples = (jsDocs: JSDocTagInfo[]): string[] => {
+const jsDocsToExamples = (jsDocs: JSDocTagInfo[]): string[] => {
   const examples: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'example');
   const texts = examples
     .map(({text}) => text)
@@ -63,3 +63,9 @@ export const jsDocsToExamples = (jsDocs: JSDocTagInfo[]): string[] => {
     .flat(1) as SymbolDisplayPart[];
   return texts.map(({text}) => text).filter(Boolean);
 };
+
+export const jsDocsMetadata = (jsDocs?: JSDocTagInfo[]): JsDocsMetadata => ({
+  returnType: jsDocsToReturnType(jsDocs),
+  references: jsDocsToReferences(jsDocs),
+  examples: [...jsDocsToExamples(jsDocs ?? [])]
+});
