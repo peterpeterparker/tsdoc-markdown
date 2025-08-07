@@ -327,3 +327,12 @@ export class Number {
     return new Number(n1.value + n2.value);
   }
 }
+
+/**
+ * A constant
+ * @see hello2
+ * @see https://daviddalbusco.com
+ * @see {@link hello} – Another related function
+ * @see {@link https://github.com/peterpeterparker/tsdoc-markdown | Source code}
+ */
+export const SOMETHING = 'abc';

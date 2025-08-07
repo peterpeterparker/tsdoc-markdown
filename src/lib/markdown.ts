@@ -17,6 +17,7 @@ type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
     params: Params[];
     examples: string[];
     returnType?: string;
+    references?: string[];
   };
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
@@ -30,6 +31,37 @@ const inlineDocParam = (documentation: string | undefined): string =>
 
 const inlineParams = (params: Params[]): string[] =>
   params.map(({name, documentation}) => `* \`${name}\`${inlineDocParam(documentation)}`);
+
+// Example of inputs:
+// [
+//   'hello2',
+//   'https://daviddalbusco.com',
+//   '{@link hello } – Another related function',
+//   '{@link https://github.com/peterpeterparker/tsdoc-markdown Source code}'
+// ]
+const inlineReferences = (references: string[]): string[] => {
+  const inlineReference = (reference: string): string => {
+    const linkMatch = /\{@link\s+([^\s}]+)\s*(?:\s+([^}]+))?\}/.exec(reference);
+
+    if (linkMatch !== null) {
+      const [_, target, label] = linkMatch;
+
+      if (target.startsWith('http')) {
+        return `* [${label ?? target}](${target})`;
+      }
+
+      return `* \`${target.trim()}\`${label ? ` – ${label}` : ''}`;
+    }
+
+    if (reference.startsWith('http')) {
+      return `* [${reference}](${reference})`;
+    }
+
+    return `* ${reference}`;
+  };
+
+  return references.map(inlineReference);
+};
 
 const reduceStatic = (values: DocEntry[]): [DocEntry[], DocEntry[]] =>
   values.reduce<[DocEntry[], DocEntry[]]>(
@@ -214,7 +246,7 @@ const toMarkdown = ({
     tagInfoName
   }: {
     jsDocs?: JSDocTagInfo[];
-    tagInfoName: 'returns' | 'param';
+    tagInfoName: 'returns' | 'param' | 'see';
   }): SymbolDisplayPart[][] => {
     const tags = jsDocs.filter(({name}: JSDocTagInfo) => name === tagInfoName);
     const texts = tags.map(({text}) => text);
@@ -231,6 +263,19 @@ const toMarkdown = ({
   const jsDocsToReturnType = (jsDocs?: JSDocTagInfo[]): string => {
     const returns = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'returns'});
     return returns.map((parts) => parts.map(({text}) => text).join('')).join(' ');
+  };
+
+  const jsDocsToReferences = (jsDocs?: JSDocTagInfo[]): string[] => {
+    const sees = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'see'});
+
+    return sees
+      .map((texts) =>
+        texts
+          // Filter TypeScript unstripped comment asterix
+          .filter(({text}) => text !== '*')
+          .reduce((acc, {text}) => `${acc}${text}`, '')
+      )
+      .map((value) => value.trim());
   };
 
   const jsDocsToParams = (jsDocs?: JSDocTagInfo[]): Params[] => {
@@ -266,6 +311,7 @@ const toMarkdown = ({
       documentation: documentation ?? '',
       params: [...toParams(parameters), ...jsDocsToParams(jsDocs)],
       returnType: jsDocsToReturnType(jsDocs),
+      references: jsDocsToReferences(jsDocs),
       examples: [...jsDocsToExamples(jsDocs ?? [])],
       url
     })
@@ -277,6 +323,7 @@ const toMarkdown = ({
     type,
     params,
     returnType,
+    references,
     examples,
     url
   }: Row): string => {
@@ -303,6 +350,12 @@ const toMarkdown = ({
     if (returnType !== undefined && returnType !== '') {
       markdown.push(`Returns:\n`);
       markdown.push(`${returnType}\n`);
+    }
+
+    if (references?.length) {
+      markdown.push(`References:\n`);
+      markdown.push(...inlineReferences(references));
+      markdown.push('\n');
     }
 
     if (examples.length) {
