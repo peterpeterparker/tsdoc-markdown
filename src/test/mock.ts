@@ -312,6 +312,7 @@ export const PrincipalTextSchema = z.string().refine(
 
 /**
  * Should differentiate methods / properties and static methods / properties
+ * @see https://github.com/peterpeterparker/tsdoc-markdown
  */
 export class Number {
   hello: string;
