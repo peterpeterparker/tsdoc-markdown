@@ -314,6 +314,7 @@ const visit = ({
         ...serializeClass({checker, symbol}),
         methods: [],
         properties: [],
+        jsDocs: symbol.getJsDocTags(),
         ...buildSource({
           node,
           ...rest

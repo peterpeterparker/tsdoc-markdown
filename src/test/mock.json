@@ -519,7 +519,21 @@
     "name": "Number",
     "documentation": "Should differentiate methods / properties and static methods / properties",
     "type": "typeof Number",
-    "jsDocs": [],
+    "jsDocs": [
+      {
+        "name": "see",
+        "text": [
+          {
+            "text": "https",
+            "kind": "text"
+          },
+          {
+            "text": "://github.com/peterpeterparker/tsdoc-markdown",
+            "kind": "text"
+          }
+        ]
+      }
+    ],
     "doc_type": "class",
     "constructors": [],
     "methods": [
