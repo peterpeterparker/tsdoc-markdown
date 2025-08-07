@@ -254,6 +254,7 @@ export type StorageConfigSourceGlob = string;
 /**
  * Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.
  * @interface StorageConfigRedirect
+ * @see https://github.com/peterpeterparker/tsdoc-markdown
  */
 export interface StorageConfigRedirect {
   /**

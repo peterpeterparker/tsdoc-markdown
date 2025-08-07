@@ -10,7 +10,7 @@ export const emojiTitle = ({
 } & Pick<MarkdownOptions, 'emoji'>): string =>
   emoji === undefined || emoji === null ? '' : ` :${emoji[key]}:`;
 
-export const sourceCodeLink = ({
+const sourceCodeLink = ({
   url,
   emoji
 }: Pick<MarkdownOptions, 'emoji'> & Required<Pick<DocEntry, 'url'>>): string =>

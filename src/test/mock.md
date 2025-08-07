@@ -95,7 +95,7 @@ function submit() {
 | ---------- | ---------- |
 | `MyObject.someFunction` | `() => void` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L282)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L283)
 
 
 ## :wrench: Constants
@@ -133,7 +133,7 @@ console.log(result.success); // true or false
 ```
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L299)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L300)
 
 ### :gear: SOMETHING
 
@@ -151,7 +151,7 @@ References:
 * [Source code](https://github.com/peterpeterparker/tsdoc-markdown)
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L339)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L340)
 
 
 ## :factory: LedgerCanister
@@ -288,7 +288,12 @@ Description
 
 Should differentiate methods / properties and static methods / properties
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L317)
+References:
+
+* [https://github.com/peterpeterparker/tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown)
+
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
 
 ### Static Methods
 
@@ -300,7 +305,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n1: Number, n2: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L327)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L328)
 
 ### Methods
 
@@ -312,7 +317,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L323)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L324)
 
 ### Static Properties
 
@@ -324,7 +329,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `world` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L319)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L320)
 
 ### Properties
 
@@ -336,7 +341,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `hello` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L319)
 
 ## :nut_and_bolt: Enum
 
@@ -347,6 +352,8 @@ Should differentiate methods / properties and static methods / properties
 
 
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L183)
+
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `SECOND` | `1000` |  |
@@ -356,6 +363,8 @@ Should differentiate methods / properties and static methods / properties
 ### :gear: MemberType
 
 
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L188)
 
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
@@ -373,6 +382,8 @@ Should differentiate methods / properties and static methods / properties
 
 A Foo interface description.
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L157)
+
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `hello` | `string` | Says hello. |
@@ -383,6 +394,13 @@ A Foo interface description.
 ### :gear: StorageConfigRedirect
 
 Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.
+
+References:
+
+* [https://github.com/peterpeterparker/tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown)
+
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L259)
 
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
@@ -432,5 +450,5 @@ A type yolo
 | ---------- | ---------- |
 | `SatelliteConfig` | `Either<SatelliteId, SatelliteIds> and CliConfig and SatelliteConfigOptions` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L278)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L279)
 
