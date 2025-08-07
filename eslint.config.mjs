@@ -1,6 +1,7 @@
 import love from 'eslint-config-love';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default [
   {
@@ -24,6 +25,10 @@ export default [
       parserOptions: {
         project: ['tsconfig.json']
       }
+    },
+
+    plugins: {
+      '@typescript-eslint': tseslint.plugin
     }
   },
 
@@ -35,7 +40,15 @@ export default [
       '@typescript-eslint/no-unsafe-type-assertion': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off'
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_'
+        }
+      ]
     }
   }
 ];
