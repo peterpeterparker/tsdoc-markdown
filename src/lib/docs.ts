@@ -1,4 +1,4 @@
-import {relative, resolve} from 'path/posix';
+import {relative, resolve} from 'node:path/posix';
 import type {
   ArrowFunction,
   CompilerOptions,
