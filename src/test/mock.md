@@ -143,6 +143,14 @@ A constant
 | ---------- | ---------- |
 | `SOMETHING` | `"abc"` |
 
+References:
+
+* hello2
+* [https://daviddalbusco.com](https://daviddalbusco.com)
+* `hello`
+* [Source code](https://github.com/peterpeterparker/tsdoc-markdown)
+
+
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L338)
 
 
