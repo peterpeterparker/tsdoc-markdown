@@ -133,7 +133,6 @@ generateDocumentation({
 ## :toolbox: Functions
 
 - [buildDocumentation](#gear-builddocumentation)
-- [documentationToMarkdown](#gear-documentationtomarkdown)
 - [generateDocumentation](#gear-generatedocumentation)
 
 ### :gear: buildDocumentation
@@ -154,21 +153,6 @@ Returns:
 An array of documentation entries
 
 [:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L497)
-
-### :gear: documentationToMarkdown
-
-Convert the documentation entries to an opinionated Markdown format.
-
-| Function                  | Type                                                                                                 |
-| ------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `documentationToMarkdown` | `({ entries, options }: { entries: DocEntry[]; options?: MarkdownOptions or undefined; }) => string` |
-
-Parameters:
-
-- `params.entries`: The entries of the documentation (functions, constants and classes).
-- `params.options`: Optional configuration to render the Markdown content. See `types.ts` for details.
-
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/markdown.ts#L418)
 
 ### :gear: generateDocumentation
 
