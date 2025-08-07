@@ -1,4 +1,4 @@
-import {readFileSync} from 'fs';
+import {readFileSync} from 'node:fs';
 import {buildDocumentation} from '../lib/docs';
 
 describe('docs', () => {
