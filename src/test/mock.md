@@ -95,7 +95,7 @@ function submit() {
 | ---------- | ---------- |
 | `MyObject.someFunction` | `() => void` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L282)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L283)
 
 
 ## :wrench: Constants
@@ -133,7 +133,7 @@ console.log(result.success); // true or false
 ```
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L299)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L300)
 
 ### :gear: SOMETHING
 
@@ -151,7 +151,7 @@ References:
 * [Source code](https://github.com/peterpeterparker/tsdoc-markdown)
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L338)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L340)
 
 
 ## :factory: LedgerCanister
@@ -288,7 +288,7 @@ Description
 
 Should differentiate methods / properties and static methods / properties
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L316)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
 
 ### Static Methods
 
@@ -300,7 +300,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n1: Number, n2: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L326)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L328)
 
 ### Methods
 
@@ -312,7 +312,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `add` | `(n: Number) => Number` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L322)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L324)
 
 ### Static Properties
 
@@ -324,7 +324,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `world` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L318)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L320)
 
 ### Properties
 
@@ -336,7 +336,7 @@ Should differentiate methods / properties and static methods / properties
 | ---------- | ---------- |
 | `hello` | `string` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L317)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L319)
 
 ## :nut_and_bolt: Enum
 
@@ -432,5 +432,5 @@ A type yolo
 | ---------- | ---------- |
 | `SatelliteConfig` | `Either<SatelliteId, SatelliteIds> and CliConfig and SatelliteConfigOptions` |
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L278)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L279)
 

@@ -456,9 +456,11 @@ export const documentationToMarkdown = ({
       `${toMarkdown({entries: constants, headingLevel, emoji, docType: 'Constant'})}\n`
     );
   }
+
   markdown.push(
     classes.map((entry: DocEntry) => classesToMarkdown({entry, headingLevel, emoji})).join('\n')
   );
+
   if (enums.length) {
     markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'enum'})} Enum\n`);
     markdown.push(`${tableOfContent({entries: enums, emoji})}\n`);
@@ -466,9 +468,11 @@ export const documentationToMarkdown = ({
       enums.map((entry: DocEntry) => interfacesToMarkdown({entry, headingLevel, emoji})).join('\n')
     );
   }
+
   if (interfaces.length) {
     markdown.push(`${headingLevel}${emojiTitle({emoji, key: 'interfaces'})} Interfaces\n`);
     markdown.push(`${tableOfContent({entries: interfaces, emoji})}\n`);
+
     markdown.push(
       interfaces
         .map((entry: DocEntry) => interfacesToMarkdown({entry, headingLevel, emoji}))
