@@ -1,6 +1,6 @@
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 import {buildDocumentation} from './docs';
-import {documentationToMarkdown} from './markdown';
+import {documentationToMarkdown} from './parser/markdown';
 import type {
   BuildOptions,
   DocEntry,

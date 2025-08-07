@@ -1,24 +1,19 @@
-import type {JSDocTagInfo, SymbolDisplayPart} from 'typescript';
+import type {JSDocTagInfo} from 'typescript';
 import type {
   DocEntry,
   DocEntryConstructor,
   MarkdownEmoji,
   MarkdownHeadingLevel,
   MarkdownOptions
-} from './types';
-
-interface Params {
-  name: string;
-  documentation: string;
-}
-
-type Row = Required<Pick<DocEntry, 'name' | 'type' | 'documentation'>> &
-  Pick<DocEntry, 'url'> & {
-    params: Params[];
-    examples: string[];
-    returnType?: string;
-    references?: string[];
-  };
+} from '../types';
+import {
+  jsDocsToExamples,
+  jsDocsToParams,
+  jsDocsToReferences,
+  jsDocsToReturnType
+} from './jdocs/mapper';
+import {inlineReferences} from './jdocs/parser';
+import type {Params, Row} from './types';
 
 const toParams = (parameters?: DocEntry[]): Params[] =>
   (parameters ?? []).map(({name, documentation}: DocEntry) => ({
@@ -31,37 +26,6 @@ const inlineDocParam = (documentation: string | undefined): string =>
 
 const inlineParams = (params: Params[]): string[] =>
   params.map(({name, documentation}) => `* \`${name}\`${inlineDocParam(documentation)}`);
-
-// Example of inputs:
-// [
-//   'hello2',
-//   'https://daviddalbusco.com',
-//   '{@link hello } – Another related function',
-//   '{@link https://github.com/peterpeterparker/tsdoc-markdown Source code}'
-// ]
-const inlineReferences = (references: string[]): string[] => {
-  const inlineReference = (reference: string): string => {
-    const linkMatch = /\{@link\s+([^\s}]+)\s*(?:\s+([^}]+))?\}/.exec(reference);
-
-    if (linkMatch !== null) {
-      const [_, target, label] = linkMatch;
-
-      if (target.startsWith('http')) {
-        return `* [${label ?? target}](${target})`;
-      }
-
-      return `* \`${target.trim()}\`${label ? ` – ${label}` : ''}`;
-    }
-
-    if (reference.startsWith('http')) {
-      return `* [${reference}](${reference})`;
-    }
-
-    return `* ${reference}`;
-  };
-
-  return references.map(inlineReference);
-};
 
 const reduceStatic = (values: DocEntry[]): [DocEntry[], DocEntry[]] =>
   values.reduce<[DocEntry[], DocEntry[]]>(
@@ -241,69 +205,6 @@ const toMarkdown = ({
   headingLevel: MarkdownHeadingLevel | '####';
   docType: 'Constant' | 'Function' | 'Method' | 'Property' | 'Type' | 'Enum';
 } & Pick<MarkdownOptions, 'emoji'>): string => {
-  const jsDocsToSymbolDisplayParts = ({
-    jsDocs = [],
-    tagInfoName
-  }: {
-    jsDocs?: JSDocTagInfo[];
-    tagInfoName: 'returns' | 'param' | 'see';
-  }): SymbolDisplayPart[][] => {
-    const tags = jsDocs.filter(({name}: JSDocTagInfo) => name === tagInfoName);
-    const texts = tags.map(({text}) => text);
-
-    return texts.reduce<SymbolDisplayPart[][]>((acc, values) => {
-      if (values === undefined) {
-        return acc;
-      }
-
-      return [...acc, values];
-    }, []);
-  };
-
-  const jsDocsToReturnType = (jsDocs?: JSDocTagInfo[]): string => {
-    const returns = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'returns'});
-    return returns.map((parts) => parts.map(({text}) => text).join('')).join(' ');
-  };
-
-  const jsDocsToReferences = (jsDocs?: JSDocTagInfo[]): string[] => {
-    const sees = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'see'});
-
-    return sees
-      .map((texts) =>
-        texts
-          // Filter TypeScript unstripped comment asterix
-          .filter(({text}) => text !== '*')
-          .reduce((acc, {text}) => `${acc}${text}`, '')
-      )
-      .map((value) => value.trim());
-  };
-
-  const jsDocsToParams = (jsDocs?: JSDocTagInfo[]): Params[] => {
-    const params = jsDocsToSymbolDisplayParts({jsDocs, tagInfoName: 'param'});
-
-    const toParam = (parts: SymbolDisplayPart[]): Params | undefined => {
-      if (parts.find(({kind, text}) => kind === 'parameterName' && text !== '') === undefined) {
-        return undefined;
-      }
-
-      const name = parts.find(({kind}) => kind === 'parameterName')?.text ?? '';
-      const documentation = parts.find(({kind}) => kind === 'text')?.text ?? '';
-
-      return {name, documentation};
-    };
-
-    return params.map(toParam).filter((param) => param !== undefined) as Params[];
-  };
-
-  const jsDocsToExamples = (jsDocs: JSDocTagInfo[]): string[] => {
-    const examples: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'example');
-    const texts = examples
-      .map(({text}) => text)
-      .filter(Boolean)
-      .flat(1) as SymbolDisplayPart[];
-    return texts.map(({text}) => text).filter(Boolean);
-  };
-
   const rows: Row[] = entries.map(
     ({name, type, documentation, parameters, jsDocs, url}: DocEntry) => ({
       name,
