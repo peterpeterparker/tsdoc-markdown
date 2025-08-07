@@ -249,6 +249,7 @@ const toMarkdown = ({
 
     return params.map(toParam).filter((param) => param !== undefined) as Params[];
   };
+
   const jsDocsToExamples = (jsDocs: JSDocTagInfo[]): string[] => {
     const examples: JSDocTagInfo[] = jsDocs.filter(({name}: JSDocTagInfo) => name === 'example');
     const texts = examples
@@ -298,15 +299,18 @@ const toMarkdown = ({
       markdown.push(...inlineParams(params));
       markdown.push('\n');
     }
+
     if (returnType !== undefined && returnType !== '') {
       markdown.push(`Returns:\n`);
       markdown.push(`${returnType}\n`);
     }
+
     if (examples.length) {
       markdown.push('Examples:\n');
       markdown.push(...examples);
       markdown.push('\n');
     }
+
     if (url !== undefined) {
       markdown.push(sourceCodeLink({emoji, url}));
     }
