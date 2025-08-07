@@ -426,6 +426,19 @@
             "kind": "text"
           }
         ]
+      },
+      {
+        "name": "see",
+        "text": [
+          {
+            "text": "https",
+            "kind": "text"
+          },
+          {
+            "text": "://github.com/peterpeterparker/tsdoc-markdown",
+            "kind": "text"
+          }
+        ]
       }
     ],
     "doc_type": "interface",
