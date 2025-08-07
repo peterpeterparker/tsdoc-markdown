@@ -160,14 +160,6 @@ const interfacesToMarkdown = ({
     markdown.push(`${documentation}\n`);
   }
 
-  const metadata = metadataToMarkdown({
-    ...jsDocsMetadata(jsDocs),
-    url,
-    emoji
-  });
-
-  markdown.push(...metadata);
-
   markdown.push(`| Property | Type | Description |`);
   markdown.push('| ---------- | ---------- | ---------- |');
 
@@ -183,6 +175,14 @@ const interfacesToMarkdown = ({
   });
 
   markdown.push('\n');
+
+  const metadata = metadataToMarkdown({
+    ...jsDocsMetadata(jsDocs),
+    url,
+    emoji
+  });
+
+  markdown.push(...metadata);
 
   return markdown.join('\n');
 };

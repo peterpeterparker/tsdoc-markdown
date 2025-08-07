@@ -352,19 +352,17 @@ References:
 
 
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L183)
-
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `SECOND` | `1000` |  |
 | `MINUTE` | `60 * SECOND` |  |
 
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L183)
+
 ### :gear: MemberType
 
 
-
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L188)
 
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
@@ -372,6 +370,8 @@ References:
 | `T2` | `` | comment |
 | `T3` | `` |  |
 
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L188)
 
 ## :tropical_drink: Interfaces
 
@@ -382,8 +382,6 @@ References:
 
 A Foo interface description.
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L157)
-
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
 | `hello` | `string` | Says hello. |
@@ -391,16 +389,11 @@ A Foo interface description.
 | `abc` | `Abc` |  |
 
 
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L157)
+
 ### :gear: StorageConfigRedirect
 
 Use a URL redirect to prevent broken links if you've moved a page or to shorten URLs.
-
-References:
-
-* [https://github.com/peterpeterparker/tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown)
-
-
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L259)
 
 | Property | Type | Description |
 | ---------- | ---------- | ---------- |
@@ -408,6 +401,13 @@ References:
 | `location` | `string` | The URL or path to which the request should be redirected. type: {string} |
 | `code` | `301 or 302` | The HTTP status code to use for the redirect, typically 301 (permanent redirect) or 302 (temporary redirect). type: {301 or 302} |
 
+
+References:
+
+* [https://github.com/peterpeterparker/tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown)
+
+
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/test/mock.ts#L259)
 
 ## :cocktail: Types
 
