@@ -76,4 +76,6 @@ export interface BuildOptions {
   repo?: RepoOptions;
   // Documentation for Interfaces and Types is not generated per default. Set to true to include those.
   types?: boolean;
+  // If `true`, any documentation entry with an `@internal` JSDoc tag will be excluded.
+  skipInternal?: boolean;
 }

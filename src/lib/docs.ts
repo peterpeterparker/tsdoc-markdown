@@ -54,30 +54,44 @@ const serializeSymbol = ({
   ...(doc_type !== undefined && {doc_type})
 });
 
+const isInternal = (symbol: TypeScriptSymbol | undefined): boolean =>
+  symbol?.getJsDocTags().some(({name}) => name === 'internal') ?? false;
+
 const serializeEnum = ({
   checker,
   symbol,
-  doc_type
+  doc_type,
+  skipInternal
 }: {
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
   doc_type?: DocEntryType;
+  skipInternal?: boolean;
 }): DocEntry => {
   const {members} = symbol.valueDeclaration as EnumDeclaration;
 
-  const properties: DocEntry[] = members.map((member) => {
-    const documentation = displayPartsToString(
-      (member as unknown as {symbol: TypeScriptSymbol}).symbol.getDocumentationComment(checker)
-    );
+  const properties: DocEntry[] = members
+    .filter((member) => {
+      if (!skipInternal) {
+        return true;
+      }
 
-    const type = member.initializer?.getText();
+      const {symbol} = member as unknown as {symbol: TypeScriptSymbol};
+      return !isInternal(symbol);
+    })
+    .map((member) => {
+      const documentation = displayPartsToString(
+        (member as unknown as {symbol: TypeScriptSymbol}).symbol.getDocumentationComment(checker)
+      );
 
-    return {
-      name: member.name.getText(),
-      ...(type !== undefined && {type}),
-      ...(documentation !== '' && {documentation})
-    };
-  });
+      const type = member.initializer?.getText();
+
+      return {
+        name: member.name.getText(),
+        ...(type !== undefined && {type}),
+        ...(documentation !== '' && {documentation})
+      };
+    });
 
   return {
     name: symbol.getName(),
@@ -91,10 +105,12 @@ const serializeEnum = ({
 /** Serialize a class symbol information */
 const serializeClass = ({
   checker,
-  symbol
+  symbol,
+  skipInternal
 }: {
   checker: TypeChecker;
   symbol: TypeScriptSymbol;
+  skipInternal?: boolean;
 }): DocEntry => {
   const details = serializeSymbol({checker, symbol, doc_type: 'class'});
 
@@ -103,6 +119,13 @@ const serializeClass = ({
 
   details.constructors = constructorType
     .getConstructSignatures()
+    .filter((signature: Signature) => {
+      if (!skipInternal) {
+        return true;
+      }
+
+      return !signature.getJsDocTags().some(({name}) => name === 'internal');
+    })
     .map((signature: Signature) => serializeSignature({checker, signature}))
     .filter(({documentation}) => documentation !== undefined && documentation !== '');
 
@@ -263,9 +286,10 @@ const visit = ({
   checker,
   node,
   types,
+  skipInternal,
   ...rest
 }: {checker: TypeChecker; node: Node} & Source &
-  Required<Pick<BuildOptions, 'types'>>): DocEntry[] => {
+  Required<Pick<BuildOptions, 'types' | 'skipInternal'>>): DocEntry[] => {
   // // Only consider exported nodes
   if (!isNodeExportedOrPublic(node)) {
     return [];
@@ -297,9 +321,13 @@ const visit = ({
       return;
     }
 
+    if (skipInternal && isInternal(symbol)) {
+      return;
+    }
+
     const details = {
       ...serializeSymbol({checker, symbol, doc_type}),
-      isStatic
+      ...(isStatic !== undefined && {isStatic})
     };
 
     pushEntry({node, details});
@@ -310,8 +338,12 @@ const visit = ({
     const symbol = checker.getSymbolAtLocation(node.name);
 
     if (symbol) {
+      if (skipInternal && isInternal(symbol)) {
+        return [];
+      }
+
       const classEntry: DocEntry = {
-        ...serializeClass({checker, symbol}),
+        ...serializeClass({checker, symbol, skipInternal}),
         methods: [],
         properties: [],
         jsDocs: symbol.getJsDocTags(),
@@ -322,7 +354,7 @@ const visit = ({
       };
 
       const visitChild = (node: Node): void => {
-        const docEntries: DocEntry[] = visit({node, checker, types, ...rest});
+        const docEntries: DocEntry[] = visit({node, checker, types, skipInternal, ...rest});
 
         // We do not need to repeat the file name for class members
 
@@ -345,7 +377,7 @@ const visit = ({
     }
   } else if (isModuleDeclaration(node)) {
     const visitChild = (node: Node): void => {
-      const docEntries: DocEntry[] = visit({node, checker, types, ...rest});
+      const docEntries: DocEntry[] = visit({node, checker, types, skipInternal, ...rest});
       entries.push(...docEntries);
     };
 
@@ -369,6 +401,10 @@ const visit = ({
         : undefined;
 
     if (arrowFunc !== undefined && arrowFuncSymbol !== undefined) {
+      if (skipInternal && isInternal(arrowFuncSymbol)) {
+        return [];
+      }
+
       const parentName = !isRootOrClassLevelArrowFunction(arrowFunc)
         ? getRootParentName(arrowFunc)
         : undefined;
@@ -403,6 +439,10 @@ const visit = ({
       const symbol = checker.getSymbolAtLocation(node.name);
 
       if (symbol) {
+        if (skipInternal && isInternal(symbol)) {
+          return [];
+        }
+
         const members = node.members
           .filter(
             (member) =>
@@ -410,6 +450,13 @@ const visit = ({
           )
           .map((member) => checker.getSymbolAtLocation(member.name!))
           .filter((symbol) => symbol !== undefined)
+          .filter((symbol) => {
+            if (!skipInternal) {
+              return true;
+            }
+
+            return !isInternal(symbol);
+          })
           .map((symbol) => serializeSymbol({checker, symbol: symbol!}));
 
         const interfaceEntry: DocEntry = {
@@ -427,6 +474,10 @@ const visit = ({
       const symbol = checker.getSymbolAtLocation(node.name);
 
       if (symbol) {
+        if (skipInternal && isInternal(symbol)) {
+          return [];
+        }
+
         const child = node.getChildren().find(({kind}) => isTypeKind(kind));
 
         const typeEntry: DocEntry = {
@@ -442,7 +493,11 @@ const visit = ({
       }
     } else if (isEnumDeclaration(node)) {
       const symbol = checker.getSymbolAtLocation(node.name)!;
-      const details = serializeEnum({checker, symbol});
+      if (skipInternal && isInternal(symbol)) {
+        return [];
+      }
+
+      const details = serializeEnum({checker, symbol, skipInternal});
       pushEntry({node, details});
     }
   }
@@ -505,15 +560,18 @@ export const buildDocumentation = ({
     compilerOptions,
     explore: userExplore,
     repo,
-    types: userTypes
+    types: userTypes,
+    skipInternal: userSkipInternal
   } = options ?? {
     explore: false,
     compilerOptions: DEFAULT_COMPILER_OPTIONS,
-    types: false
+    types: false,
+    skipInternal: false
   };
 
   const explore = userExplore ?? false;
   const types = userTypes ?? false;
+  const skipInternal = userSkipInternal ?? false;
 
   // Build a program using the set of root file names in fileNames
   const program = createProgram(inputFiles, compilerOptions ?? DEFAULT_COMPILER_OPTIONS);
@@ -537,7 +595,7 @@ export const buildDocumentation = ({
   for (const sourceFile of sourceFiles) {
     // Walk the tree to search for classes
     forEachChild(sourceFile, (node: Node) => {
-      const entries: DocEntry[] = visit({checker, node, sourceFile, repo, types});
+      const entries: DocEntry[] = visit({checker, node, sourceFile, repo, types, skipInternal});
       result.push(...entries);
     });
   }
