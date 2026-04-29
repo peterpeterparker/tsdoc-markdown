@@ -21,6 +21,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint --max-warnings 0 .",
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
+    "prepare": "npm run build",
     "contributors:add": "all-contributors add",
     "contributors:check": "all-contributors check",
     "contributors:generate": "all-contributors generate",
