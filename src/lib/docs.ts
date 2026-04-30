@@ -281,6 +281,23 @@ const isRootOrClassLevelArrowFunction = (node: Node): boolean => {
   return isRootOrClassLevelArrowFunction(parent);
 };
 
+const withSkipInternal = <T>({
+  skipInternal,
+  symbol,
+  skipValue,
+  fn
+}: Required<Pick<BuildOptions, 'skipInternal'>> & {
+  symbol: TypeScriptSymbol;
+  fn: () => T;
+  skipValue: T;
+}): T => {
+  if (skipInternal && isInternal(symbol)) {
+    return skipValue;
+  }
+
+  return fn();
+};
+
 /** visit nodes finding exported classes */
 const visit = ({
   checker,
@@ -321,16 +338,21 @@ const visit = ({
       return;
     }
 
-    if (skipInternal && isInternal(symbol)) {
-      return;
-    }
+    const fn = () => {
+      const details = {
+        ...serializeSymbol({checker, symbol, doc_type}),
+        isStatic
+      };
 
-    const details = {
-      ...serializeSymbol({checker, symbol, doc_type}),
-      isStatic
+      pushEntry({node, details});
     };
 
-    pushEntry({node, details});
+    withSkipInternal({
+      symbol,
+      skipInternal,
+      skipValue: undefined,
+      fn
+    });
   };
 
   if (isClassDeclaration(node) && node.name) {
@@ -338,42 +360,50 @@ const visit = ({
     const symbol = checker.getSymbolAtLocation(node.name);
 
     if (symbol) {
-      if (skipInternal && isInternal(symbol)) {
-        return [];
-      }
+      const fn = () => {
+        const classEntry: DocEntry = {
+          ...serializeClass({checker, symbol, skipInternal}),
+          methods: [],
+          properties: [],
+          jsDocs: symbol.getJsDocTags(),
+          ...buildSource({
+            node,
+            ...rest
+          })
+        };
 
-      const classEntry: DocEntry = {
-        ...serializeClass({checker, symbol, skipInternal}),
-        methods: [],
-        properties: [],
-        jsDocs: symbol.getJsDocTags(),
-        ...buildSource({
-          node,
-          ...rest
-        })
+        const visitChild = (node: Node): void => {
+          const docEntries: DocEntry[] = visit({node, checker, types, skipInternal, ...rest});
+
+          // We do not need to repeat the file name for class members
+
+          const omitFilename = ({fileName: _, ...rest}: DocEntry): Omit<DocEntry, 'fileName'> =>
+            rest;
+
+          classEntry.methods?.push(
+            ...docEntries
+              .filter(({doc_type}) => doc_type === 'method' || doc_type === 'function')
+              .map(omitFilename)
+          );
+
+          classEntry.properties?.push(
+            ...docEntries.filter(({doc_type}) => doc_type === 'property').map(omitFilename)
+          );
+        };
+
+        forEachChild(node, visitChild);
+
+        entries.push(classEntry);
+
+        return entries;
       };
 
-      const visitChild = (node: Node): void => {
-        const docEntries: DocEntry[] = visit({node, checker, types, skipInternal, ...rest});
-
-        // We do not need to repeat the file name for class members
-
-        const omitFilename = ({fileName: _, ...rest}: DocEntry): Omit<DocEntry, 'fileName'> => rest;
-
-        classEntry.methods?.push(
-          ...docEntries
-            .filter(({doc_type}) => doc_type === 'method' || doc_type === 'function')
-            .map(omitFilename)
-        );
-
-        classEntry.properties?.push(
-          ...docEntries.filter(({doc_type}) => doc_type === 'property').map(omitFilename)
-        );
-      };
-
-      forEachChild(node, visitChild);
-
-      entries.push(classEntry);
+      withSkipInternal({
+        symbol,
+        skipInternal,
+        skipValue: [],
+        fn
+      });
     }
   } else if (isModuleDeclaration(node)) {
     const visitChild = (node: Node): void => {
@@ -439,60 +469,88 @@ const visit = ({
       const symbol = checker.getSymbolAtLocation(node.name);
 
       if (symbol) {
-        if (skipInternal && isInternal(symbol)) {
-          return [];
-        }
+        const fn = () => {
+          const members = node.members
+            .filter(
+              (member) =>
+                isPropertySignature(member) &&
+                member.name !== undefined &&
+                isIdentifier(member.name)
+            )
+            .map((member) => checker.getSymbolAtLocation(member.name!))
+            .filter((symbol) => symbol !== undefined)
+            .filter((symbol) => !skipInternal || !isInternal(symbol))
+            .map((symbol) => serializeSymbol({checker, symbol: symbol!}));
 
-        const members = node.members
-          .filter(
-            (member) =>
-              isPropertySignature(member) && member.name !== undefined && isIdentifier(member.name)
-          )
-          .map((member) => checker.getSymbolAtLocation(member.name!))
-          .filter((symbol) => symbol !== undefined)
-          .filter((symbol) => !skipInternal || !isInternal(symbol))
-          .map((symbol) => serializeSymbol({checker, symbol: symbol!}));
+          const interfaceEntry: DocEntry = {
+            ...serializeSymbol({checker, doc_type: 'interface', symbol}),
+            properties: members,
+            ...buildSource({
+              node,
+              ...rest
+            })
+          };
 
-        const interfaceEntry: DocEntry = {
-          ...serializeSymbol({checker, doc_type: 'interface', symbol}),
-          properties: members,
-          ...buildSource({
-            node,
-            ...rest
-          })
+          entries.push(interfaceEntry);
+
+          return entries;
         };
 
-        entries.push(interfaceEntry);
+        withSkipInternal({
+          symbol,
+          skipInternal,
+          skipValue: [],
+          fn
+        });
       }
     } else if (types && isTypeAliasDeclaration(node)) {
       const symbol = checker.getSymbolAtLocation(node.name);
 
       if (symbol) {
+        const fn = () => {
+          const child = node.getChildren().find(({kind}) => isTypeKind(kind));
+
+          const typeEntry: DocEntry = {
+            ...serializeSymbol({checker, doc_type: 'type', symbol}),
+            ...buildSource({
+              node,
+              ...rest
+            }),
+            type: child?.getText().replace(/^"|"$/g, '')
+          };
+
+          entries.push(typeEntry);
+
+          return entries;
+        };
+
+        withSkipInternal({
+          symbol,
+          skipInternal,
+          skipValue: [],
+          fn
+        });
+      }
+    } else if (isEnumDeclaration(node)) {
+      const symbol = checker.getSymbolAtLocation(node.name)!;
+
+      const fn = () => {
         if (skipInternal && isInternal(symbol)) {
           return [];
         }
 
-        const child = node.getChildren().find(({kind}) => isTypeKind(kind));
+        const details = serializeEnum({checker, symbol, skipInternal});
+        pushEntry({node, details});
 
-        const typeEntry: DocEntry = {
-          ...serializeSymbol({checker, doc_type: 'type', symbol}),
-          ...buildSource({
-            node,
-            ...rest
-          }),
-          type: child?.getText().replace(/^"|"$/g, '')
-        };
+        return entries;
+      };
 
-        entries.push(typeEntry);
-      }
-    } else if (isEnumDeclaration(node)) {
-      const symbol = checker.getSymbolAtLocation(node.name)!;
-      if (skipInternal && isInternal(symbol)) {
-        return [];
-      }
-
-      const details = serializeEnum({checker, symbol, skipInternal});
-      pushEntry({node, details});
+      withSkipInternal({
+        symbol,
+        skipInternal,
+        skipValue: [],
+        fn
+      });
     }
   }
 
