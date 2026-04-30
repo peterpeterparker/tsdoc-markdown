@@ -54,7 +54,7 @@ const buildEsmCjs = () => {
         '.js': '.mjs'
       },
       target: ['node16'],
-      external: [...Object.keys(peerDependencies)]
+      external: Object.keys(peerDependencies)
     })
     .catch(() => process.exit(1));
 
@@ -68,7 +68,7 @@ const buildEsmCjs = () => {
       minify: true,
       platform: 'node',
       target: ['node16'],
-      external: [...Object.keys(peerDependencies)]
+      external: Object.keys(peerDependencies)
     })
     .catch(() => process.exit(1));
 };
