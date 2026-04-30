@@ -39,7 +39,6 @@
     "url": "https://github.com/peterpeterparker/tsdoc-markdown"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.2.0",
     "all-contributors-cli": "^6.26.1",
     "esbuild": "^0.28.0",
