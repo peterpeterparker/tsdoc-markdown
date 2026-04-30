@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint';
 
 export default [
   {
-    ignores: ['dist', '**/mock.ts', 'bin/index.js', 'jest.config.js', '**/*.spec.ts']
+    ignores: ['dist', '**/mock*.ts', 'bin/index.js', 'jest.config.js', '**/*.spec.ts']
   },
   {
     ...love,
@@ -35,6 +35,7 @@ export default [
   {
     rules: {
       complexity: 'off',
+      'max-lines': 'off',
       '@typescript-eslint/naming-convention': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',
       '@typescript-eslint/no-unsafe-type-assertion': 'off',
