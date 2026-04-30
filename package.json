@@ -19,7 +19,8 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint --max-warnings 0 .",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "build": "node rmdir.mjs && node esbuild.mjs && npm run ts-declaration",
     "prepare": "npm run build",
     "contributors:add": "all-contributors add",
@@ -38,17 +39,12 @@
     "url": "https://github.com/peterpeterparker/tsdoc-markdown"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.32.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.2.0",
     "all-contributors-cli": "^6.26.1",
     "esbuild": "^0.25.8",
-    "eslint": "^9.32.0",
-    "eslint-config-love": "^121.0.0",
-    "eslint-config-prettier": "^10.1.8",
-    "globals": "^16.3.0",
     "jest": "^30.0.5",
+    "oxlint": "^1.62.0",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.2.0",
     "ts-jest": "^29.4.1"
