@@ -327,7 +327,7 @@ const visit = ({
 
     const details = {
       ...serializeSymbol({checker, symbol, doc_type}),
-      ...(isStatic !== undefined && {isStatic})
+      isStatic
     };
 
     pushEntry({node, details});
@@ -450,13 +450,7 @@ const visit = ({
           )
           .map((member) => checker.getSymbolAtLocation(member.name!))
           .filter((symbol) => symbol !== undefined)
-          .filter((symbol) => {
-            if (!skipInternal) {
-              return true;
-            }
-
-            return !isInternal(symbol);
-          })
+          .filter((symbol) => !skipInternal || !isInternal(symbol))
           .map((symbol) => serializeSymbol({checker, symbol: symbol!}));
 
         const interfaceEntry: DocEntry = {
