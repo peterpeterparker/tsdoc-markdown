@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["node", "vitest/globals"],
     "target": "esnext",
     "module": "commonjs",
     "strict": true,
