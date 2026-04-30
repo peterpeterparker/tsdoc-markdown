@@ -152,7 +152,7 @@ Returns:
 
 An array of documentation entries
 
-[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L497)
+[:link: Source](https://github.com/peterpeterparker/tsdoc-markdown/tree/main/src/lib/docs.ts#L546)
 
 ### :gear: generateDocumentation
 
