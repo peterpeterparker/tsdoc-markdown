@@ -45,6 +45,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/51133?v=4",
       "profile": "https://github.com/edewit",
       "contributions": ["question", "code", "ideas"]
+    },
+    {
+      "login": "fenomas",
+      "name": "Andy Hall",
+      "avatar_url": "https://avatars.githubusercontent.com/u/fenomas?v=4",
+      "profile": "https://github.com/fenomas",
+      "contributions": ["code", "test", "ideas"]
     }
   ],
   "contributorsPerLine": 7,
