@@ -1,6 +1,6 @@
 {
   "name": "tsdoc-markdown",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Generates markdown documentation from TypeScript source code.",
   "author": "David Dal Busco",
   "license": "MIT",
