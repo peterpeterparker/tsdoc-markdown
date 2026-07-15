@@ -41,11 +41,11 @@
   "devDependencies": {
     "@types/node": "^24.2.0",
     "all-contributors-cli": "^6.26.1",
-    "esbuild": "^0.28.0",
-    "oxlint": "^1.62.0",
-    "prettier": "^3.8.3",
+    "esbuild": "^0.28.1",
+    "oxlint": "^1.74.0",
+    "prettier": "^3.9.5",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.10"
   },
   "keywords": [
     "jsdoc",
