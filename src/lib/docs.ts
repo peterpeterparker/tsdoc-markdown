@@ -1,7 +1,6 @@
 import {relative, resolve} from 'node:path/posix';
 import type {
   ArrowFunction,
-  CompilerOptions,
   Declaration,
   EnumDeclaration,
   Node,
@@ -10,7 +9,10 @@ import type {
   TypeChecker,
   Symbol as TypeScriptSymbol,
   VariableDeclaration
-} from 'typescript';
+} from 'typescript/unstable/ast';
+import type {
+  CompilerOptions
+} from 'typescript/unstable/proto';
 import {
   ModifierFlags,
   ModuleKind,
@@ -30,11 +32,11 @@ import {
   isMethodDeclaration,
   isModuleDeclaration,
   isPropertyDeclaration,
-  isPropertySignature,
+  isPropertySignatureDeclaration as isPropertySignature,
   isTypeAliasDeclaration,
   isVariableDeclaration,
   isVariableStatement
-} from 'typescript';
+} from 'typescript/unstable/ast';
 import type {BuildOptions, DocEntry, DocEntryConstructor, DocEntryType} from './types';
 
 /** Serialize a symbol into a json object */
