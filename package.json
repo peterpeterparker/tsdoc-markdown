@@ -59,6 +59,6 @@
     "tsdoc-parser"
   ],
   "peerDependencies": {
-    "typescript": "^5 || ^6 || ^7"
+    "typescript": "^7"
   }
 }
